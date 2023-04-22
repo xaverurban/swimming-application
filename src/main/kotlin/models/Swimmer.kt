@@ -51,6 +51,7 @@ data class Swimmer(var swimmerId: Int = 0,
         return true
     }
 
+
     fun listRaces() =
         if (races.isEmpty())  "\tNO RACES ADDED"
         else  Utilities.formatSetString(races)
