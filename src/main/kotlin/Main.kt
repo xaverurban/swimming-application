@@ -1,8 +1,9 @@
 
 
+import models.Swimmer
 import utils.ScannerInput
 import java.lang.System.exit
-
+import models.Race
 import kotlin.system.exitProcess
 
 
@@ -73,6 +74,18 @@ fun deleteSwimmer(){
     println("placeholder")
 }
 
+
+
+private fun askUserToChooseRace(note: Swimmer): Race? {
+    return if (note.numberOfRaces() > 0) {
+        print(note.listRaces())
+        note.findOne(ScannerInput.readNextInt("\nEnter the id of the item: "))
+    }
+    else{
+        println ("No items for chosen note")
+        null
+    }
+}
 fun exitApp(){
     println("Exiting Application")
     exitProcess(0)

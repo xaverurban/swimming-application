@@ -30,4 +30,12 @@ data class Swimmer(var swimmerId: Int = 0,
 
 
 
+    fun listRaces() =
+        if (races.isEmpty())  "\tNO RACES ADDED"
+        else  Utilities.formatSetString(races)
+    override fun toString(): String {
+        val archived = if (isSwimmerArchived) 'Y' else 'N'
+        return "$swimmerId: $swimmerName, Priority($swimmerLevel), Category($swimmerCategory), Archived($archived) \n${listRaces()}"
+    }
+
 }
