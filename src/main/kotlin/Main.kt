@@ -14,17 +14,32 @@ fun main(args: Array<String>) {
 
 fun mainMenu() : Int {
     return ScannerInput.readNextInt(""" 
-         > ----------------------------------
-         > |        SWIMMER  APP            |
-         > ----------------------------------
-         > |  MENU                          |
-         > |   1) Add a swimmer             |
-         > |   2) List all swimmers         |
-         > |   3) Update a swimmer          |
-         > |   4) Delete a swimmer          |
-         > ----------------------------------
-         > |   0) Exit                      |
-         > ----------------------------------
+         > -----------------------------------------------------  
+         > |                  SWIMMING APP                     |
+         > -----------------------------------------------------  
+         > | NOTE MENU                                         |
+         > |   1) Add a Swimmer                                |
+         > |   2) List Swimmers                                |
+         > |   3) Update a Swimmer                             |
+         > |   4) Delete a Swimmer                             |
+         > |   5) Archive a Swimmer                            |
+         > -----------------------------------------------------  
+         > | SWIMMER MENU                                      | 
+         > |   6) Add race to a Swimmer                        |
+         > |   7) Update race contents on a Swimmer            |
+         > |   8) Delete race from a Swimmer                   |
+         > |   9) Mark item as                                 | 
+         > -----------------------------------------------------  
+         > | REPORT MENU FOR SWIMMERS                          | 
+         > |   10) Search for all Swimmers (by name)           |
+               -Under Excavation-
+         > -----------------------------------------------------  
+         > | REPORT MENU FOR RACES                             |                                
+         > |   15) Search for all races (by item description)  |
+         > |   16) List graded                                 |
+         > -----------------------------------------------------  
+         > |   0) Exit                                         |
+         > -----------------------------------------------------  
          > ==>> """.trimMargin(">"))
 }
 
