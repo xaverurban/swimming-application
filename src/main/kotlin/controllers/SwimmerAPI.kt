@@ -25,7 +25,36 @@ class SwimmerAPI() {
         )
 
 
+    fun searchRaceByContents(searchString: String): String {
+        return if (numberOfSwimmers() == 0) "No swimmer stored"
+        else {
+            var listOfSwimmers = ""
+            for (swimmer in swimmers) {
+                for (race in swimmer.races) {
+                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {
+                        listOfSwimmers += "${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n"
+                    }
+                }
+            }
+            if (listOfSwimmers == "") "No races found for: $searchString"
+            else listOfSwimmers
+        }
+    }
 
+
+    fun listTodoRaces(): String =
+        if (numberOfSwimmers() == 0) "No swimmer stored"
+        else {
+            var listOfUngradedRaces = ""
+            for (swimmer in swimmers) {
+                for (race in swimmer.races) {
+                    if (!race.isRaceOutdated) {
+                        listOfUngradedRaces += swimmer.swimmerName + ": " + race.raceGraded + "\n"
+                    }
+                }
+            }
+            listOfUngradedRaces
+        }
 
     fun numberOfToDoRaces(): Int {
         var numberOfToDoRaces = 0
