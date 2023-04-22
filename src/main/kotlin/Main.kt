@@ -4,6 +4,7 @@ import controllers.SwimmerAPI
 import models.Swimmer
 import utils.ScannerInput
 import models.Race
+import utils.ScannerInput.readNextInt
 import kotlin.system.exitProcess
 
 private val swimmerAPI = SwimmerAPI()
@@ -14,7 +15,7 @@ fun main(args: Array<String>) {
 }
 
 fun mainMenu() : Int {
-    return ScannerInput.readNextInt(""" 
+    return readNextInt(""" 
          > -----------------------------------------------------  
          > |                  SWIMMING APP                     |
          > -----------------------------------------------------  
@@ -70,7 +71,7 @@ fun runMenu() {
 }
 fun addSwimmer() {
     val swimmerName = ScannerInput.readNextLine("Enter a title for the swimmer: ")
-    val swimmerLevel = ScannerInput.readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+    val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val swimmerCategory = ScannerInput.readNextLine("Enter a category for the swimmer: ")
     val isAdded = swimmerAPI.add(Swimmer(swimmerName = swimmerName, swimmerLevel = swimmerLevel, swimmerCategory = swimmerCategory))
 
@@ -81,11 +82,22 @@ fun addSwimmer() {
     }
 }
 
-
-
-fun deleteSwimmer(){
-    println("placeholder")
+fun deleteSwimmer() {
+    listSwimmers()
+    if (swimmerAPI.numberOfSwimmers() > 0) {
+        // only ask the user to choose the swimmer to delete if swimmers exist
+        val id = readNextInt("Enter the id of the swimmer to delete: ")
+        // pass the index of the swimmer to SwimmerAPI for deleting and check for success.
+        val swimmerToDelete = swimmerAPI.delete(id)
+        if (swimmerToDelete) {
+            println("Delete Successful!")
+        } else {
+            println("Delete NOT Successful")
+        }
+    }
 }
+
+
 private fun addRaceToSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
@@ -97,7 +109,7 @@ private fun addRaceToSwimmer() {
 
 fun listSwimmers() {
     if (swimmerAPI.numberOfSwimmers() > 0) {
-        val option = ScannerInput.readNextInt("""
+        val option = readNextInt("""
     ┌─────────────────────────────────────┐
     │         VIEW SWIMMERS MENU          │
     ├─────────────────────────────────────┤
@@ -125,10 +137,10 @@ fun updateSwimmer() {
     listSwimmers()
     if (swimmerAPI.numberOfSwimmers() > 0) {
 
-        val id = ScannerInput.readNextInt("Enter the id of the note to update: ")
+        val id = readNextInt("Enter the id of the note to update: ")
         if (swimmerAPI.findSwimmer(id) != null) {
             val swimmerName = ScannerInput.readNextLine("Enter a title for the note: ")
-            val swimmerLevel = ScannerInput.readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+            val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
 
             // pass the index of the note and the new note details to NoteAPI for updating and check for success.
@@ -164,7 +176,7 @@ fun updateRaceGradedInSwimmer() {
 private fun askUserToChooseActiveSwimmer(): Swimmer? {
     listActiveSwimmers()
     if (swimmerAPI.numberOfActiveSwimmers() > 0) {
-        val swimmer = swimmerAPI.findSwimmer(ScannerInput.readNextInt("\nEnter the id of the swimmer: "))
+        val swimmer = swimmerAPI.findSwimmer(readNextInt("\nEnter the id of the swimmer: "))
         if (swimmer != null) {
             if (swimmer.isSwimmerArchived) {
                 println("Swimmer is NOT Active, it is Archived")
@@ -181,7 +193,7 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
 private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
     return if (swimmer?.numberOfRaces()!! > 0) {
         print(swimmer?.listRaces())
-        swimmer?.findOne(ScannerInput.readNextInt("\nEnter the id of the item: "))
+        swimmer?.findOne(readNextInt("\nEnter the id of the item: "))
     }
     else{
         println ("No items for chosen swimmer")
