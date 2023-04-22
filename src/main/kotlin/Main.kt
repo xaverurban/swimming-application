@@ -55,10 +55,10 @@ fun runMenu() {
             2 -> listAllSwimmers()
             3 -> updateSwimmer()
             4 -> deleteSwimmer()
-            // 5 -> archiveSwimmer()
+            5 -> archiveSwimmer()
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
-            // 8 -> deleteRace()
+            8 -> deleteRace()
             //   9 -> markItemStatus()
             //   10 -> searchSwimmers()
             //     15 -> searchRaces()
@@ -155,6 +155,39 @@ fun updateSwimmer() {
     }
 }
 
+fun archiveSwimmer() {
+    listActiveSwimmers()
+    if (swimmerAPI.numberOfActiveSwimmers() > 0) {
+        // only ask the user to choose the swimmer to archive if active swimmers exist
+        val id = readNextInt("Enter the ID of the swimmer you want to archive: ")
+        val archivedSwimmer = swimmerAPI.archiveSwimmer(id)
+        if (archivedSwimmer) {
+            println("Swimmer with ID $id has been successfully archived!")
+        } else {
+            println("Failed to archive swimmer with ID $id. Please try again.")
+        }
+    } else {
+        println("There are no active swimmers to archive.")
+    }
+}
+
+fun deleteRace() {
+    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
+    if (swimmer != null) {
+        val race: Race? = askUserToChooseRace(swimmer)
+        if (race != null) {
+            val isDeleted = swimmer.delete(race.raceId)
+            if (isDeleted)
+                println("Race deleted successfully from ${swimmer.swimmerName}'s list of races.")
+
+            else println("Unable to delete the race from ${swimmer.swimmerName}'s list of races.")
+
+        } else println("Invalid race ID. Please choose a valid race ID.")
+    }
+}
+
+
+
 
 fun updateRaceGradedInSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
@@ -163,12 +196,12 @@ fun updateRaceGradedInSwimmer() {
         if (item != null) {
             val newGrade = ScannerInput.readNextLine("Enter new contents: ")
             if (swimmer.update(item.raceId, Race(raceGraded = newGrade))) {
-                println("Item contents updated")
+                println("Race contents updated")
             } else {
-                println("Item contents NOT updated")
+                println("Race contents NOT updated")
             }
         } else {
-            println("Invalid Item Id")
+            println("Invalid Race Id")
         }
     }
 }
