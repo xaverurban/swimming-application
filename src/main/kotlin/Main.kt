@@ -54,14 +54,14 @@ fun runMenu() {
             2 -> listSwimmers()
             3 -> updateSwimmer()
             4 -> deleteSwimmer()
-           // 5 -> archiveSwimmer()
+            // 5 -> archiveSwimmer()
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
-           // 8 -> deleteRace()
-         //   9 -> markItemStatus()
-         //   10 -> searchSwimmers()
-       //     15 -> searchRaces()
-          //  16 -> listGradedRaces()
+            // 8 -> deleteRace()
+            //   9 -> markItemStatus()
+            //   10 -> searchSwimmers()
+            //     15 -> searchRaces()
+            //  16 -> listGradedRaces()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
 
@@ -98,9 +98,11 @@ private fun addRaceToSwimmer() {
         else println("Add NOT Successful")
     }
 }
-
-
+fun listAllSwimmers() = println(swimmerAPI.listAllSwimmers())
 fun listActiveSwimmers() = println(swimmerAPI.listActiveSwimmers())
+fun listArchivedSwimmers() = println(swimmerAPI.listArchivedSwimmers())
+
+
 
 
 fun updateRaceGradedInSwimmer() {
