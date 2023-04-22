@@ -28,7 +28,28 @@ data class Swimmer(var swimmerId: Int = 0,
         return races.removeIf { race -> race.raceId == id}
     }
 
+    fun update(id: Int, newRace : Race): Boolean {
+        val foundRace = findOne(id)
 
+
+        if (foundRace != null){
+            foundRace.raceGraded = newRace.raceGraded
+            foundRace.isRaceOutdated = newRace.isRaceOutdated
+            return true
+        }
+        return false
+    }
+
+    fun checkSwimmerCompletionStatus(): Boolean {
+        if (races.isNotEmpty()) {
+            for (race in races) {
+                if (!race.isRaceOutdated) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
 
     fun listRaces() =
         if (races.isEmpty())  "\tNO RACES ADDED"
