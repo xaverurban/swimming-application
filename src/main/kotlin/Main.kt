@@ -51,7 +51,7 @@ fun runMenu() {
     do {
         when (val option = mainMenu()) {
             1 -> addSwimmer()
-            2 -> listSwimmers()
+            2 -> listAllSwimmers()
             3 -> updateSwimmer()
             4 -> deleteSwimmer()
             // 5 -> archiveSwimmer()
@@ -80,12 +80,8 @@ fun addSwimmer() {
         println("Add Failed")
     }
 }
-fun listSwimmers(){
-    println("placeholder")
-}
-fun updateSwimmer(){
-    println("placeholder")
-}
+
+
 
 fun deleteSwimmer(){
     println("placeholder")
@@ -98,11 +94,54 @@ private fun addRaceToSwimmer() {
         else println("Add NOT Successful")
     }
 }
+
+fun listSwimmers() {
+    if (swimmerAPI.numberOfSwimmers() > 0) {
+        val option = ScannerInput.readNextInt("""
+    ┌─────────────────────────────────────┐
+    │         VIEW SWIMMERS MENU          │
+    ├─────────────────────────────────────┤
+    │   1) View All Swimmers              │
+    │   2) View Active Swimmers           │
+    │   3) View Archived Swimmers         │
+    └─────────────────────────────────────┘
+    ==>> """.trimIndent())
+
+        when (option) {
+            1 -> listAllSwimmers()
+            2 -> listActiveSwimmers()
+            3 -> listArchivedSwimmers()
+            else -> println("Invalid option entered: $option")
+        }
+    } else {
+        println("Option Invalid - No notes stored")
+    }
+}
 fun listAllSwimmers() = println(swimmerAPI.listAllSwimmers())
 fun listActiveSwimmers() = println(swimmerAPI.listActiveSwimmers())
 fun listArchivedSwimmers() = println(swimmerAPI.listArchivedSwimmers())
 
+fun updateSwimmer() {
+    listSwimmers()
+    if (swimmerAPI.numberOfSwimmers() > 0) {
 
+        val id = ScannerInput.readNextInt("Enter the id of the note to update: ")
+        if (swimmerAPI.findSwimmer(id) != null) {
+            val swimmerName = ScannerInput.readNextLine("Enter a title for the note: ")
+            val swimmerLevel = ScannerInput.readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+            val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
+
+            // pass the index of the note and the new note details to NoteAPI for updating and check for success.
+            if (swimmerAPI.update(id, Swimmer(0,swimmerName, swimmerLevel, swimmerCategory, false))){
+                println("Update Successful")
+            } else {
+                println("Update Failed")
+            }
+        } else {
+            println("There are no notes for this index number")
+        }
+    }
+}
 
 
 fun updateRaceGradedInSwimmer() {

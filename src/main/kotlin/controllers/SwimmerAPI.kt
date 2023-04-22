@@ -100,10 +100,18 @@ class SwimmerAPI() {
     fun numberOfActiveSwimmers(): Int = swimmers.count { swimmer: Swimmer -> !swimmer.isSwimmerArchived }
     fun delete(id: Int) = swimmers.removeIf { swimmer -> swimmer.swimmerId == id }
 
-    fun update(id: Int, swimmer: Swimmer?) {
+    fun update(id: Int, swimmer: Swimmer?): Boolean {
         // find the Swimmer object by the index number
         val foundSwimmer = findSwimmer(id)
-
-
+        // if the Swimmer exists, use the Swimmer details passed as parameters to update the found Swimmer in the ArrayList.
+        if ((foundSwimmer != null) && (swimmer != null)) {
+            foundSwimmer.swimmerName = swimmer.swimmerName
+            foundSwimmer.swimmerLevel = swimmer.swimmerLevel
+            foundSwimmer.swimmerCategory = swimmer.swimmerCategory
+            return true
+        }
+        // if the Swimmer was not found, return false, indicating that the update was not successful
+        return false
     }
+
 }
