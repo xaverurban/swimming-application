@@ -2,7 +2,6 @@ package controllers
 
 import models.Swimmer
 import persistence.Serializer
-import utils.Utilities.formatListString
 import java.util.ArrayList
 
 class SwimmerAPI(serializerType: Serializer) {

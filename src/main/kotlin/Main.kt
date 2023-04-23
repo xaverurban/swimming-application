@@ -5,9 +5,10 @@ import models.Swimmer
 import utils.ScannerInput
 import models.Race
 import utils.ScannerInput.readNextInt
+import java.io.File
 import kotlin.system.exitProcess
-
-private val swimmerAPI = SwimmerAPI()
+import persistence.XMLSerializer
+private val swimmerAPI = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
 
 fun main(args: Array<String>) {
     runMenu()
