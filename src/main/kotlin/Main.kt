@@ -237,3 +237,18 @@ fun exitApp(){
     println("Exiting Application")
     exitProcess(0)
 }
+fun save() {
+    try {
+        swimmerAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+fun load() {
+    try {
+        swimmerAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
+}

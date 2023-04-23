@@ -1,13 +1,14 @@
 package controllers
 
 import models.Swimmer
+import persistence.Serializer
 import utils.Utilities.formatListString
 import java.util.ArrayList
 
-class SwimmerAPI() {
+class SwimmerAPI(serializerType: Serializer) {
 
     private var swimmers = ArrayList<Swimmer>()
-
+    private var serializer: Serializer = serializerType
 
     private var lastId = 0
     private fun getId() = lastId++
@@ -113,5 +114,19 @@ class SwimmerAPI() {
         // if the Swimmer was not found, return false, indicating that the update was not successful
         return false
     }
+    @Throws(Exception::class)
+    fun load() {
+        swimmers = serializer.read() as ArrayList<Swimmer>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(swimmers)
+    }
+    private fun formatListString(notesToFormat : List<Swimmer>) : String =
+        notesToFormat
+            .joinToString (separator = "\n") { swimmer ->
+                swimmers.indexOf(swimmer).toString() + ": " + swimmer.toString() }
 
 }
+
