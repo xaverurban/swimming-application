@@ -45,4 +45,25 @@ class SwimmerAPITest {
         emptySwimmers = null
     }
 
+    @Nested
+    inner class AddSwimmers {
+        @Test
+        fun `adding a Swimmer to a populated list adds to ArrayList`() {
+            val newSwimmer = Swimmer(4, "Emma", 2, "Intermediate")
+            assertEquals(3, populatedSwimmers!!.numberOfSwimmers())
+            assertTrue(populatedSwimmers!!.add(newSwimmer))
+            assertEquals(4, populatedSwimmers!!.numberOfSwimmers())
+            assertEquals(newSwimmer, populatedSwimmers!!.findSwimmer(newSwimmer.swimmerId))
+        }
+
+        @Test
+        fun `adding a Swimmer to an empty list adds to ArrayList`() {
+            val newSwimmer = Swimmer(5, "Lucas", 1, "Beginner")
+            assertEquals(0, emptySwimmers!!.numberOfSwimmers())
+            assertTrue(emptySwimmers!!.add(newSwimmer))
+            assertEquals(1, emptySwimmers!!.numberOfSwimmers())
+            assertEquals(newSwimmer, emptySwimmers!!.findSwimmer(newSwimmer.swimmerId))
+        }
+    }
 }
+
