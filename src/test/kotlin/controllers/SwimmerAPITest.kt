@@ -163,7 +163,51 @@ class SwimmerAPITest {
             assertEquals(1, populatedSwimmers!!.numberOfSwimmers())
         }
     }
+    @Nested
+    inner class PersistenceTests {
 
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
+        // Saving an empty swimmers.XML file.
+        val storingSwimmers = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
+        storingSwimmers.store()
+
+        //Loading the empty swimmers.xml file into a new object
+        val loadedSwimmers = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
+        loadedSwimmers.load()
+
+        //Comparing the source of the swimmers (storingSwimmers) with the XML loaded swimmers (loadedSwimmers)
+        assertEquals(0, storingSwimmers.numberOfSwimmers())
+        assertEquals(0, loadedSwimmers.numberOfSwimmers())
+        assertEquals(storingSwimmers.numberOfSwimmers(), loadedSwimmers.numberOfSwimmers())
+    }
+
+        //Seem to not be saving the race model, come back and fix, probably problem in xml serializer?
+    @Test
+    fun `saving and loading a loaded collection in XML doesn't lose data`() {
+    // Storing 3 swimmers to the swimmers.XML file.
+    val storingSwimmers = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
+    storingSwimmers.add(michael!!)
+    storingSwimmers.add(sarah!!)
+    storingSwimmers.add(tom!!)
+    storingSwimmers
+    michael!!.races.add(Race(1, "no"))
+    storingSwimmers.store()
+
+    //Loading swimmers.xml into a different collection
+    val loadedSwimmers = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
+    loadedSwimmers.load()
+
+    //Comparing the source of the swimmers (storingSwimmers) with the XML loaded swimmers (loadedSwimmers)
+    assertEquals(3, storingSwimmers.numberOfSwimmers())
+    assertEquals(3, loadedSwimmers.numberOfSwimmers())
+    assertEquals(storingSwimmers.numberOfSwimmers(), loadedSwimmers.numberOfSwimmers())
+    assertEquals(storingSwimmers.findSwimmer(1), loadedSwimmers.findSwimmer(1))
+    assertEquals(storingSwimmers.findSwimmer(2), loadedSwimmers.findSwimmer(2))
+    assertEquals(storingSwimmers.findSwimmer(3), loadedSwimmers.findSwimmer(3))
+
+}
+}
 
 
 }
