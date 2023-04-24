@@ -53,7 +53,7 @@ fun runMenu() {
     do {
         when (val option = mainMenu()) {
             1 -> addSwimmer()
-            2 -> listAllSwimmers()
+            2 -> listSwimmers()
             3 -> updateSwimmer()
             4 -> deleteSwimmer()
             5 -> archiveSwimmer()

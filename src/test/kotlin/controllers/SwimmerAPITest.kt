@@ -22,9 +22,9 @@ class SwimmerAPITest {
 
     @BeforeEach
     fun setup() {
-        michael = Swimmer(1, "Michael", 5, "Elite")
-        sarah = Swimmer(2, "Sarah", 3, "Intermediate")
-        tom = Swimmer(3, "Tom", 1, "Beginner")
+        michael = Swimmer(1, "Michael", 5, "Elite",true)
+        sarah = Swimmer(2, "Sarah", 3, "Intermediate",false)
+        tom = Swimmer(3, "Tom", 1, "Beginner",true)
 
         michael!!.races.add(Race(1, "no"))
         sarah!!.races.add(Race(2, "yes"))
@@ -63,6 +63,58 @@ class SwimmerAPITest {
             assertTrue(emptySwimmers!!.add(newSwimmer))
             assertEquals(1, emptySwimmers!!.numberOfSwimmers())
             assertEquals(newSwimmer, emptySwimmers!!.findSwimmer(newSwimmer.swimmerId))
+        }
+    }
+    @Nested
+    inner class ListSwimmers {
+
+        @Test
+        fun `listAllSwimmers returns No Swimmers Stored message when ArrayList is empty`() {
+            assertEquals(0, emptySwimmers!!.numberOfSwimmers())
+            assertTrue(emptySwimmers!!.listAllSwimmers().lowercase().contains("no swimmer"))
+        }
+
+        @Test
+        fun `listAllSwimmers returns Swimmers when ArrayList has swimmers stored`() {
+            assertEquals(3, populatedSwimmers!!.numberOfSwimmers())
+            val swimmersString = populatedSwimmers!!.listAllSwimmers().lowercase()
+            assertTrue(swimmersString.contains("michael"))
+            assertTrue(swimmersString.contains("sarah"))
+            assertTrue(swimmersString.contains("tom")) // Changed from "john" to "tom"
+        }
+
+        @Test
+        fun `listActiveSwimmers returns no active swimmers stored when ArrayList is empty`() {
+            assertEquals(0, emptySwimmers!!.numberOfActiveSwimmers())
+            assertTrue(
+                emptySwimmers!!.listActiveSwimmers().lowercase().contains("no active swimmers")
+            )
+        }
+
+        @Test
+        fun `listActiveSwimmers returns active swimmers when ArrayList has active swimmers stored`() {
+            assertEquals(1, populatedSwimmers!!.numberOfActiveSwimmers())
+            val activeSwimmersString = populatedSwimmers!!.listActiveSwimmers().lowercase()
+            assertFalse(activeSwimmersString.contains("michael"))
+            assertTrue(activeSwimmersString.contains("sarah"))
+            assertFalse(activeSwimmersString.contains("tom"))
+        }
+
+        @Test
+        fun `listArchivedSwimmers returns no archived swimmers when ArrayList is empty`() {
+            assertEquals(0, emptySwimmers!!.numberOfArchivedSwimmers())
+            assertTrue(
+                emptySwimmers!!.listArchivedSwimmers().lowercase().contains("no archived swimmers")
+            )
+        }
+
+        @Test
+        fun `listArchivedSwimmers returns archived swimmers when ArrayList has archived swimmers stored`() {
+            assertEquals(2, populatedSwimmers!!.numberOfArchivedSwimmers())
+            val archivedSwimmersString = populatedSwimmers!!.listArchivedSwimmers().lowercase()
+            assertTrue(archivedSwimmersString.contains("michael"))
+            assertFalse(archivedSwimmersString.contains("sarah"))
+            assertTrue(archivedSwimmersString.contains("tom"))
         }
     }
 }

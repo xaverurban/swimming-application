@@ -74,11 +74,11 @@ class SwimmerAPI(serializerType: Serializer) {
         else formatListString(swimmers)
 
     fun listActiveSwimmers() =
-        if (numberOfActiveSwimmers() == 0) "No active notes stored"
+        if (numberOfActiveSwimmers() == 0) "No active swimmers stored"
         else formatListString(swimmers.filter { swimmer -> !swimmer.isSwimmerArchived })
 
-    fun listArchivedSwimmers() =
-        if (numberOfArchivedSwimmers() == 0) "No archived notes stored"
+    fun listArchivedSwimmers(): String =
+        if (numberOfArchivedSwimmers() == 0) "No archived swimmers stored"
         else formatListString(swimmers.filter { swimmer -> swimmer.isSwimmerArchived })
 
     fun archiveSwimmer(id: Int): Boolean {
@@ -122,8 +122,8 @@ class SwimmerAPI(serializerType: Serializer) {
     fun store() {
         serializer.write(swimmers)
     }
-    private fun formatListString(notesToFormat : List<Swimmer>) : String =
-        notesToFormat
+    private fun formatListString(swimmersToFormat : List<Swimmer>) : String =
+        swimmersToFormat
             .joinToString (separator = "\n") { swimmer ->
                 swimmers.indexOf(swimmer).toString() + ": " + swimmer.toString() }
 
