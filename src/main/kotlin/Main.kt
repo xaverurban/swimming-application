@@ -146,7 +146,7 @@ fun updateSwimmer() {
             val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
 
-            // pass the index of the note and the new note details to NoteAPI for updating and check for success.
+
             if (swimmerAPI.update(id, Swimmer(0,swimmerName, swimmerLevel, swimmerCategory, false))){
                 println("Update Successful")
             } else {
