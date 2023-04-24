@@ -144,6 +144,26 @@ class SwimmerAPITest {
         }
 
     }
+    @Nested
+    inner class DeleteSwimmers {
+
+        @Test
+        fun `deleting a Swimmer that does not exist returns false`() {
+            assertFalse(emptySwimmers!!.delete(0))
+            assertFalse(populatedSwimmers!!.delete(-1))
+            assertFalse(populatedSwimmers!!.delete(4))
+        }
+
+        @Test
+        fun `deleting a swimmer that exists deletes and returns true`() {
+            assertEquals(3, populatedSwimmers!!.numberOfSwimmers())
+            assertTrue(populatedSwimmers!!.delete(1))
+            assertEquals(2, populatedSwimmers!!.numberOfSwimmers())
+            assertTrue(populatedSwimmers!!.delete(2))
+            assertEquals(1, populatedSwimmers!!.numberOfSwimmers())
+        }
+    }
+
 
 
 }
