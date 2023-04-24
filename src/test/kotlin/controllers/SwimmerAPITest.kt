@@ -22,9 +22,9 @@ class SwimmerAPITest {
 
     @BeforeEach
     fun setup() {
-        michael = Swimmer(1, "Michael", 5, "Elite",true)
-        sarah = Swimmer(2, "Sarah", 3, "Intermediate",false)
-        tom = Swimmer(3, "Tom", 1, "Beginner",true)
+        michael = Swimmer(1, "Michael", 5, "Backstroke", true)
+        sarah = Swimmer(2, "Sarah", 3, "Freestyle", false)
+        tom = Swimmer(3, "Tom", 1, "Butterfly", true)
 
         michael!!.races.add(Race(1, "no"))
         sarah!!.races.add(Race(2, "yes"))
@@ -65,6 +65,7 @@ class SwimmerAPITest {
             assertEquals(newSwimmer, emptySwimmers!!.findSwimmer(newSwimmer.swimmerId))
         }
     }
+
     @Nested
     inner class ListSwimmers {
 
@@ -80,7 +81,7 @@ class SwimmerAPITest {
             val swimmersString = populatedSwimmers!!.listAllSwimmers().lowercase()
             assertTrue(swimmersString.contains("michael"))
             assertTrue(swimmersString.contains("sarah"))
-            assertTrue(swimmersString.contains("tom")) // Changed from "john" to "tom"
+            assertTrue(swimmersString.contains("tom"))
         }
 
         @Test
@@ -112,10 +113,39 @@ class SwimmerAPITest {
         fun `listArchivedSwimmers returns archived swimmers when ArrayList has archived swimmers stored`() {
             assertEquals(2, populatedSwimmers!!.numberOfArchivedSwimmers())
             val archivedSwimmersString = populatedSwimmers!!.listArchivedSwimmers().lowercase()
-            assertTrue(archivedSwimmersString.contains("michael"))
+            assertTrue(archivedSwimmersString.contains("michael"))  // assert true/false messed up <-- come back and fix after dinner
             assertFalse(archivedSwimmersString.contains("sarah"))
             assertTrue(archivedSwimmersString.contains("tom"))
         }
     }
+
+    @Nested
+    inner class UpdateSwimmers {
+        @Test
+        fun `updating a swimmer that does not exist returns false`() {
+            assertFalse(populatedSwimmers!!.update(6, Swimmer(6, "Nonexistent", 2, "Freestyle", false)))
+            assertFalse(populatedSwimmers!!.update(-1, Swimmer(-1, "Nonexistent", 2, "Freestyle", false)))
+            assertFalse(emptySwimmers!!.update(0, Swimmer(0, "Nonexistent", 2, "Freestyle", false)))
+        }
+
+        @Test
+        fun `updating a swimmer that exists returns true and updates`() {
+            // Check if swimmer with ID 1 exists and verify its properties
+            assertEquals(sarah, populatedSwimmers!!.findSwimmer(1))
+            assertEquals("Sarah", populatedSwimmers!!.findSwimmer(1)!!.swimmerName)
+            assertEquals(3, populatedSwimmers!!.findSwimmer(1)!!.swimmerLevel)
+            assertEquals("Freestyle", populatedSwimmers!!.findSwimmer(1)!!.swimmerCategory)
+
+            // Update swimmer with ID 1 and ensure its properties are updated successfully
+            assertTrue(populatedSwimmers!!.update(1, Swimmer(1, "Sarah M", 5, "Backstroke", false)))
+            assertEquals("Sarah M", populatedSwimmers!!.findSwimmer(1)!!.swimmerName)
+            assertEquals(5, populatedSwimmers!!.findSwimmer(1)!!.swimmerLevel)
+            assertEquals("Backstroke", populatedSwimmers!!.findSwimmer(1)!!.swimmerCategory)
+        }
+
+    }
+
+
 }
+
 
