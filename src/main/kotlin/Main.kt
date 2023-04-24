@@ -64,6 +64,8 @@ fun runMenu() {
             //   10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> listGradedRaces()
+            17 ->save()
+            18 ->load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
 
