@@ -208,8 +208,59 @@ class SwimmerAPITest {
 
 }
 }
+    @Nested
+    inner class ArchiveSwimmers {
+        @Test
+        fun `archiving a swimmer that does not exist returns false`() {
+            assertFalse(populatedSwimmers!!.archiveSwimmer(6))
+            assertFalse(populatedSwimmers!!.archiveSwimmer(-1))
+            assertFalse(emptySwimmers!!.archiveSwimmer(0))
+        }
 
+        @Test
+        fun `archiving an already archived swimmer returns false`() {
+            assertTrue(populatedSwimmers!!.findSwimmer(2)!!.isSwimmerArchived)
+            assertFalse(populatedSwimmers!!.archiveSwimmer(2))
+        }
 
+        @Test
+        fun `archiving an active swimmer that exists returns true and archives`() {
+            assertFalse(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
+            assertFalse(populatedSwimmers!!.archiveSwimmer(1))
+            assertFalse(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
+        }
+    }
+    @Nested
+    inner class CountingMethods {
+
+        @Test
+        fun numberOfSwimmersCalculatedCorrectly() {
+            assertEquals(3, populatedSwimmers!!.numberOfSwimmers())
+            assertEquals(0, emptySwimmers!!.numberOfSwimmers())
+        }
+
+        @Test
+        fun numberOfArchivedSwimmersCalculatedCorrectly() {
+            assertEquals(2, populatedSwimmers!!.numberOfArchivedSwimmers())
+            assertEquals(0, emptySwimmers!!.numberOfArchivedSwimmers())
+        }
+
+        @Test
+        fun numberOfActiveSwimmersCalculatedCorrectly() {
+            assertEquals(1, populatedSwimmers!!.numberOfActiveSwimmers())
+            assertEquals(0, emptySwimmers!!.numberOfActiveSwimmers())
+        }
+
+        @Test
+        fun numberOfSwimmersByLevelCalculatedCorrectly() {
+            assertEquals(1, populatedSwimmers!!.numberOfSwimmersByLevel(1))
+            assertEquals(0, populatedSwimmers!!.numberOfSwimmersByLevel(2))
+            assertEquals(1, populatedSwimmers!!.numberOfSwimmersByLevel(3))
+            assertEquals(0, populatedSwimmers!!.numberOfSwimmersByLevel(4))
+            assertEquals(1, populatedSwimmers!!.numberOfSwimmersByLevel(5))
+            assertEquals(0, emptySwimmers!!.numberOfSwimmersByLevel(1))
+        }
+    }
 }
 
 

@@ -60,7 +60,7 @@ fun runMenu() {
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
-            //   9 -> markItemStatus()
+            //   9 -> markRaceStatus()
             //   10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> listGradedRaces()

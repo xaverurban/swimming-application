@@ -80,6 +80,10 @@ class SwimmerAPI(serializerType: Serializer) {
     fun listArchivedSwimmers(): String =
         if (numberOfArchivedSwimmers() == 0) "No archived swimmers stored"
         else formatListString(swimmers.filter { swimmer -> swimmer.isSwimmerArchived })
+    fun numberOfSwimmersByLevel(level: Int): Int = swimmers.count { swimmer: Swimmer -> swimmer.swimmerLevel == level }
+
+
+
 
     fun archiveSwimmer(id: Int): Boolean {
         val foundSwimmer = findSwimmer(id)
