@@ -5,9 +5,10 @@ import models.Swimmer
 import utils.ScannerInput
 import models.Race
 import utils.ScannerInput.readNextInt
+import java.io.File
 import kotlin.system.exitProcess
-
-private val swimmerAPI = SwimmerAPI()
+import persistence.XMLSerializer
+private val swimmerAPI = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
 
 fun main(args: Array<String>) {
     runMenu()
@@ -63,6 +64,8 @@ fun runMenu() {
             //   10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> listGradedRaces()
+            17 ->save()
+            18 ->load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
 
@@ -236,4 +239,19 @@ private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
 fun exitApp(){
     println("Exiting Application")
     exitProcess(0)
+}
+fun save() {
+    try {
+        swimmerAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+fun load() {
+    try {
+        swimmerAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
 }
