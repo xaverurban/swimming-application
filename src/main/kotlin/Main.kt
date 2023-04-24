@@ -53,14 +53,14 @@ fun runMenu() {
     do {
         when (val option = mainMenu()) {
             1 -> addSwimmer()
-            2 -> listAllSwimmers()
+            2 -> listSwimmers()
             3 -> updateSwimmer()
             4 -> deleteSwimmer()
             5 -> archiveSwimmer()
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
-            //   9 -> markItemStatus()
+            //   9 -> markRaceStatus()
             //   10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> listGradedRaces()
@@ -146,7 +146,7 @@ fun updateSwimmer() {
             val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
 
-            // pass the index of the note and the new note details to NoteAPI for updating and check for success.
+
             if (swimmerAPI.update(id, Swimmer(0,swimmerName, swimmerLevel, swimmerCategory, false))){
                 println("Update Successful")
             } else {

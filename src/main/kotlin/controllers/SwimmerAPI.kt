@@ -68,18 +68,23 @@ class SwimmerAPI(serializerType: Serializer) {
         return numberOfToDoRaces
     }
 
+    fun searchByName(name: String): List<Swimmer> = swimmers.filter { swimmer: Swimmer -> swimmer.swimmerName.contains(name, ignoreCase = true) }
 
     fun listAllSwimmers() =
         if (swimmers.isEmpty()) "No swimmer stored"
         else formatListString(swimmers)
 
     fun listActiveSwimmers() =
-        if (numberOfActiveSwimmers() == 0) "No active notes stored"
+        if (numberOfActiveSwimmers() == 0) "No active swimmers stored"
         else formatListString(swimmers.filter { swimmer -> !swimmer.isSwimmerArchived })
 
-    fun listArchivedSwimmers() =
-        if (numberOfArchivedSwimmers() == 0) "No archived notes stored"
+    fun listArchivedSwimmers(): String =
+        if (numberOfArchivedSwimmers() == 0) "No archived swimmers stored"
         else formatListString(swimmers.filter { swimmer -> swimmer.isSwimmerArchived })
+    fun numberOfSwimmersByLevel(level: Int): Int = swimmers.count { swimmer: Swimmer -> swimmer.swimmerLevel == level }
+
+
+
 
     fun archiveSwimmer(id: Int): Boolean {
         val foundSwimmer = findSwimmer(id)
@@ -122,8 +127,8 @@ class SwimmerAPI(serializerType: Serializer) {
     fun store() {
         serializer.write(swimmers)
     }
-    private fun formatListString(notesToFormat : List<Swimmer>) : String =
-        notesToFormat
+    private fun formatListString(swimmersToFormat : List<Swimmer>) : String =
+        swimmersToFormat
             .joinToString (separator = "\n") { swimmer ->
                 swimmers.indexOf(swimmer).toString() + ": " + swimmer.toString() }
 
