@@ -261,6 +261,40 @@ class SwimmerAPITest {
             assertEquals(0, emptySwimmers!!.numberOfSwimmersByLevel(1))
         }
     }
+    @Nested
+    inner class SearchMethods {
+
+        @Test
+        fun `search swimmers by name returns no swimmers when no swimmers with that name exist`() {
+            assertEquals(3, populatedSwimmers!!.numberOfSwimmers())
+            val searchResults = populatedSwimmers!!.searchByName("no results expected")
+            assertTrue(searchResults.isEmpty())
+
+            assertEquals(0, emptySwimmers!!.numberOfSwimmers())
+            assertTrue(emptySwimmers!!.searchByName("").isEmpty())
+        }
+
+        @Test
+        fun `search swimmers by name returns swimmers when swimmers with that name exist`() {
+            assertEquals(3, populatedSwimmers?.numberOfSwimmers())
+
+            populatedSwimmers?.let { swimmers ->
+                var searchResults = swimmers.searchByName("Michael")
+                assertTrue(searchResults.contains(swimmers.findSwimmer(0)))
+                assertFalse(searchResults.contains(swimmers.findSwimmer(2)))
+
+                searchResults = swimmers.searchByName("sarah")
+                assertTrue(searchResults.contains(swimmers.findSwimmer(1)))
+                assertFalse(searchResults.contains(swimmers.findSwimmer(2)))
+
+                searchResults = swimmers.searchByName("a")
+                assertTrue(searchResults.contains(swimmers.findSwimmer(1)))
+                assertTrue(searchResults.contains(swimmers.findSwimmer(0)))
+                assertFalse(searchResults.contains(swimmers.findSwimmer(3)))
+            }
+        }
+    }
+
 }
 
 

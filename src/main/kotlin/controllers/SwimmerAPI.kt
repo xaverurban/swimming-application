@@ -68,6 +68,7 @@ class SwimmerAPI(serializerType: Serializer) {
         return numberOfToDoRaces
     }
 
+    fun searchByName(name: String): List<Swimmer> = swimmers.filter { swimmer: Swimmer -> swimmer.swimmerName.contains(name, ignoreCase = true) }
 
     fun listAllSwimmers() =
         if (swimmers.isEmpty()) "No swimmer stored"
