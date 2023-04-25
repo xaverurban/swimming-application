@@ -1,0 +1,49 @@
+<object-stream>
+  <list>
+    <models.Swimmer>
+      <swimmerId>0</swimmerId>
+      <swimmerName>Michael</swimmerName>
+      <swimmerLevel>5</swimmerLevel>
+      <swimmerCategory>Backstroke</swimmerCategory>
+      <isSwimmerArchived>true</isSwimmerArchived>
+      <races class="linked-hash-set">
+        <models.Race>
+          <raceId>1</raceId>
+          <raceGraded>no</raceGraded>
+          <isRaceOutdated>false</isRaceOutdated>
+        </models.Race>
+      </races>
+      <lastRaceId>0</lastRaceId>
+    </models.Swimmer>
+    <models.Swimmer>
+      <swimmerId>1</swimmerId>
+      <swimmerName>Sarah</swimmerName>
+      <swimmerLevel>3</swimmerLevel>
+      <swimmerCategory>Freestyle</swimmerCategory>
+      <isSwimmerArchived>false</isSwimmerArchived>
+      <races class="linked-hash-set">
+        <models.Race>
+          <raceId>2</raceId>
+          <raceGraded>yes</raceGraded>
+          <isRaceOutdated>false</isRaceOutdated>
+        </models.Race>
+      </races>
+      <lastRaceId>0</lastRaceId>
+    </models.Swimmer>
+    <models.Swimmer>
+      <swimmerId>2</swimmerId>
+      <swimmerName>Tom</swimmerName>
+      <swimmerLevel>1</swimmerLevel>
+      <swimmerCategory>Butterfly</swimmerCategory>
+      <isSwimmerArchived>true</isSwimmerArchived>
+      <races class="linked-hash-set">
+        <models.Race>
+          <raceId>3</raceId>
+          <raceGraded>no</raceGraded>
+          <isRaceOutdated>false</isRaceOutdated>
+        </models.Race>
+      </races>
+      <lastRaceId>0</lastRaceId>
+    </models.Swimmer>
+  </list>
+</object-stream>
