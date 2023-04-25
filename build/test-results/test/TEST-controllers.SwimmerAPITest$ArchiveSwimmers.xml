@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.SwimmerAPITest$ArchiveSwimmers" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-25T13:10:25" hostname="DESKTOP-66BKA17" time="0.003">
-  <properties/>
-  <testcase name="archiving an active swimmer that exists returns true and archives()" classname="controllers.SwimmerAPITest$ArchiveSwimmers" time="0.001"/>
-  <testcase name="archiving a swimmer that does not exist returns false()" classname="controllers.SwimmerAPITest$ArchiveSwimmers" time="0.001"/>
-  <testcase name="archiving an already archived swimmer returns false()" classname="controllers.SwimmerAPITest$ArchiveSwimmers" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
