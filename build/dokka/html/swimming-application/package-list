@@ -27,13 +27,13 @@ $dokka.location:controllers/SwimmerAPI/findSwimmer/#kotlin.Int/PointingToDeclara
 $dokka.location:controllers/SwimmerAPI/listActiveSwimmers/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/list-active-swimmers.html
 $dokka.location:controllers/SwimmerAPI/listAllSwimmers/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/list-all-swimmers.html
 $dokka.location:controllers/SwimmerAPI/listArchivedSwimmers/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/list-archived-swimmers.html
-$dokka.location:controllers/SwimmerAPI/listTodoRaces/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/list-todo-races.html
+$dokka.location:controllers/SwimmerAPI/listUngradedRaces/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/list-ungraded-races.html
 $dokka.location:controllers/SwimmerAPI/load/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/load.html
 $dokka.location:controllers/SwimmerAPI/numberOfActiveSwimmers/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/number-of-active-swimmers.html
 $dokka.location:controllers/SwimmerAPI/numberOfArchivedSwimmers/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/number-of-archived-swimmers.html
 $dokka.location:controllers/SwimmerAPI/numberOfSwimmers/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/number-of-swimmers.html
 $dokka.location:controllers/SwimmerAPI/numberOfSwimmersByLevel/#kotlin.Int/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/number-of-swimmers-by-level.html
-$dokka.location:controllers/SwimmerAPI/numberOfToDoRaces/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/number-of-to-do-races.html
+$dokka.location:controllers/SwimmerAPI/numberOfUngradedRaces/#/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/number-of-ungraded-races.html
 $dokka.location:controllers/SwimmerAPI/searchByName/#kotlin.String/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/search-by-name.html
 $dokka.location:controllers/SwimmerAPI/searchRaceByContents/#kotlin.String/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/search-race-by-contents.html
 $dokka.location:controllers/SwimmerAPI/searchSwimmersByName/#kotlin.String/PointingToDeclaration/swimming-application/controllers/-swimmer-a-p-i/search-swimmers-by-name.html
