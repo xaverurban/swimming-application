@@ -22,9 +22,11 @@ package models
 *
 *@property isRaceOutdated Indicates whether the race is graded or not. Defaults to false.
  */
-data class Race (var raceId: Int = 0,
-                 var raceGraded : String,
-                 var isRaceOutdated: Boolean = false){
+data class Race(
+    var raceId: Int = 0,
+    var raceGraded: String,
+    var isRaceOutdated: Boolean = false
+) {
 
 /**
 *
@@ -38,5 +40,4 @@ data class Race (var raceId: Int = 0,
         else
             "$raceId: $raceGraded  (Ungraded)"
     }
-
 }

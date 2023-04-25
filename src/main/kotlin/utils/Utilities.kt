@@ -16,7 +16,7 @@ object Utilities {
     @JvmStatic
     fun formatListString(notesToFormat: List<Swimmer>): String =
         notesToFormat
-            .joinToString(separator = "\n") { swimmer ->  "$swimmer" }
+            .joinToString(separator = "\n") { swimmer -> "$swimmer" }
 
     /**
      * Formats a set of Race objects into a readable string.
@@ -26,6 +26,5 @@ object Utilities {
     @JvmStatic
     fun formatSetString(itemsToFormat: Set<Race>): String =
         itemsToFormat
-            .joinToString(separator = "\n") { race ->  "\t$race" }
-
+            .joinToString(separator = "\n") { race -> "\t$race" }
 }

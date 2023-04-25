@@ -23,14 +23,14 @@ import utils.Utilities
 *@property isSwimmerArchived Indicates whether the swimmer is archived or not. Defaults to false.
 *@property races A mutable set of Race objects associated with the swimmer.
  */
-data class Swimmer(var swimmerId: Int = 0,
-                var swimmerName: String,
-                var swimmerLevel: Int,
-                var swimmerCategory: String,
-                var isSwimmerArchived: Boolean = false,
-                var races : MutableSet<Race> = mutableSetOf())
-
-{
+data class Swimmer(
+    var swimmerId: Int = 0,
+    var swimmerName: String,
+    var swimmerLevel: Int,
+    var swimmerCategory: String,
+    var isSwimmerArchived: Boolean = false,
+    var races: MutableSet<Race> = mutableSetOf()
+) {
     private var lastRaceId = 0
     private fun getRaceId() = lastRaceId++
 
@@ -39,7 +39,7 @@ data class Swimmer(var swimmerId: Int = 0,
      * @param race The race to be added.
      * @return true if the race was successfully added, false otherwise.
      */
-    fun addRace(race: Race) : Boolean {
+    fun addRace(race: Race): Boolean {
         race.raceId = getRaceId()
         return races.add(race)
     }
@@ -55,8 +55,8 @@ data class Swimmer(var swimmerId: Int = 0,
      * @param id The unique ID of the race to find.
      * @return The found Race object, or null if not found.
      */
-    fun findOne(id: Int): Race?{
-        return races.find{ race -> race.raceId == id }
+    fun findOne(id: Int): Race? {
+        return races.find { race -> race.raceId == id }
     }
 
     /**
@@ -65,7 +65,7 @@ data class Swimmer(var swimmerId: Int = 0,
      * @return true if the race was successfully deleted, false otherwise.
      */
     fun delete(id: Int): Boolean {
-        return races.removeIf { race -> race.raceId == id}
+        return races.removeIf { race -> race.raceId == id }
     }
 
     /**
@@ -74,11 +74,10 @@ data class Swimmer(var swimmerId: Int = 0,
      * @param newRace The updated Race object containing new race information.
      * @return true if the race was successfully updated, false otherwise.
      */
-    fun update(id: Int, newRace : Race): Boolean {
+    fun update(id: Int, newRace: Race): Boolean {
         val foundRace = findOne(id)
 
-
-        if (foundRace != null){
+        if (foundRace != null) {
             foundRace.raceGraded = newRace.raceGraded
             foundRace.isRaceOutdated = newRace.isRaceOutdated
             return true
@@ -106,8 +105,8 @@ data class Swimmer(var swimmerId: Int = 0,
      * @return A string representing the swimmer's races, or "NO RACES ADDED" if the swimmer has no races.
      */
     fun listRaces() =
-        if (races.isEmpty())  "\tNO RACES ADDED"
-        else  Utilities.formatSetString(races)
+        if (races.isEmpty()) "\tNO RACES ADDED"
+        else Utilities.formatSetString(races)
 
     /**
      * Returns a string representation of the swimmer object, including their ID, name, level, category, archived status, and list of races.
@@ -117,5 +116,4 @@ data class Swimmer(var swimmerId: Int = 0,
         val archived = if (isSwimmerArchived) 'Y' else 'N'
         return "$swimmerId: $swimmerName, Priority($swimmerLevel), Category($swimmerCategory), Archived($archived) \n${listRaces()}"
     }
-
 }
