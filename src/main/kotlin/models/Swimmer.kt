@@ -2,6 +2,27 @@ package models
 
 import utils.Utilities
 
+/**
+*
+ *Represents a swimmer with their associated details and races. The Swimmer class provides a convenient
+ *way to organize and manage swimmer information, including their name, level, category, and
+ *associated races. This class also provides methods for managing a swimmer's races and checking
+ *their completion status. The Swimmer class is used in conjunction with the SwimmerAPI class for
+ *managing a list of swimmers and their associated races.
+ *@author Xaver Urban
+ *@since v1.0
+ */
+
+/**
+*
+*Represents a swimmer with their associated details and races.
+*@property swimmerId The unique ID of the swimmer.
+*@property swimmerName The name of the swimmer.
+*@property swimmerLevel The level of the swimmer (e.g., 1, 2, or 3).
+*@property swimmerCategory The category of the swimmer (e.g., "Masters", "Youth").
+*@property isSwimmerArchived Indicates whether the swimmer is archived or not. Defaults to false.
+*@property races A mutable set of Race objects associated with the swimmer.
+ */
 data class Swimmer(var swimmerId: Int = 0,
                 var swimmerName: String,
                 var swimmerLevel: Int,
