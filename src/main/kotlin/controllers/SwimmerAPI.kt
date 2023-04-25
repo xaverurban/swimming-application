@@ -16,7 +16,6 @@ import java.util.ArrayList
  *@since v1.0
  * */
 
-
 /**
  * SwimmerAPI class manages the swimmer data and provides various methods to manipulate
  * and query swimmer information.
@@ -155,8 +154,6 @@ class SwimmerAPI(serializerType: Serializer) {
      */
     fun numberOfSwimmersByLevel(level: Int): Int = swimmers.count { swimmer: Swimmer -> swimmer.swimmerLevel == level }
 
-
-
     /**
      * Archives a swimmer if they exist, are not already archived, and have completed all their races.
      *
@@ -165,8 +162,8 @@ class SwimmerAPI(serializerType: Serializer) {
      */
     fun archiveSwimmer(id: Int): Boolean {
         val foundSwimmer = findSwimmer(id)
-        if ((foundSwimmer != null) && (!foundSwimmer.isSwimmerArchived)
-            && (foundSwimmer.checkSwimmerCompletionStatus())
+        if ((foundSwimmer != null) && (!foundSwimmer.isSwimmerArchived) &&
+            (foundSwimmer.checkSwimmerCompletionStatus())
         ) {
             foundSwimmer.isSwimmerArchived = true
             return true
@@ -180,7 +177,7 @@ class SwimmerAPI(serializerType: Serializer) {
      * @param swimmerId The unique ID of the swimmer to be found.
      * @return The Swimmer object if found, or null if not found.
      */
-    fun findSwimmer(swimmerId : Int) =  swimmers.find{ swimmer -> swimmer.swimmerId == swimmerId }
+    fun findSwimmer(swimmerId: Int) = swimmers.find { swimmer -> swimmer.swimmerId == swimmerId }
 
     /**
      * Counts the total number of swimmers in the list.
@@ -258,10 +255,9 @@ class SwimmerAPI(serializerType: Serializer) {
      * @param swimmersToFormat The list of Swimmer objects to be formatted.
      * @return A formatted string containing the list of swimmers.
      */
-    private fun formatListString(swimmersToFormat : List<Swimmer>) : String =
+    private fun formatListString(swimmersToFormat: List<Swimmer>): String =
         swimmersToFormat
-            .joinToString (separator = "\n") { swimmer ->
-                swimmers.indexOf(swimmer).toString() + ": " + swimmer.toString() }
-
+            .joinToString(separator = "\n") { swimmer ->
+                swimmers.indexOf(swimmer).toString() + ": " + swimmer.toString()
+            }
 }
-

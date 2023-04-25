@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.SwimmerAPITest$PersistenceTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-25T13:10:25" hostname="DESKTOP-66BKA17" time="0.134">
-  <properties/>
-  <testcase name="saving and loading an empty collection in XML doesn't crash app()" classname="controllers.SwimmerAPITest$PersistenceTests" time="0.119"/>
-  <testcase name="saving and loading a loaded collection in XML doesn't lose data()" classname="controllers.SwimmerAPITest$PersistenceTests" time="0.015"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

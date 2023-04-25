@@ -1,13 +1,13 @@
 
 
 import controllers.SwimmerAPI
-import models.Swimmer
-import utils.ScannerInput
 import models.Race
+import models.Swimmer
+import persistence.XMLSerializer
+import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import java.io.File
 import kotlin.system.exitProcess
-import persistence.XMLSerializer
 
 /**
  * This class provides an interactive menu-driven application for managing a list of swimmers and their associated races.
@@ -24,7 +24,6 @@ import persistence.XMLSerializer
 private val swimmerAPI = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
 fun main(args: Array<String>) {
     runMenu()
-
 }
 
 /**
@@ -35,8 +34,9 @@ fun main(args: Array<String>) {
  *
  * @return An integer representing the user's selected menu option.
  */
-fun mainMenu() : Int {
-    return readNextInt(""" 
+fun mainMenu(): Int {
+    return readNextInt(
+        """ 
          > -----------------------------------------------------  
          > |                  SWIMMING APP                     |
          > -----------------------------------------------------  
@@ -63,10 +63,9 @@ fun mainMenu() : Int {
          > -----------------------------------------------------  
          > |   0) Exit                                         |
          > -----------------------------------------------------  
-         > ==>> """.trimMargin(">"))
+         > ==>> """.trimMargin(">")
+    )
 }
-
-
 
 /**
  * Executes the main loop of the Swimming App, displaying the main menu and executing the appropriate functions
@@ -87,11 +86,10 @@ fun runMenu() {
             //   10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> listGradedRaces()
-            17 ->save()
-            18 ->load()
+            17 -> save()
+            18 -> load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
-
         }
     } while (true)
 }
@@ -152,7 +150,8 @@ private fun addRaceToSwimmer() {
  */
 fun listSwimmers() {
     if (swimmerAPI.numberOfSwimmers() > 0) {
-        val option = readNextInt("""
+        val option = readNextInt(
+            """
     ┌─────────────────────────────────────┐
     │         VIEW SWIMMERS MENU          │
     ├─────────────────────────────────────┤
@@ -160,7 +159,9 @@ fun listSwimmers() {
     │   2) View Active Swimmers           │
     │   3) View Archived Swimmers         │
     └─────────────────────────────────────┘
-    ==>> """.trimIndent())
+    ==>> 
+            """.trimIndent()
+        )
 
         when (option) {
             1 -> listAllSwimmers()
@@ -201,8 +202,7 @@ fun updateSwimmer() {
             val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
 
-
-            if (swimmerAPI.update(id, Swimmer(0,swimmerName, swimmerLevel, swimmerCategory, false))){
+            if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -248,7 +248,6 @@ fun deleteRace() {
                 println("Race deleted successfully from ${swimmer.swimmerName}'s list of races.")
 
             else println("Unable to delete the race from ${swimmer.swimmerName}'s list of races.")
-
         } else println("Invalid race ID. Please choose a valid race ID.")
     }
 }
@@ -311,9 +310,8 @@ private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
     return if (swimmer?.numberOfRaces()!! > 0) {
         print(swimmer?.listRaces())
         swimmer?.findOne(readNextInt("\nEnter the id of the item: "))
-    }
-    else{
-        println ("No items for chosen swimmer")
+    } else {
+        println("No items for chosen swimmer")
         null
     }
 }
@@ -321,7 +319,7 @@ private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
 /**
  * Exits the application and prints a farewell message.
  */
-fun exitApp(){
+fun exitApp() {
     println("Exiting Application")
     exitProcess(0)
 }
