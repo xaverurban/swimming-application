@@ -8,13 +8,33 @@ import utils.ScannerInput.readNextInt
 import java.io.File
 import kotlin.system.exitProcess
 import persistence.XMLSerializer
-private val swimmerAPI = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
 
+/**
+ * This class provides an interactive menu-driven application for managing a list of swimmers and their associated races.
+ * It offers functionality to add, search, list, update, and delete swimmers, as well as manage their races.
+ * The SwimmerApp interacts with the SwimmerAPI and uses a Serializer object to support storing and loading swimmer data.
+ * It allows users to perform various operations on swimmers such as adding, listing, updating, deleting, and archiving swimmers.
+ * Additionally, this class provides functionality to add, update, and delete races associated with swimmers.
+ * Users can also search for swimmers by name and races by their description.
+ *
+ * @author Xaver Urban
+ * @since v1.0
+ */
+
+private val swimmerAPI = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
 fun main(args: Array<String>) {
     runMenu()
 
 }
 
+/**
+ * Displays the main menu of the Swimming App and returns the user's selected option as an integer.
+ * The menu provides options for managing swimmers and races, including adding, listing, updating, deleting,
+ * and archiving swimmers, as well as adding, updating, and deleting races associated with swimmers.
+ * Additionally, the menu offers options to search for swimmers by name, search for races by description, and list graded races.
+ *
+ * @return An integer representing the user's selected menu option.
+ */
 fun mainMenu() : Int {
     return readNextInt(""" 
          > -----------------------------------------------------  
@@ -48,7 +68,10 @@ fun mainMenu() : Int {
 
 
 
-
+/**
+ * Executes the main loop of the Swimming App, displaying the main menu and executing the appropriate functions
+ * based on the user's input. This loop continues until the user selects the exit option.
+ */
 fun runMenu() {
     do {
         when (val option = mainMenu()) {
@@ -72,6 +95,12 @@ fun runMenu() {
         }
     } while (true)
 }
+
+/**
+ * Prompts the user for swimmer details (name, level, and category), creates a new Swimmer object with the provided
+ * information, and attempts to add the Swimmer to the swimmerAPI. Displays a success or failure message based on
+ * whether the Swimmer was added successfully.
+ */
 fun addSwimmer() {
     val swimmerName = ScannerInput.readNextLine("Enter a title for the swimmer: ")
     val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
@@ -85,6 +114,10 @@ fun addSwimmer() {
     }
 }
 
+/**
+ * Lists all swimmers and prompts the user to enter the ID of the swimmer to delete.
+ * If a valid ID is entered, attempts to delete the swimmer from the swimmerAPI and displays a success or failure message.
+ */
 fun deleteSwimmer() {
     listSwimmers()
     if (swimmerAPI.numberOfSwimmers() > 0) {
@@ -100,7 +133,10 @@ fun deleteSwimmer() {
     }
 }
 
-
+/**
+ * Prompts the user to select an active swimmer and, if a valid swimmer is chosen, adds a race to the swimmer.
+ * Displays a success or failure message based on whether the race was added successfully.
+ */
 private fun addRaceToSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
@@ -110,6 +146,10 @@ private fun addRaceToSwimmer() {
     }
 }
 
+/**
+ * Displays a menu to list swimmers based on different criteria (all, active, or archived).
+ * Executes the appropriate function based on the user's input, or displays an error message if no swimmers are stored.
+ */
 fun listSwimmers() {
     if (swimmerAPI.numberOfSwimmers() > 0) {
         val option = readNextInt("""
@@ -132,10 +172,25 @@ fun listSwimmers() {
         println("Option Invalid - No notes stored")
     }
 }
+/**
+ * Lists all swimmers in the swimmerAPI.
+ */
 fun listAllSwimmers() = println(swimmerAPI.listAllSwimmers())
+
+/**
+ * Lists all active swimmers in the swimmerAPI.
+ */
 fun listActiveSwimmers() = println(swimmerAPI.listActiveSwimmers())
+
+/**
+ * Lists all archived swimmers in the swimmerAPI.
+ */
 fun listArchivedSwimmers() = println(swimmerAPI.listArchivedSwimmers())
 
+/**
+ * Lists all swimmers and prompts the user to update the swimmer details (name, level, and category) for the selected swimmer.
+ * Updates the swimmer in the swimmerAPI if the entered ID is valid, and displays a success or failure message.
+ */
 fun updateSwimmer() {
     listSwimmers()
     if (swimmerAPI.numberOfSwimmers() > 0) {
@@ -158,6 +213,10 @@ fun updateSwimmer() {
     }
 }
 
+/**
+ * Lists all active swimmers and prompts the user to enter the ID of the swimmer to archive.
+ * If a valid ID is entered, attempts to archive the swimmer in the swimmerAPI and displays a success or failure message.
+ */
 fun archiveSwimmer() {
     listActiveSwimmers()
     if (swimmerAPI.numberOfActiveSwimmers() > 0) {
@@ -174,6 +233,11 @@ fun archiveSwimmer() {
     }
 }
 
+/**
+ * Deletes a race from a swimmer's list of races.
+ * Prompts the user to select an active swimmer, then a race from that swimmer's list.
+ * If the race is found and successfully deleted, a success message is printed.
+ */
 fun deleteRace() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
@@ -189,9 +253,11 @@ fun deleteRace() {
     }
 }
 
-
-
-
+/**
+ * Updates the graded contents of a race in a swimmer's list.
+ * Prompts the user to select an active swimmer, then a race from that swimmer's list.
+ * Asks the user for new graded contents and updates the race if found.
+ */
 fun updateRaceGradedInSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
@@ -209,6 +275,13 @@ fun updateRaceGradedInSwimmer() {
     }
 }
 
+/**
+ * Asks the user to choose an active swimmer from the list of active swimmers.
+ * Prompts the user to enter the ID of the swimmer they want to select.
+ * Verifies if the swimmer is active and returns the swimmer object if found and active.
+ *
+ * @return Swimmer? - the selected swimmer object if active, null otherwise
+ */
 private fun askUserToChooseActiveSwimmer(): Swimmer? {
     listActiveSwimmers()
     if (swimmerAPI.numberOfActiveSwimmers() > 0) {
@@ -217,15 +290,23 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
             if (swimmer.isSwimmerArchived) {
                 println("Swimmer is NOT Active, it is Archived")
             } else {
-                return swimmer //chosen swimmer is active
+                return swimmer
             }
         } else {
             println("Swimmer id is not valid")
         }
     }
-    return null //selected swimmer is not active
+    return null
 }
 
+/**
+ * Asks the user to choose a race from a swimmer's list of races.
+ * Prints the list of races for the chosen swimmer and prompts the user to enter the ID of the race.
+ * Returns the selected race object if found, null otherwise.
+ *
+ * @param swimmer - the swimmer object whose races the user will choose from
+ * @return Race? - the selected race object if found, null otherwise
+ */
 private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
     return if (swimmer?.numberOfRaces()!! > 0) {
         print(swimmer?.listRaces())
@@ -236,10 +317,19 @@ private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
         null
     }
 }
+
+/**
+ * Exits the application and prints a farewell message.
+ */
 fun exitApp(){
     println("Exiting Application")
     exitProcess(0)
 }
+
+/**
+ * Saves the current state of the swimmerAPI data to a file.
+ * Handles exceptions that might occur during the save operation.
+ */
 fun save() {
     try {
         swimmerAPI.store()
@@ -248,6 +338,10 @@ fun save() {
     }
 }
 
+/**
+ * Loads the swimmerAPI data from a file.
+ * Handles exceptions that might occur during the load operation.
+ */
 fun load() {
     try {
         swimmerAPI.load()
