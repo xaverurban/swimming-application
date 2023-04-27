@@ -26,9 +26,9 @@ class SwimmerAPITest {
         sarah = Swimmer(2, "Sarah", 3, "Freestyle", false)
         tom = Swimmer(3, "Tom", 1, "Butterfly", true)
 
-        michael!!.races.add(Race(1, "no"))
-        sarah!!.races.add(Race(2, "yes"))
-        tom!!.races.add(Race(3, "no"))
+        michael!!.races.add(Race(1, "no",false))
+        sarah!!.races.add(Race(2, "yes",true))
+        tom!!.races.add(Race(3, "no",false))
 
         // Adding Swimmers to the SwimmerAPI
         populatedSwimmers!!.add(michael!!)
@@ -224,9 +224,10 @@ class SwimmerAPITest {
         @Test
         fun `archiving an active swimmer that exists returns true and archives`() {
             assertFalse(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
-            assertFalse(populatedSwimmers!!.archiveSwimmer(1))
-            assertFalse(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
+            assertTrue(populatedSwimmers!!.archiveSwimmer(1))
+            assertTrue(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
         }
+
     }
     @Nested
     inner class CountingMethods {

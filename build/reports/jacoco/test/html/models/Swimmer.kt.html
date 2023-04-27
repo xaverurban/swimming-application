@@ -25,9 +25,9 @@ import utils.Utilities
  */
 <span class="fc" id="L26">data class Swimmer(</span>
 <span class="pc" id="L27">    var swimmerId: Int = 0,</span>
-<span class="fc" id="L28">    var swimmerName: String,</span>
-<span class="fc" id="L29">    var swimmerLevel: Int,</span>
-<span class="fc" id="L30">    var swimmerCategory: String,</span>
+<span class="pc" id="L28">    var swimmerName: String,</span>
+<span class="pc" id="L29">    var swimmerLevel: Int,</span>
+<span class="pc" id="L30">    var swimmerCategory: String,</span>
 <span class="pc" id="L31">    var isSwimmerArchived: Boolean = false,</span>
 <span class="pc" id="L32">    var races: MutableSet&lt;Race&gt; = mutableSetOf()</span>
 ) {
@@ -91,13 +91,13 @@ import utils.Utilities
      */
     fun checkSwimmerCompletionStatus(): Boolean {
 <span class="pc bpc" id="L93" title="2 of 4 branches missed.">        if (races.isNotEmpty()) {</span>
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            for (race in races) {</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">            for (race in races) {</span>
 <span class="pc bpc" id="L95" title="1 of 2 branches missed.">                if (!race.isRaceOutdated) {</span>
-<span class="fc" id="L96">                    return false</span>
+<span class="nc" id="L96">                    return false</span>
                 }
             }
         }
-<span class="nc" id="L100">        return true</span>
+<span class="fc" id="L100">        return true</span>
     }
 
     /**
@@ -105,16 +105,16 @@ import utils.Utilities
      * @return A string representing the swimmer's races, or &quot;NO RACES ADDED&quot; if the swimmer has no races.
      */
     fun listRaces() =
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (races.isEmpty()) &quot;\tNO RACES ADDED&quot;</span>
-<span class="fc" id="L109">        else Utilities.formatSetString(races)</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if (races.isEmpty()) &quot;\tNO RACES ADDED&quot;</span>
+<span class="nc" id="L109">        else Utilities.formatSetString(races)</span>
 
     /**
      * Returns a string representation of the swimmer object, including their ID, name, level, category, archived status, and list of races.
      * @return A formatted string representing the swimmer.
      */
     override fun toString(): String {
-<span class="fc bfc" id="L116" title="All 2 branches covered.">        val archived = if (isSwimmerArchived) 'Y' else 'N'</span>
-<span class="fc" id="L117">        return &quot;$swimmerId: $swimmerName, Priority($swimmerLevel), Category($swimmerCategory), Archived($archived) \n${listRaces()}&quot;</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        val archived = if (isSwimmerArchived) 'Y' else 'N'</span>
+<span class="nc" id="L117">        return &quot;$swimmerId: $swimmerName, Priority($swimmerLevel), Category($swimmerCategory), Archived($archived) \n${listRaces()}&quot;</span>
     }
 <span class="fc" id="L119">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
