@@ -113,9 +113,25 @@ class SwimmerAPITest {
         fun `listArchivedSwimmers returns archived swimmers when ArrayList has archived swimmers stored`() {
             assertEquals(2, populatedSwimmers!!.numberOfArchivedSwimmers())
             val archivedSwimmersString = populatedSwimmers!!.listArchivedSwimmers().lowercase()
-            assertTrue(archivedSwimmersString.contains("michael")) // assert true/false messed up <-- come back and fix after dinner
+            assertTrue(archivedSwimmersString.contains("michael"))
             assertFalse(archivedSwimmersString.contains("sarah"))
             assertTrue(archivedSwimmersString.contains("tom"))
+        }
+        @Test
+        fun `listUngradedRaces returns no swimmer stored message when no swimmers exist`() {
+            val result = emptySwimmers!!.listUngradedRaces()
+            assertTrue(result.lowercase().contains("no swimmer stored"))
+        }
+
+        @Test
+        fun `listUngradedRaces returns correct list of ungraded races`() {
+            val result = populatedSwimmers!!.listUngradedRaces()
+
+            assertTrue(result.contains("Michael: no"))
+            assertFalse(result.contains("Sarah: yes"))
+            assertTrue(result.contains("Tom: no"))
+
+            assertFalse(result.contains("yes"))
         }
     }
 
@@ -213,6 +229,8 @@ class SwimmerAPITest {
             assertFalse(populatedSwimmers!!.archiveSwimmer(6))
             assertFalse(populatedSwimmers!!.archiveSwimmer(-1))
             assertFalse(emptySwimmers!!.archiveSwimmer(0))
+            assertFalse(populatedSwimmers!!.archiveSwimmer(99))
+            assertTrue(populatedSwimmers!!.archiveSwimmer(1))
         }
 
         @Test
@@ -259,6 +277,13 @@ class SwimmerAPITest {
             assertEquals(1, populatedSwimmers!!.numberOfSwimmersByLevel(5))
             assertEquals(0, emptySwimmers!!.numberOfSwimmersByLevel(1))
         }
+        @Test
+        fun `numberOfUngradedRaces returns correct count of non-outdated races`() {
+            val numberOfUngradedRaces = populatedSwimmers!!.numberOfUngradedRaces()
+            val expectedNumberOfUngradedRaces = 2
+
+            assertEquals(expectedNumberOfUngradedRaces, numberOfUngradedRaces)
+        }
     }
     @Nested
     inner class SearchMethods {
@@ -293,4 +318,6 @@ class SwimmerAPITest {
             }
         }
     }
+
+
 }
