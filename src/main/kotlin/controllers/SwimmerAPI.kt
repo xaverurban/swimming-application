@@ -94,6 +94,7 @@ class SwimmerAPI(serializerType: Serializer) {
             }
             listOfUngradedRaces
         }
+
     /**
      * Counts the total number of ungraded races for all swimmers.
      *
