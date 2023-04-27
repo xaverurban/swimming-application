@@ -4,7 +4,7 @@ plugins {
     kotlin("jvm") version "1.8.10"
     // Plugin for Dokka - KDoc generating tool
     id("org.jetbrains.dokka") version "1.6.10"
-
+    jacoco
     // Plugin for Ktlint
     id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     application
@@ -27,6 +27,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.withType<KotlinCompile> {

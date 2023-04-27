@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SwimmerAPITest$ListSwimmers" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-25T17:28:04" hostname="DESKTOP-66BKA17" time="0.007">
+<testsuite name="SwimmerAPITest$ListSwimmers" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-27T13:00:59" hostname="DESKTOP-66BKA17" time="0.039">
   <properties/>
-  <testcase name="listActiveSwimmers returns no active swimmers stored when ArrayList is empty()" classname="SwimmerAPITest$ListSwimmers" time="0.004"/>
-  <testcase name="listArchivedSwimmers returns archived swimmers when ArrayList has archived swimmers stored()" classname="SwimmerAPITest$ListSwimmers" time="0.001"/>
+  <testcase name="listActiveSwimmers returns no active swimmers stored when ArrayList is empty()" classname="SwimmerAPITest$ListSwimmers" time="0.033"/>
+  <testcase name="listArchivedSwimmers returns archived swimmers when ArrayList has archived swimmers stored()" classname="SwimmerAPITest$ListSwimmers" time="0.002"/>
   <testcase name="listArchivedSwimmers returns no archived swimmers when ArrayList is empty()" classname="SwimmerAPITest$ListSwimmers" time="0.0"/>
-  <testcase name="listAllSwimmers returns No Swimmers Stored message when ArrayList is empty()" classname="SwimmerAPITest$ListSwimmers" time="0.0"/>
-  <testcase name="listActiveSwimmers returns active swimmers when ArrayList has active swimmers stored()" classname="SwimmerAPITest$ListSwimmers" time="0.0"/>
-  <testcase name="listAllSwimmers returns Swimmers when ArrayList has swimmers stored()" classname="SwimmerAPITest$ListSwimmers" time="0.001"/>
+  <testcase name="listAllSwimmers returns No Swimmers Stored message when ArrayList is empty()" classname="SwimmerAPITest$ListSwimmers" time="0.001"/>
+  <testcase name="listActiveSwimmers returns active swimmers when ArrayList has active swimmers stored()" classname="SwimmerAPITest$ListSwimmers" time="0.001"/>
+  <testcase name="listAllSwimmers returns Swimmers when ArrayList has swimmers stored()" classname="SwimmerAPITest$ListSwimmers" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
