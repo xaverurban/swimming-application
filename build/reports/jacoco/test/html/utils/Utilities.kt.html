@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Utilities.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swimming-application</a> &gt; <a href="index.source.html" class="el_package">utils</a> &gt; <span class="el_source">Utilities.kt</span></div><h1>Utilities.kt</h1><pre class="source lang-java linenums">package utils
+
+import models.Race
+import models.Swimmer
+
+/**
+ * Utilities is a singleton object that provides utility methods for formatting lists and sets of Swimmer and Race objects.
+ */
+object Utilities {
+
+    /**
+     * Formats a list of Swimmer objects into a readable string.
+     * @param notesToFormat The list of Swimmer objects to format.
+     * @return A formatted string representing the list of Swimmer objects.
+     */
+    @JvmStatic
+    fun formatListString(notesToFormat: List&lt;Swimmer&gt;): String =
+<span class="nc" id="L18">        notesToFormat</span>
+<span class="nc" id="L19">            .joinToString(separator = &quot;\n&quot;) { swimmer -&gt; &quot;$swimmer&quot; }</span>
+
+    /**
+     * Formats a set of Race objects into a readable string.
+     * @param itemsToFormat The set of Race objects to format.
+     * @return A formatted string representing the set of Race objects.
+     */
+    @JvmStatic
+    fun formatSetString(itemsToFormat: Set&lt;Race&gt;): String =
+<span class="fc" id="L28">        itemsToFormat</span>
+<span class="fc" id="L29">            .joinToString(separator = &quot;\n&quot;) { race -&gt; &quot;\t$race&quot; }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
