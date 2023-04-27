@@ -28,7 +28,7 @@ jobs:
 
       # Builds a 'fat' jar file with the dependencies from Gradle
       - name: Archive Jar with Dependencies
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Jar with Dependencies
           path: build/libs
@@ -39,7 +39,7 @@ jobs:
     steps:
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it   
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Runs the Gradle test task
       - name: Test with Gradle
@@ -47,14 +47,14 @@ jobs:
 
       # Builds a zip file with JUnit test report in it    
       - name: Archive test report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Test report
           path: build/reports/tests/test
 
       # Builds a zip file with JUnit code coveage report in it    
       - name: Archive coverage report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Code Coverage report
           path: build/reports/jacoco/test/html
