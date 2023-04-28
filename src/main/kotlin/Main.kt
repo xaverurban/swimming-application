@@ -90,7 +90,7 @@ fun runMenu() {
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
-            //   9 -> markRaceStatus()
+           // 9 -> markRaceStatus()
             //     10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> list
@@ -108,8 +108,8 @@ fun runMenu() {
  * whether the Swimmer was added successfully.
  */
 fun addSwimmer() {
-    val swimmerName = ScannerInput.readNextLine("Enter a title for the swimmer: ")
-    val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+    val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
+    val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
     val swimmerCategory = ScannerInput.readNextLine("Enter a category for the swimmer: ")
     val isAdded = swimmerAPI.add(Swimmer(swimmerName = swimmerName, swimmerLevel = swimmerLevel, swimmerCategory = swimmerCategory))
 
@@ -211,7 +211,7 @@ fun updateSwimmer() {
         val id = readNextInt("Enter the id of the note to update: ")
         if (swimmerAPI.findSwimmer(id) != null) {
             val swimmerName = ScannerInput.readNextLine("Enter a title for the note: ")
-            val swimmerLevel = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+            val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
             val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
 
             if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {
@@ -309,6 +309,7 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
     }
     return null
 }
+
 
 /**
  * Asks the user to choose a race from a swimmer's list of races.
