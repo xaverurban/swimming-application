@@ -11,7 +11,7 @@ $dokka.location://listAllSwimmers/#/PointingToDeclaration/swimming-application/
 $dokka.location://listArchivedSwimmers/#/PointingToDeclaration/swimming-application/[root]/list-archived-swimmers.html
 $dokka.location://listSwimmers/#/PointingToDeclaration/swimming-application/[root]/list-swimmers.html
 $dokka.location://load/#/PointingToDeclaration/swimming-application/[root]/load.html
-$dokka.location://main/#kotlin.Array[kotlin.String]/PointingToDeclaration/swimming-application/[root]/main.html
+$dokka.location://main/#/PointingToDeclaration/swimming-application/[root]/main.html
 $dokka.location://mainMenu/#/PointingToDeclaration/swimming-application/[root]/main-menu.html
 $dokka.location://runMenu/#/PointingToDeclaration/swimming-application/[root]/run-menu.html
 $dokka.location://save/#/PointingToDeclaration/swimming-application/[root]/save.html
