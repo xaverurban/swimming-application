@@ -22,10 +22,12 @@
 *
 *@property isRaceOutdated Indicates whether the race is graded or not. Defaults to false.
  */
-<span class="fc" id="L25">data class Race(</span>
+<span class="pc" id="L25">data class Race(</span>
 <span class="pc" id="L26">    var raceId: Int = 0,</span>
 <span class="pc" id="L27">    var raceGraded: String,</span>
-<span class="pc" id="L28">    var isRaceOutdated: Boolean = false</span>
+<span class="pc" id="L28">    var raceTime: String,</span>
+<span class="pc" id="L29">    var raceType: String,</span>
+<span class="pc" id="L30">    var isRaceOutdated: Boolean = false</span>
 ) {
 
 /**
@@ -33,12 +35,10 @@
 *Returns a string representation of the race, including its ID, grade, and completion status.
 *@return A formatted string representing the race.
 */
-    override fun toString(): String {
+override fun toString(): String {
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    val gradedStr = if (isRaceOutdated) &quot;(Graded)&quot; else &quot;(Ungraded)&quot;</span>
+<span class="fc" id="L40">    return &quot;$raceId: $raceGraded $gradedStr - $raceType, Time: $raceTime&quot;</span>
+}
 
-<span class="fc bfc" id="L38" title="All 2 branches covered.">        return if (isRaceOutdated)</span>
-<span class="fc" id="L39">            &quot;$raceId: $raceGraded (Graded)&quot;</span>
-        else
-<span class="fc" id="L41">            &quot;$raceId: $raceGraded  (Ungraded)&quot;</span>
-    }
-<span class="fc" id="L43">}</span>
+<span class="nc" id="L43">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

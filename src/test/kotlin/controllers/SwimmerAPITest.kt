@@ -26,9 +26,9 @@ class SwimmerAPITest {
         sarah = Swimmer(2, "Sarah", 3, "Freestyle", false)
         tom = Swimmer(3, "Tom", 1, "Butterfly", true)
 
-        michael!!.races.add(Race(1, "no", false))
-        sarah!!.races.add(Race(2, "yes", true))
-        tom!!.races.add(Race(3, "no", false))
+        michael!!.races.add(Race(1, "no", "14:00","Backstroke",false))
+        sarah!!.races.add(Race(2, "yes", "15:00","Butterfly",true))
+        tom!!.races.add(Race(3, "no", "16:00","Backstroke",false))
 
         // Adding Swimmers to the SwimmerAPI
         populatedSwimmers!!.add(michael!!)
@@ -205,7 +205,7 @@ class SwimmerAPITest {
             storingSwimmers.add(michael!!)
             storingSwimmers.add(sarah!!)
             storingSwimmers.add(tom!!)
-            michael!!.races.add(Race(1, "no"))
+            michael!!.races.add(Race(1, "no","14:13","Freestyle",false))
             storingSwimmers.store()
 
             // Loading swimmers.xml into a different collection
@@ -329,7 +329,7 @@ class SwimmerAPITest {
 
         @Test
         fun `searchRaceByContents returns race with the given contents`() {
-            val newRace = Race(4, "medley")
+            val newRace = Race(4, "medley","16:14","medley",false)
             michael!!.races.add(newRace)
 
             val result = populatedSwimmers!!.searchRaceByContents("medley")

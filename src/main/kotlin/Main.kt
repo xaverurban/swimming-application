@@ -6,6 +6,7 @@ import models.Swimmer
 import persistence.XMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
+import utils.ScannerInput.readNextLine
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -57,7 +58,7 @@ fun mainMenu(): Int {
         |   ${optionNumber}6) ${optionName}Add race to a Swimmer$reset                       
         |   ${optionNumber}7) ${optionName}Update race contents on a Swimmer$reset           
         |   ${optionNumber}8) ${optionName}Delete race from a Swimmer$reset                  
-        |   ${optionNumber}9) ${optionName}Mark item as$reset                                
+        |   ${optionNumber}9) ${optionName}Mark race status (graded, ungraded)$reset                                
         +-----------------------------------------------------+
         | ${sectionTitle}REPORT MENU FOR SWIMMERS$reset                          
         |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
@@ -91,7 +92,7 @@ fun runMenu() {
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
             9 -> markRaceStatus()
-            //     10 -> searchSwimmers()
+            10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> list
             17 -> save()
@@ -120,6 +121,21 @@ fun addSwimmer() {
     }
 }
 
+/**
+*Asks the user to enter the name of the swimmer they want to search by.
+*Searches for all swimmers whose name contains the entered search term.
+*If found, it prints out a list of all the matching swimmers.
+*If no matches are found, it prints a message indicating that no swimmers were found.
+ */
+fun searchSwimmers() {
+    val searchName = readNextLine("Enter the name to search by: ")
+    val searchResults = swimmerAPI.searchSwimmersByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No swimmers found")
+    } else {
+        println(searchResults)
+    }
+}
 /**
  * Lists all swimmers and prompts the user to enter the ID of the swimmer to delete.
  * If a valid ID is entered, attempts to delete the swimmer from the swimmerAPI and displays a success or failure message.
