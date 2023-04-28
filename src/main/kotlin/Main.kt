@@ -91,8 +91,8 @@ fun runMenu() {
             8 -> deleteRace()
             9 -> markRaceStatus()
             10 -> searchSwimmers()
-            //     15 -> searchRaces()
-            //  16 -> list
+            15 -> searchRaces()
+            16 -> listUngradedRaces()
             17 -> save()
             18 -> load()
             0 -> exitApp()
@@ -136,6 +136,16 @@ fun searchSwimmers() {
     val searchResults = swimmerAPI.searchSwimmersByName(searchName)
     if (searchResults.isEmpty()) {
         println("No swimmers found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchRaces() {
+    val searchContents = readNextLine("Enter the race contents to search by: ")
+    val searchResults = swimmerAPI.searchRaceByContents(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No races found, try again!")
     } else {
         println(searchResults)
     }
@@ -251,6 +261,19 @@ fun updateSwimmer() {
             println("There are no notes for this index number")
         }
     }
+}
+
+/**
+ *
+ *Lists all the ungraded races in the swimmer app database.
+ *If there are ungraded races, prints the total number of ungraded races
+ *followed by the list of ungraded races.
+ */
+fun listUngradedRaces() {
+    if (swimmerAPI.numberOfUngradedRaces() > 0) {
+        println("Total Ungraded Races: ${swimmerAPI.numberOfUngradedRaces()}")
+    }
+    println(swimmerAPI.listUngradedRaces())
 }
 
 /**

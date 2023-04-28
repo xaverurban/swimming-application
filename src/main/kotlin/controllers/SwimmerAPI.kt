@@ -3,7 +3,6 @@ package controllers
 
 import models.Swimmer
 import persistence.Serializer
-import java.util.ArrayList
 /**
  *This class provides an API for managing a list of swimmers and their associated races. It offers functionality to
  *add, search, list, update, and delete swimmers, as well as manage their races.
@@ -101,15 +100,15 @@ class SwimmerAPI(serializerType: Serializer) {
      * @return The total number of upcoming races.
      */
     fun numberOfUngradedRaces(): Int {
-        var numberOfToDoRaces = 0
+        var numberOfUngradedRaces = 0
         for (Swimmer in swimmers) {
             for (race in Swimmer.races) {
                 if (!race.isRaceOutdated) {
-                    numberOfToDoRaces++
+                    numberOfUngradedRaces++
                 }
             }
         }
-        return numberOfToDoRaces
+        return numberOfUngradedRaces
     }
 
     /**

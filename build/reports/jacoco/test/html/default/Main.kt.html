@@ -80,7 +80,7 @@ fun mainMenu(): Int {
  */
 fun runMenu() {
     do {
-<span class="nc bnc" id="L83" title="All 14 branches missed.">        when (val option = mainMenu()) {</span>
+<span class="nc bnc" id="L83" title="All 16 branches missed.">        when (val option = mainMenu()) {</span>
 <span class="nc" id="L84">            1 -&gt; addSwimmer()</span>
 <span class="nc" id="L85">            2 -&gt; listSwimmers()</span>
 <span class="nc" id="L86">            3 -&gt; updateSwimmer()</span>
@@ -91,8 +91,8 @@ fun runMenu() {
 <span class="nc" id="L91">            8 -&gt; deleteRace()</span>
 <span class="nc" id="L92">            9 -&gt; markRaceStatus()</span>
 <span class="nc" id="L93">            10 -&gt; searchSwimmers()</span>
-            //     15 -&gt; searchRaces()
-            //  16 -&gt; list
+<span class="nc" id="L94">            15 -&gt; searchRaces()</span>
+<span class="nc" id="L95">            16 -&gt; listUngradedRaces()</span>
 <span class="nc" id="L96">            17 -&gt; save()</span>
 <span class="nc" id="L97">            18 -&gt; load()</span>
 <span class="nc" id="L98">            0 -&gt; exitApp()</span>
@@ -141,137 +141,160 @@ fun searchSwimmers() {
     }
 <span class="nc" id="L142">}</span>
 
+fun searchRaces() {
+<span class="nc" id="L145">    val searchContents = readNextLine(&quot;Enter the race name to search by: &quot;)</span>
+<span class="nc" id="L146">    val searchResults = swimmerAPI.searchRaceByContents(searchContents)</span>
+<span class="nc bnc" id="L147" title="All 4 branches missed.">    if (searchResults.isEmpty()) {</span>
+<span class="nc" id="L148">        println(&quot;No races found, try again!&quot;)</span>
+    } else {
+<span class="nc" id="L150">        println(searchResults)</span>
+    }
+<span class="nc" id="L152">}</span>
+
 /**
  * Lists all swimmers and prompts the user to enter the ID of the swimmer to delete.
  * If a valid ID is entered, attempts to delete the swimmer from the swimmerAPI and displays a success or failure message.
  */
 fun deleteSwimmer() {
-<span class="nc" id="L149">    listSwimmers()</span>
-<span class="nc bnc" id="L150" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
+<span class="nc" id="L159">    listSwimmers()</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
         // only ask the user to choose the swimmer to delete if swimmers exist
-<span class="nc" id="L152">        val id = readNextInt(&quot;Enter the id of the swimmer to delete: &quot;)</span>
+<span class="nc" id="L162">        val id = readNextInt(&quot;Enter the id of the swimmer to delete: &quot;)</span>
         // pass the index of the swimmer to SwimmerAPI for deleting and check for success.
-<span class="nc" id="L154">        val swimmerToDelete = swimmerAPI.delete(id)</span>
-<span class="nc bnc" id="L155" title="All 2 branches missed.">        if (swimmerToDelete) {</span>
-<span class="nc" id="L156">            println(&quot;Delete Successful!&quot;)</span>
+<span class="nc" id="L164">        val swimmerToDelete = swimmerAPI.delete(id)</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">        if (swimmerToDelete) {</span>
+<span class="nc" id="L166">            println(&quot;Delete Successful!&quot;)</span>
         } else {
-<span class="nc" id="L158">            println(&quot;Delete NOT Successful&quot;)</span>
+<span class="nc" id="L168">            println(&quot;Delete NOT Successful&quot;)</span>
         }
     }
-<span class="nc" id="L161">}</span>
+<span class="nc" id="L171">}</span>
 
 /**
  * Prompts the user to select an active swimmer and, if a valid swimmer is chosen, adds a race to the swimmer.
  * Displays a success or failure message based on whether the race was added successfully.
  */
 private fun addRaceToSwimmer() {
-<span class="nc" id="L168">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
-<span class="nc bnc" id="L169" title="All 2 branches missed.">    if (swimmer != null) {</span>
-<span class="nc" id="L170">        print(&quot;\nEnter race details:\n&quot;)</span>
-<span class="nc" id="L171">        val raceGraded = ScannerInput.readNextLine(&quot;\tRace Grade(eg. Pass, Fail): &quot;)</span>
-<span class="nc" id="L172">        val raceTime = ScannerInput.readNextLine(&quot;\tRace Time(use format HH:mm:ss): &quot;)</span>
-<span class="nc" id="L173">        val raceType = ScannerInput.readNextLine(&quot;\tRace Type(eg. Backstroke, Freestyle): &quot;)</span>
-<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (swimmer.addRace(Race(raceGraded = raceGraded, raceTime = raceTime, raceType = raceType))) {</span>
-<span class="nc" id="L175">            println(&quot;Race added successfully!&quot;)</span>
+<span class="nc" id="L178">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">    if (swimmer != null) {</span>
+<span class="nc" id="L180">        print(&quot;\nEnter race details:\n&quot;)</span>
+<span class="nc" id="L181">        val raceGraded = ScannerInput.readNextLine(&quot;\tRace Grade(eg. Pass, Fail): &quot;)</span>
+<span class="nc" id="L182">        val raceTime = ScannerInput.readNextLine(&quot;\tRace Time(use format HH:mm:ss): &quot;)</span>
+<span class="nc" id="L183">        val raceType = ScannerInput.readNextLine(&quot;\tRace Type(eg. Backstroke, Freestyle): &quot;)</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (swimmer.addRace(Race(raceGraded = raceGraded, raceTime = raceTime, raceType = raceType))) {</span>
+<span class="nc" id="L185">            println(&quot;Race added successfully!&quot;)</span>
         } else {
-<span class="nc" id="L177">            println(&quot;Failed to add race. Try again!&quot;)</span>
+<span class="nc" id="L187">            println(&quot;Failed to add race. Try again!&quot;)</span>
         }
     }
-<span class="nc" id="L180">}</span>
+<span class="nc" id="L190">}</span>
 
 /**
  * Displays a menu to list swimmers based on different criteria (all, active, or archived).
  * Executes the appropriate function based on the user's input, or displays an error message if no swimmers are stored.
  */
 fun listSwimmers() {
-<span class="nc bnc" id="L187" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
-<span class="nc" id="L188">        val green = &quot;\u001B[32m&quot;</span>
-<span class="nc" id="L189">        val yellow = &quot;\u001B[33m&quot;</span>
-<span class="nc" id="L190">        val reset = &quot;\u001B[0m&quot;</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
+<span class="nc" id="L198">        val green = &quot;\u001B[32m&quot;</span>
+<span class="nc" id="L199">        val yellow = &quot;\u001B[33m&quot;</span>
+<span class="nc" id="L200">        val reset = &quot;\u001B[0m&quot;</span>
 
-<span class="nc" id="L192">        val option = readNextInt(</span>
-<span class="nc" id="L193">            &quot;&quot;&quot;</span>
-<span class="nc" id="L194">            $yellowâ”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”�</span>
-<span class="nc" id="L195">            â”‚         ${green}VIEW SWIMMERS MENU$yellow          â”‚</span>
+<span class="nc" id="L202">        val option = readNextInt(</span>
+<span class="nc" id="L203">            &quot;&quot;&quot;</span>
+<span class="nc" id="L204">            $yellowâ”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”�</span>
+<span class="nc" id="L205">            â”‚         ${green}VIEW SWIMMERS MENU$yellow          â”‚</span>
             â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
-<span class="nc" id="L197">            â”‚   1) ${green}View All Swimmers$reset              â”‚</span>
-<span class="nc" id="L198">            â”‚   2) ${green}View Active Swimmers$reset           â”‚</span>
-<span class="nc" id="L199">            â”‚   3) ${green}View Archived Swimmers$reset         â”‚</span>
+<span class="nc" id="L207">            â”‚   1) ${green}View All Swimmers$reset              â”‚</span>
+<span class="nc" id="L208">            â”‚   2) ${green}View Active Swimmers$reset           â”‚</span>
+<span class="nc" id="L209">            â”‚   3) ${green}View Archived Swimmers$reset         â”‚</span>
             â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
             ==&gt;&gt; 
-<span class="nc" id="L202">            &quot;&quot;&quot;.trimIndent()</span>
+<span class="nc" id="L212">            &quot;&quot;&quot;.trimIndent()</span>
         )
 
-<span class="nc bnc" id="L205" title="All 4 branches missed.">        when (option) {</span>
-<span class="nc" id="L206">            1 -&gt; listAllSwimmers()</span>
-<span class="nc" id="L207">            2 -&gt; listActiveSwimmers()</span>
-<span class="nc" id="L208">            3 -&gt; listArchivedSwimmers()</span>
-<span class="nc" id="L209">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
+<span class="nc bnc" id="L215" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L216">            1 -&gt; listAllSwimmers()</span>
+<span class="nc" id="L217">            2 -&gt; listActiveSwimmers()</span>
+<span class="nc" id="L218">            3 -&gt; listArchivedSwimmers()</span>
+<span class="nc" id="L219">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
         }
     } else {
-<span class="nc" id="L212">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+<span class="nc" id="L222">        println(&quot;Option Invalid - No notes stored&quot;)</span>
     }
-<span class="nc" id="L214">}</span>
+<span class="nc" id="L224">}</span>
 
 /**
  * Lists all swimmers in the swimmerAPI.
  */
-<span class="nc" id="L219">fun listAllSwimmers() = println(swimmerAPI.listAllSwimmers())</span>
+<span class="nc" id="L229">fun listAllSwimmers() = println(swimmerAPI.listAllSwimmers())</span>
 
 /**
  * Lists all active swimmers in the swimmerAPI.
  */
-<span class="nc" id="L224">fun listActiveSwimmers() = println(swimmerAPI.listActiveSwimmers())</span>
+<span class="nc" id="L234">fun listActiveSwimmers() = println(swimmerAPI.listActiveSwimmers())</span>
 
 /**
  * Lists all archived swimmers in the swimmerAPI.
  */
-<span class="nc" id="L229">fun listArchivedSwimmers() = println(swimmerAPI.listArchivedSwimmers())</span>
+<span class="nc" id="L239">fun listArchivedSwimmers() = println(swimmerAPI.listArchivedSwimmers())</span>
 
 /**
  * Lists all swimmers and prompts the user to update the swimmer details (name, level, and category) for the selected swimmer.
  * Updates the swimmer in the swimmerAPI if the entered ID is valid, and displays a success or failure message.
  */
 fun updateSwimmer() {
-<span class="nc" id="L236">    listSwimmers()</span>
-<span class="nc bnc" id="L237" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
+<span class="nc" id="L246">    listSwimmers()</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
 
-<span class="nc" id="L239">        val id = readNextInt(&quot;Enter the id of the note to update: &quot;)</span>
-<span class="nc bnc" id="L240" title="All 2 branches missed.">        if (swimmerAPI.findSwimmer(id) != null) {</span>
-<span class="nc" id="L241">            val swimmerName = ScannerInput.readNextLine(&quot;Enter a title for the note: &quot;)</span>
-<span class="nc" id="L242">            val swimmerLevel = readNextInt(&quot;Enter a level of swimmer (1-low, 2, 3, 4, 5-high): &quot;)</span>
-<span class="nc" id="L243">            val swimmerCategory = ScannerInput.readNextLine(&quot;Enter a category for the note: &quot;)</span>
+<span class="nc" id="L249">        val id = readNextInt(&quot;Enter the id of the note to update: &quot;)</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">        if (swimmerAPI.findSwimmer(id) != null) {</span>
+<span class="nc" id="L251">            val swimmerName = ScannerInput.readNextLine(&quot;Enter a title for the note: &quot;)</span>
+<span class="nc" id="L252">            val swimmerLevel = readNextInt(&quot;Enter a level of swimmer (1-low, 2, 3, 4, 5-high): &quot;)</span>
+<span class="nc" id="L253">            val swimmerCategory = ScannerInput.readNextLine(&quot;Enter a category for the note: &quot;)</span>
 
-<span class="nc bnc" id="L245" title="All 2 branches missed.">            if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {</span>
-<span class="nc" id="L246">                println(&quot;Update Successful&quot;)</span>
+<span class="nc bnc" id="L255" title="All 2 branches missed.">            if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {</span>
+<span class="nc" id="L256">                println(&quot;Update Successful&quot;)</span>
             } else {
-<span class="nc" id="L248">                println(&quot;Update Failed&quot;)</span>
+<span class="nc" id="L258">                println(&quot;Update Failed&quot;)</span>
             }
         } else {
-<span class="nc" id="L251">            println(&quot;There are no notes for this index number&quot;)</span>
+<span class="nc" id="L261">            println(&quot;There are no notes for this index number&quot;)</span>
         }
     }
-<span class="nc" id="L254">}</span>
+<span class="nc" id="L264">}</span>
+
+/**
+ *
+ *Lists all the ungraded races in the swimmer app database.
+ *If there are ungraded races, prints the total number of ungraded races
+ *followed by the list of ungraded races.
+ */
+fun listUngradedRaces() {
+<span class="nc bnc" id="L273" title="All 2 branches missed.">    if (swimmerAPI.numberOfUngradedRaces() &gt; 0) {</span>
+<span class="nc" id="L274">        println(&quot;Total Ungraded Races: ${swimmerAPI.numberOfUngradedRaces()}&quot;)</span>
+    }
+<span class="nc" id="L276">    println(swimmerAPI.listUngradedRaces())</span>
+<span class="nc" id="L277">}</span>
 
 /**
  * Lists all active swimmers and prompts the user to enter the ID of the swimmer to archive.
  * If a valid ID is entered, attempts to archive the swimmer in the swimmerAPI and displays a success or failure message.
  */
 fun archiveSwimmer() {
-<span class="nc" id="L261">    listActiveSwimmers()</span>
-<span class="nc bnc" id="L262" title="All 2 branches missed.">    if (swimmerAPI.numberOfActiveSwimmers() &gt; 0) {</span>
+<span class="nc" id="L284">    listActiveSwimmers()</span>
+<span class="nc bnc" id="L285" title="All 2 branches missed.">    if (swimmerAPI.numberOfActiveSwimmers() &gt; 0) {</span>
         // only ask the user to choose the swimmer to archive if active swimmers exist
-<span class="nc" id="L264">        val id = readNextInt(&quot;Enter the ID of the swimmer you want to archive: &quot;)</span>
-<span class="nc" id="L265">        val archivedSwimmer = swimmerAPI.archiveSwimmer(id)</span>
-<span class="nc bnc" id="L266" title="All 2 branches missed.">        if (archivedSwimmer) {</span>
-<span class="nc" id="L267">            println(&quot;Swimmer with ID $id has been successfully archived!&quot;)</span>
+<span class="nc" id="L287">        val id = readNextInt(&quot;Enter the ID of the swimmer you want to archive: &quot;)</span>
+<span class="nc" id="L288">        val archivedSwimmer = swimmerAPI.archiveSwimmer(id)</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">        if (archivedSwimmer) {</span>
+<span class="nc" id="L290">            println(&quot;Swimmer with ID $id has been successfully archived!&quot;)</span>
         } else {
-<span class="nc" id="L269">            println(&quot;Failed to archive swimmer with ID $id. Please try again.&quot;)</span>
+<span class="nc" id="L292">            println(&quot;Failed to archive swimmer with ID $id. Please try again.&quot;)</span>
         }
     } else {
-<span class="nc" id="L272">        println(&quot;There are no active swimmers to archive.&quot;)</span>
+<span class="nc" id="L295">        println(&quot;There are no active swimmers to archive.&quot;)</span>
     }
-<span class="nc" id="L274">}</span>
+<span class="nc" id="L297">}</span>
 
 /**
  * Deletes a race from a swimmer's list of races.
@@ -279,17 +302,17 @@ fun archiveSwimmer() {
  * If the race is found and successfully deleted, a success message is printed.
  */
 fun deleteRace() {
-<span class="nc" id="L282">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
-<span class="nc bnc" id="L283" title="All 2 branches missed.">    if (swimmer != null) {</span>
-<span class="nc" id="L284">        val race: Race? = askUserToChooseRace(swimmer)</span>
-<span class="nc bnc" id="L285" title="All 2 branches missed.">        if (race != null) {</span>
-<span class="nc" id="L286">            val isDeleted = swimmer.delete(race.raceId)</span>
-<span class="nc bnc" id="L287" title="All 2 branches missed.">            if (isDeleted)</span>
-<span class="nc" id="L288">                println(&quot;Race deleted successfully from ${swimmer.swimmerName}'s list of races.&quot;)</span>
-<span class="nc" id="L289">            else println(&quot;Unable to delete the race from ${swimmer.swimmerName}'s list of races.&quot;)</span>
-<span class="nc" id="L290">        } else println(&quot;Invalid race ID. Please choose a valid race ID.&quot;)</span>
+<span class="nc" id="L305">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">    if (swimmer != null) {</span>
+<span class="nc" id="L307">        val race: Race? = askUserToChooseRace(swimmer)</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">        if (race != null) {</span>
+<span class="nc" id="L309">            val isDeleted = swimmer.delete(race.raceId)</span>
+<span class="nc bnc" id="L310" title="All 2 branches missed.">            if (isDeleted)</span>
+<span class="nc" id="L311">                println(&quot;Race deleted successfully from ${swimmer.swimmerName}'s list of races.&quot;)</span>
+<span class="nc" id="L312">            else println(&quot;Unable to delete the race from ${swimmer.swimmerName}'s list of races.&quot;)</span>
+<span class="nc" id="L313">        } else println(&quot;Invalid race ID. Please choose a valid race ID.&quot;)</span>
     }
-<span class="nc" id="L292">}</span>
+<span class="nc" id="L315">}</span>
 
 /**
  * Updates the graded contents of a race in a swimmer's list.
@@ -297,34 +320,34 @@ fun deleteRace() {
  * Asks the user for new graded contents and updates the race if found.
  */
 fun updateRaceGradedInSwimmer() {
-<span class="nc" id="L300">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
+<span class="nc" id="L323">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
 
-<span class="nc bnc" id="L302" title="All 2 branches missed.">    if (swimmer != null) {</span>
-<span class="nc" id="L303">        val item: Race? = askUserToChooseRace(swimmer)</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">    if (swimmer != null) {</span>
+<span class="nc" id="L326">        val item: Race? = askUserToChooseRace(swimmer)</span>
 
-<span class="nc bnc" id="L305" title="All 2 branches missed.">        if (item != null) {</span>
-<span class="nc" id="L306">            val newGrade = ScannerInput.readNextLine(&quot;Enter new grade(eg.Pass, Fail): &quot;)</span>
-<span class="nc" id="L307">            val newTime = ScannerInput.readNextLine(&quot;Enter new time(use format HH:mm:ss): &quot;)</span>
-<span class="nc" id="L308">            val newType = ScannerInput.readNextLine(&quot;Enter new type(eg. Backstroke, Freestyle etc.): &quot;)</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">        if (item != null) {</span>
+<span class="nc" id="L329">            val newGrade = ScannerInput.readNextLine(&quot;Enter new grade(eg.Pass, Fail): &quot;)</span>
+<span class="nc" id="L330">            val newTime = ScannerInput.readNextLine(&quot;Enter new time(use format HH:mm:ss): &quot;)</span>
+<span class="nc" id="L331">            val newType = ScannerInput.readNextLine(&quot;Enter new type(eg. Backstroke, Freestyle etc.): &quot;)</span>
 
-<span class="nc" id="L310">            val updatedRace = Race(</span>
-<span class="nc" id="L311">                raceId = item.raceId,</span>
-<span class="nc" id="L312">                raceGraded = newGrade,</span>
-<span class="nc" id="L313">                raceTime = newTime,</span>
-<span class="nc" id="L314">                raceType = newType,</span>
-<span class="nc" id="L315">                isRaceOutdated = item.isRaceOutdated</span>
+<span class="nc" id="L333">            val updatedRace = Race(</span>
+<span class="nc" id="L334">                raceId = item.raceId,</span>
+<span class="nc" id="L335">                raceGraded = newGrade,</span>
+<span class="nc" id="L336">                raceTime = newTime,</span>
+<span class="nc" id="L337">                raceType = newType,</span>
+<span class="nc" id="L338">                isRaceOutdated = item.isRaceOutdated</span>
             )
 
-<span class="nc bnc" id="L318" title="All 2 branches missed.">            if (swimmer.update(item.raceId, updatedRace)) {</span>
-<span class="nc" id="L319">                println(&quot;Race contents updated&quot;)</span>
+<span class="nc bnc" id="L341" title="All 2 branches missed.">            if (swimmer.update(item.raceId, updatedRace)) {</span>
+<span class="nc" id="L342">                println(&quot;Race contents updated&quot;)</span>
             } else {
-<span class="nc" id="L321">                println(&quot;Race contents NOT updated&quot;)</span>
+<span class="nc" id="L344">                println(&quot;Race contents NOT updated&quot;)</span>
             }
         } else {
-<span class="nc" id="L324">            println(&quot;Invalid Race Id&quot;)</span>
+<span class="nc" id="L347">            println(&quot;Invalid Race Id&quot;)</span>
         }
     }
-<span class="nc" id="L327">}</span>
+<span class="nc" id="L350">}</span>
 
 /**
  *
@@ -333,25 +356,25 @@ fun updateRaceGradedInSwimmer() {
  *@return Swimmer? - the selected swimmer object if active, null otherwise
  */
 fun markRaceStatus() {
-<span class="nc" id="L336">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
-<span class="nc bnc" id="L337" title="All 2 branches missed.">    if (swimmer != null) {</span>
-<span class="nc" id="L338">        val race: Race? = askUserToChooseRace(swimmer)</span>
-<span class="nc bnc" id="L339" title="All 2 branches missed.">        if (race != null) {</span>
+<span class="nc" id="L359">    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">    if (swimmer != null) {</span>
+<span class="nc" id="L361">        val race: Race? = askUserToChooseRace(swimmer)</span>
+<span class="nc bnc" id="L362" title="All 2 branches missed.">        if (race != null) {</span>
             var changeStatus: Char
-<span class="nc bnc" id="L341" title="All 2 branches missed.">            if (race.isRaceOutdated) {</span>
-<span class="nc" id="L342">                changeStatus =</span>
-<span class="nc" id="L343">                    ScannerInput.readNextChar(&quot;The race is currently complete...do you want to mark it as TODO?&quot;)</span>
-<span class="nc bnc" id="L344" title="All 4 branches missed.">                if ((changeStatus == 'Y') || (changeStatus == 'y'))</span>
-<span class="nc" id="L345">                    race.isRaceOutdated = false</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">            if (race.isRaceOutdated) {</span>
+<span class="nc" id="L365">                changeStatus =</span>
+<span class="nc" id="L366">                    ScannerInput.readNextChar(&quot;The race is currently complete...do you want to mark it as TODO?&quot;)</span>
+<span class="nc bnc" id="L367" title="All 4 branches missed.">                if ((changeStatus == 'Y') || (changeStatus == 'y'))</span>
+<span class="nc" id="L368">                    race.isRaceOutdated = false</span>
             } else {
-<span class="nc" id="L347">                changeStatus =</span>
-<span class="nc" id="L348">                    ScannerInput.readNextChar(&quot;The race is currently TODO...do you want to mark it as Complete?&quot;)</span>
-<span class="nc bnc" id="L349" title="All 4 branches missed.">                if ((changeStatus == 'Y') || (changeStatus == 'y'))</span>
-<span class="nc" id="L350">                    race.isRaceOutdated = true</span>
+<span class="nc" id="L370">                changeStatus =</span>
+<span class="nc" id="L371">                    ScannerInput.readNextChar(&quot;The race is currently TODO...do you want to mark it as Complete?&quot;)</span>
+<span class="nc bnc" id="L372" title="All 4 branches missed.">                if ((changeStatus == 'Y') || (changeStatus == 'y'))</span>
+<span class="nc" id="L373">                    race.isRaceOutdated = true</span>
             }
         }
     }
-<span class="nc" id="L354">}</span>
+<span class="nc" id="L377">}</span>
 
 /**
  * Asks the user to choose an active swimmer from the list of active swimmers.
@@ -361,20 +384,20 @@ fun markRaceStatus() {
  * @return Swimmer? - the selected swimmer object if active, null otherwise
  */
 private fun askUserToChooseActiveSwimmer(): Swimmer? {
-<span class="nc" id="L364">    listActiveSwimmers()</span>
-<span class="nc bnc" id="L365" title="All 2 branches missed.">    if (swimmerAPI.numberOfActiveSwimmers() &gt; 0) {</span>
-<span class="nc" id="L366">        val swimmer = swimmerAPI.findSwimmer(readNextInt(&quot;\nEnter the id of the swimmer: &quot;))</span>
-<span class="nc bnc" id="L367" title="All 2 branches missed.">        if (swimmer != null) {</span>
-<span class="nc bnc" id="L368" title="All 2 branches missed.">            if (swimmer.isSwimmerArchived) {</span>
-<span class="nc" id="L369">                println(&quot;Swimmer is NOT Active, it is Archived&quot;)</span>
+<span class="nc" id="L387">    listActiveSwimmers()</span>
+<span class="nc bnc" id="L388" title="All 2 branches missed.">    if (swimmerAPI.numberOfActiveSwimmers() &gt; 0) {</span>
+<span class="nc" id="L389">        val swimmer = swimmerAPI.findSwimmer(readNextInt(&quot;\nEnter the id of the swimmer: &quot;))</span>
+<span class="nc bnc" id="L390" title="All 2 branches missed.">        if (swimmer != null) {</span>
+<span class="nc bnc" id="L391" title="All 2 branches missed.">            if (swimmer.isSwimmerArchived) {</span>
+<span class="nc" id="L392">                println(&quot;Swimmer is NOT Active, it is Archived&quot;)</span>
             } else {
-<span class="nc" id="L371">                return swimmer</span>
+<span class="nc" id="L394">                return swimmer</span>
             }
         } else {
-<span class="nc" id="L374">            println(&quot;Swimmer id is not valid&quot;)</span>
+<span class="nc" id="L397">            println(&quot;Swimmer id is not valid&quot;)</span>
         }
     }
-<span class="nc" id="L377">    return null</span>
+<span class="nc" id="L400">    return null</span>
 }
 
 /**
@@ -386,12 +409,12 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
  * @return Race? - the selected race object if found, null otherwise
  */
 private fun askUserToChooseRace(swimmer: Swimmer): Race? {
-<span class="nc bnc" id="L389" title="All 2 branches missed.">    if (swimmer.numberOfRaces() &gt; 0) {</span>
-<span class="nc" id="L390">        print(swimmer.listRaces())</span>
-<span class="nc" id="L391">        return swimmer.findOne(readNextInt(&quot;\nEnter the id of the item: &quot;))</span>
+<span class="nc bnc" id="L412" title="All 2 branches missed.">    if (swimmer.numberOfRaces() &gt; 0) {</span>
+<span class="nc" id="L413">        print(swimmer.listRaces())</span>
+<span class="nc" id="L414">        return swimmer.findOne(readNextInt(&quot;\nEnter the id of the item: &quot;))</span>
     } else {
-<span class="nc" id="L393">        println(&quot;No items for chosen swimmer&quot;)</span>
-<span class="nc" id="L394">        return null</span>
+<span class="nc" id="L416">        println(&quot;No items for chosen swimmer&quot;)</span>
+<span class="nc" id="L417">        return null</span>
     }
 }
 
@@ -399,8 +422,8 @@ private fun askUserToChooseRace(swimmer: Swimmer): Race? {
  * Exits the application and prints a farewell message.
  */
 fun exitApp() {
-<span class="nc" id="L402">    println(&quot;Exiting Application&quot;)</span>
-<span class="nc" id="L403">    exitProcess(0)</span>
+<span class="nc" id="L425">    println(&quot;Exiting Application&quot;)</span>
+<span class="nc" id="L426">    exitProcess(0)</span>
 }
 
 /**
@@ -408,22 +431,22 @@ fun exitApp() {
  * Handles exceptions that might occur during the save operation.
  */
 fun save() {
-<span class="nc" id="L411">    try {</span>
-<span class="nc" id="L412">        swimmerAPI.store()</span>
-<span class="nc" id="L413">    } catch (e: Exception) {</span>
-<span class="nc" id="L414">        System.err.println(&quot;Error writing to file: $e&quot;)</span>
+<span class="nc" id="L434">    try {</span>
+<span class="nc" id="L435">        swimmerAPI.store()</span>
+<span class="nc" id="L436">    } catch (e: Exception) {</span>
+<span class="nc" id="L437">        System.err.println(&quot;Error writing to file: $e&quot;)</span>
     }
-<span class="nc" id="L416">}</span>
+<span class="nc" id="L439">}</span>
 
 /**
  * Loads the swimmerAPI data from a file.
  * Handles exceptions that might occur during the load operation.
  */
 fun load() {
-<span class="nc" id="L423">    try {</span>
-<span class="nc" id="L424">        swimmerAPI.load()</span>
-<span class="nc" id="L425">    } catch (e: Exception) {</span>
-<span class="nc" id="L426">        System.err.println(&quot;Error reading from file: $e&quot;)</span>
+<span class="nc" id="L446">    try {</span>
+<span class="nc" id="L447">        swimmerAPI.load()</span>
+<span class="nc" id="L448">    } catch (e: Exception) {</span>
+<span class="nc" id="L449">        System.err.println(&quot;Error reading from file: $e&quot;)</span>
     }
-<span class="nc" id="L428">}</span>
+<span class="nc" id="L451">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
