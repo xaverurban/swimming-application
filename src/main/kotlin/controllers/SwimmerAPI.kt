@@ -251,7 +251,6 @@ class SwimmerAPI(serializerType: Serializer) {
     fun store() {
         serializer.write(swimmers)
     }
-
     /**
      * Formats a list of Swimmer objects into a string representation.
      *
