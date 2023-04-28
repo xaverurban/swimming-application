@@ -48,9 +48,9 @@ import java.util.ArrayList
      * @return A formatted string with the list of matching swimmers.
      */
     fun searchSwimmersByName(searchString: String) =
-<span class="nc" id="L51">        formatListString(</span>
-<span class="nc" id="L52">            swimmers.filter { swimmer -&gt; swimmer.swimmerName.contains(searchString, ignoreCase = true) }</span>
-<span class="nc" id="L53">        )</span>
+<span class="fc" id="L51">        formatListString(</span>
+<span class="fc" id="L52">            swimmers.filter { swimmer -&gt; swimmer.swimmerName.contains(searchString, ignoreCase = true) }</span>
+<span class="fc" id="L53">        )</span>
 
     /**
      * Searches for races in the list of swimmers by their contents and returns a formatted string with the results.
@@ -61,18 +61,18 @@ import java.util.ArrayList
      * @return A formatted string with the list of matching races along with their respective swimmer details.
      */
     fun searchRaceByContents(searchString: String): String {
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        return if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        return if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
         else {
-<span class="nc" id="L66">            var listOfSwimmers = &quot;&quot;</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">            for (swimmer in swimmers) {</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">                for (race in swimmer.races) {</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {</span>
-<span class="nc" id="L70">                        listOfSwimmers += &quot;${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n&quot;</span>
+<span class="fc" id="L66">            var listOfSwimmers = &quot;&quot;</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {</span>
+<span class="fc" id="L70">                        listOfSwimmers += &quot;${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n&quot;</span>
                     }
                 }
             }
-<span class="nc bnc" id="L74" title="All 2 branches missed.">            if (listOfSwimmers == &quot;&quot;) &quot;No races found for: $searchString&quot;</span>
-<span class="nc" id="L75">            else listOfSwimmers</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (listOfSwimmers == &quot;&quot;) &quot;No races found for: $searchString&quot;</span>
+<span class="fc" id="L75">            else listOfSwimmers</span>
         }
     }
 
@@ -82,18 +82,18 @@ import java.util.ArrayList
      * @return A formatted string containing the list of upcoming races, or &quot;No swimmer stored&quot; if there are no swimmers.
      */
     fun listUngradedRaces(): String =
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
         else {
-<span class="nc" id="L87">            var listOfUngradedRaces = &quot;&quot;</span>
-<span class="nc bnc" id="L88" title="All 2 branches missed.">            for (swimmer in swimmers) {</span>
-<span class="nc bnc" id="L89" title="All 2 branches missed.">                for (race in swimmer.races) {</span>
-<span class="nc bnc" id="L90" title="All 2 branches missed.">                    if (!race.isRaceOutdated) {</span>
-<span class="nc" id="L91">                        listOfUngradedRaces += swimmer.swimmerName + &quot;: &quot; + race.raceGraded + &quot;\n&quot;</span>
+<span class="fc" id="L87">            var listOfUngradedRaces = &quot;&quot;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                    if (!race.isRaceOutdated) {</span>
+<span class="fc" id="L91">                        listOfUngradedRaces += swimmer.swimmerName + &quot;: &quot; + race.raceGraded + &quot;\n&quot;</span>
                     }
                 }
             }
-<span class="nc" id="L95">            listOfUngradedRaces</span>
-<span class="nc" id="L96">        }</span>
+<span class="fc" id="L95">            listOfUngradedRaces</span>
+<span class="fc" id="L96">        }</span>
 
     /**
      * Counts the total number of ungraded races for all swimmers.
@@ -101,15 +101,15 @@ import java.util.ArrayList
      * @return The total number of upcoming races.
      */
     fun numberOfUngradedRaces(): Int {
-<span class="nc" id="L104">        var numberOfToDoRaces = 0</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        for (Swimmer in swimmers) {</span>
-<span class="nc bnc" id="L106" title="All 2 branches missed.">            for (race in Swimmer.races) {</span>
-<span class="nc bnc" id="L107" title="All 2 branches missed.">                if (!race.isRaceOutdated) {</span>
-<span class="nc" id="L108">                    numberOfToDoRaces++</span>
+<span class="fc" id="L104">        var numberOfToDoRaces = 0</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (Swimmer in swimmers) {</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">            for (race in Swimmer.races) {</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                if (!race.isRaceOutdated) {</span>
+<span class="fc" id="L108">                    numberOfToDoRaces++</span>
                 }
             }
         }
-<span class="nc" id="L112">        return numberOfToDoRaces</span>
+<span class="fc" id="L112">        return numberOfToDoRaces</span>
     }
 
     /**
@@ -166,8 +166,8 @@ import java.util.ArrayList
 <span class="fc bfc" id="L166" title="All 4 branches covered.">        if ((foundSwimmer != null) &amp;&amp; (!foundSwimmer.isSwimmerArchived) &amp;&amp;</span>
 <span class="pc bpc" id="L167" title="1 of 2 branches missed.">            (foundSwimmer.checkSwimmerCompletionStatus())</span>
         ) {
-<span class="nc" id="L169">            foundSwimmer.isSwimmerArchived = true</span>
-<span class="nc" id="L170">            return true</span>
+<span class="fc" id="L169">            foundSwimmer.isSwimmerArchived = true</span>
+<span class="fc" id="L170">            return true</span>
         }
 <span class="fc" id="L172">        return false</span>
     }

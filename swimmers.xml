@@ -25,7 +25,7 @@
         <models.Race>
           <raceId>2</raceId>
           <raceGraded>yes</raceGraded>
-          <isRaceOutdated>false</isRaceOutdated>
+          <isRaceOutdated>true</isRaceOutdated>
         </models.Race>
       </races>
       <lastRaceId>0</lastRaceId>

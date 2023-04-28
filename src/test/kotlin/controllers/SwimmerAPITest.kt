@@ -26,9 +26,9 @@ class SwimmerAPITest {
         sarah = Swimmer(2, "Sarah", 3, "Freestyle", false)
         tom = Swimmer(3, "Tom", 1, "Butterfly", true)
 
-        michael!!.races.add(Race(1, "no"))
-        sarah!!.races.add(Race(2, "yes"))
-        tom!!.races.add(Race(3, "no"))
+        michael!!.races.add(Race(1, "no",false))
+        sarah!!.races.add(Race(2, "yes",true))
+        tom!!.races.add(Race(3, "no",false))
 
         // Adding Swimmers to the SwimmerAPI
         populatedSwimmers!!.add(michael!!)
@@ -113,9 +113,25 @@ class SwimmerAPITest {
         fun `listArchivedSwimmers returns archived swimmers when ArrayList has archived swimmers stored`() {
             assertEquals(2, populatedSwimmers!!.numberOfArchivedSwimmers())
             val archivedSwimmersString = populatedSwimmers!!.listArchivedSwimmers().lowercase()
-            assertTrue(archivedSwimmersString.contains("michael")) // assert true/false messed up <-- come back and fix after dinner
+            assertTrue(archivedSwimmersString.contains("michael"))
             assertFalse(archivedSwimmersString.contains("sarah"))
             assertTrue(archivedSwimmersString.contains("tom"))
+        }
+        @Test
+        fun `listUngradedRaces returns no swimmer stored message when no swimmers exist`() {
+            val result = emptySwimmers!!.listUngradedRaces()
+            assertTrue(result.lowercase().contains("no swimmer stored"))
+        }
+
+        @Test
+        fun `listUngradedRaces returns correct list of ungraded races`() {
+            val result = populatedSwimmers!!.listUngradedRaces()
+
+            assertTrue(result.contains("Michael: no"))
+            assertFalse(result.contains("Sarah: yes"))
+            assertTrue(result.contains("Tom: no"))
+
+            assertFalse(result.contains("yes"))
         }
     }
 
@@ -189,7 +205,6 @@ class SwimmerAPITest {
             storingSwimmers.add(michael!!)
             storingSwimmers.add(sarah!!)
             storingSwimmers.add(tom!!)
-            storingSwimmers
             michael!!.races.add(Race(1, "no"))
             storingSwimmers.store()
 
@@ -213,6 +228,8 @@ class SwimmerAPITest {
             assertFalse(populatedSwimmers!!.archiveSwimmer(6))
             assertFalse(populatedSwimmers!!.archiveSwimmer(-1))
             assertFalse(emptySwimmers!!.archiveSwimmer(0))
+            assertFalse(populatedSwimmers!!.archiveSwimmer(99))
+            assertTrue(populatedSwimmers!!.archiveSwimmer(1))
         }
 
         @Test
@@ -224,9 +241,10 @@ class SwimmerAPITest {
         @Test
         fun `archiving an active swimmer that exists returns true and archives`() {
             assertFalse(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
-            assertFalse(populatedSwimmers!!.archiveSwimmer(1))
-            assertFalse(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
+            assertTrue(populatedSwimmers!!.archiveSwimmer(1))
+            assertTrue(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
         }
+
     }
     @Nested
     inner class CountingMethods {
@@ -257,6 +275,13 @@ class SwimmerAPITest {
             assertEquals(0, populatedSwimmers!!.numberOfSwimmersByLevel(4))
             assertEquals(1, populatedSwimmers!!.numberOfSwimmersByLevel(5))
             assertEquals(0, emptySwimmers!!.numberOfSwimmersByLevel(1))
+        }
+        @Test
+        fun `numberOfUngradedRaces returns correct count of non-outdated races`() {
+            val numberOfUngradedRaces = populatedSwimmers!!.numberOfUngradedRaces()
+            val expectedNumberOfUngradedRaces = 2
+
+            assertEquals(expectedNumberOfUngradedRaces, numberOfUngradedRaces)
         }
     }
     @Nested
@@ -291,5 +316,44 @@ class SwimmerAPITest {
                 assertFalse(searchResults.contains(swimmers.findSwimmer(3)))
             }
         }
+        @Test
+        fun `searchRaceByContents returns no swimmer stored message when no swimmers exists`() {
+            val result = emptySwimmers!!.searchRaceByContents("abed")
+            assertTrue(result.lowercase().contains("no swimmer stored"))
+        }
+
+        @Test
+        fun `searchRaceByContents returns no races found message when no races exist`() {
+            val result = populatedSwimmers!!.searchRaceByContents("popcorn")
+            assertTrue(result.lowercase().contains("no races found for: popcorn"))
+        }
+
+        @Test
+        fun `searchRaceByContents returns race with the given contents`() {
+            val newRace = Race(4, "medley")
+            michael!!.races.add(newRace)
+
+            val result = populatedSwimmers!!.searchRaceByContents("medley")
+            assertTrue(result.contains("Michael"))
+            assertTrue(result.contains("medley"))
+            assertFalse(result.contains("no"))
+            assertFalse(result.contains("yes"))
+        }
+        @Test
+        fun `searchSwimmersByName returns empty list when nothing matching swimmer exists`() {
+
+            val api = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
+            api.add(Swimmer(1, "Michael", 5, "Backstroke", true))
+            api.add(Swimmer(2, "Sarah", 3, "Freestyle", false))
+            api.add(Swimmer(3, "Tom", 1, "Butterfly", true))
+
+
+            val searchResults = api.searchSwimmersByName("nonexistent")
+
+
+            assertTrue(searchResults.isEmpty())
+        }
+
     }
+
 }
