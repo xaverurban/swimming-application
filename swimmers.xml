@@ -22,6 +22,8 @@
           <isRaceOutdated>false</isRaceOutdated>
         </models.Race>
       </races>
+      <creationTime>2023-04-28T21:23:17.4268432</creationTime>
+      <updateTime>2023-04-28T21:23:17.4268432</updateTime>
       <lastRaceId>0</lastRaceId>
     </models.Swimmer>
     <models.Swimmer>
@@ -39,6 +41,8 @@
           <isRaceOutdated>true</isRaceOutdated>
         </models.Race>
       </races>
+      <creationTime>2023-04-28T21:23:17.4268432</creationTime>
+      <updateTime>2023-04-28T21:23:17.4268432</updateTime>
       <lastRaceId>0</lastRaceId>
     </models.Swimmer>
     <models.Swimmer>
@@ -56,6 +60,8 @@
           <isRaceOutdated>false</isRaceOutdated>
         </models.Race>
       </races>
+      <creationTime>2023-04-28T21:23:17.4268432</creationTime>
+      <updateTime>2023-04-28T21:23:17.4268432</updateTime>
       <lastRaceId>0</lastRaceId>
     </models.Swimmer>
   </list>

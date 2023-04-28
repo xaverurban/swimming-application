@@ -34,11 +34,11 @@ fun main() {
  * @return An integer representing the user's selected menu option.
  */
 fun mainMenu(): Int {
-    val reset = "\u001B[0m"
-    val title = "\u001B[36m"
+    val title = "\u001B[1m"
     val sectionTitle = "\u001B[33m"
     val optionNumber = "\u001B[32m"
-    val optionName = "\u001B[34m"
+    val optionName = "\u001B[36m"
+    val reset = "\u001B[0m"
 
     return readNextInt(
         """
@@ -62,10 +62,22 @@ fun mainMenu(): Int {
         |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
         | ${sectionTitle}REPORT MENU FOR RACES$reset                             
+        |    ${optionNumber}11) ${optionName}Add a swim time for a race$reset                 
+        |    ${optionNumber}12) ${optionName}View all swim times$reset                        
         |    ${optionNumber}13) ${optionName}Add a race to the database$reset                 
         |    ${optionNumber}14) ${optionName}View all races$reset                             
         |    ${optionNumber}15) ${optionName}Search for all races (by race name)$reset        
-        |    ${optionNumber}16) ${optionName}List graded races$reset                          
+        |    ${optionNumber}16) ${optionName}List ungraded races$reset                        
+        |    ${optionNumber}17) ${optionName}List graded races$reset                          
+        +-----------------------------------------------------+
+        | ${sectionTitle}ARCHIVE MENU$reset                                     
+        |    ${optionNumber}18) ${optionName}List all archived swimmers$reset                 
+        |    ${optionNumber}19) ${optionName}Reinstate a swimmer from archive$reset           
+        |    ${optionNumber}20) ${optionName}Delete a swimmer from archive$reset              
+        +-----------------------------------------------------+
+        | ${sectionTitle}DATA MENU$reset                                         
+        |    ${optionNumber}100) ${optionName}Save data to file$reset                           
+        |    ${optionNumber}101) ${optionName}Load data from file$reset                         
         +-----------------------------------------------------+
         |    ${optionNumber}0) ${optionName}Exit$reset                                         
         +-----------------------------------------------------+
@@ -93,8 +105,9 @@ fun runMenu() {
             10 -> searchSwimmers()
             15 -> searchRaces()
             16 -> listUngradedRaces()
-            17 -> save()
-            18 -> load()
+            //  17 -> listSwimmersSortedByRaceCount()
+            100 -> save()
+            101 -> load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -337,7 +350,6 @@ fun updateRaceGradedInSwimmer() {
                 raceType = newType,
                 isRaceOutdated = item.isRaceOutdated
             )
-
             if (swimmer.update(item.raceId, updatedRace)) {
                 println("Race contents updated")
             } else {
@@ -363,12 +375,12 @@ fun markRaceStatus() {
             var changeStatus: Char
             if (race.isRaceOutdated) {
                 changeStatus =
-                    ScannerInput.readNextChar("The race is currently complete...do you want to mark it as TODO?")
+                    ScannerInput.readNextChar("The race is currently complete...do you want to mark it as Ungraded?")
                 if ((changeStatus == 'Y') || (changeStatus == 'y'))
                     race.isRaceOutdated = false
             } else {
                 changeStatus =
-                    ScannerInput.readNextChar("The race is currently TODO...do you want to mark it as Complete?")
+                    ScannerInput.readNextChar("The race is currently TODO...do you want to mark it as Graded?")
                 if ((changeStatus == 'Y') || (changeStatus == 'y'))
                     race.isRaceOutdated = true
             }

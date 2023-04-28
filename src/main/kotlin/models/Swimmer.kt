@@ -1,9 +1,11 @@
 package models
 
 import utils.Utilities
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 /**
-*
+ *
  *Represents a swimmer with their associated details and races. The Swimmer class provides a convenient
  *way to organize and manage swimmer information, including their name, level, category, and
  *associated races. This class also provides methods for managing a swimmer's races and checking
@@ -14,14 +16,14 @@ import utils.Utilities
  */
 
 /**
-*
-*Represents a swimmer with their associated details and races.
-*@property swimmerId The unique ID of the swimmer.
-*@property swimmerName The name of the swimmer.
-*@property swimmerLevel The level of the swimmer (e.g., 1, 2, or 3).
-*@property swimmerCategory The category of the swimmer (e.g., "Masters", "Youth").
-*@property isSwimmerArchived Indicates whether the swimmer is archived or not. Defaults to false.
-*@property races A mutable set of Race objects associated with the swimmer.
+ *
+ *Represents a swimmer with their associated details and races.
+ *@property swimmerId The unique ID of the swimmer.
+ *@property swimmerName The name of the swimmer.
+ *@property swimmerLevel The level of the swimmer (e.g., 1, 2, or 3).
+ *@property swimmerCategory The category of the swimmer (e.g., "Masters", "Youth").
+ *@property isSwimmerArchived Indicates whether the swimmer is archived or not. Defaults to false.
+ *@property races A mutable set of Race objects associated with the swimmer.
  */
 data class Swimmer(
     var swimmerId: Int = 0,
@@ -29,7 +31,9 @@ data class Swimmer(
     var swimmerLevel: Int,
     var swimmerCategory: String,
     var isSwimmerArchived: Boolean = false,
-    var races: MutableSet<Race> = mutableSetOf()
+    var races: MutableSet<Race> = mutableSetOf(),
+    var creationTime: LocalDateTime = LocalDateTime.now(),
+    var updateTime: LocalDateTime = LocalDateTime.now()
 ) {
     private var lastRaceId = 0
     private fun getRaceId() = lastRaceId++
@@ -109,11 +113,31 @@ data class Swimmer(
         else Utilities.formatSetString(races)
 
     /**
-     * Returns a string representation of the swimmer object, including their ID, name, level, category, archived status, and list of races.
+     * Returns a string representation of the swimmer object, including their ID, name, level, category, archived status, info about time and list of races.
      * @return A formatted string representing the swimmer.
      */
     override fun toString(): String {
+        val formatTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
         val archived = if (isSwimmerArchived) 'Y' else 'N'
-        return "$swimmerId: $swimmerName, Priority($swimmerLevel), Category($swimmerCategory), Archived($archived) \n${listRaces()}"
+        val currentDate = LocalDateTime.now().format(formatTime)
+        val blue = "\u001B[34m"
+        val magenta = "\u001B[35m"
+
+        return """
+    $blue+------------------------------+
+     ID: $magenta$swimmerId$blue
+     Name: $magenta$swimmerName$blue
+     Level: $magenta$swimmerLevel$blue
+     Category: $magenta$swimmerCategory$blue
+
+     Archived: $magenta$archived$blue
+     Creation Time: $magenta${creationTime.format(formatTime)}$blue
+     Last Updated: $magenta${updateTime.format(formatTime)}$blue
+     Current Date: $magenta$currentDate$blue
+
+     Number of Races: $magenta${races.size}$blue
+     Races: $magenta${listRaces()}$blue
+    $blue+------------------------------+ 
+        """.trimIndent()
     }
 }
