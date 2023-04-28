@@ -23,6 +23,8 @@ dependencies {
     implementation("org.codehaus.jettison:jettison:1.4.1")
 
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:1.6.10")
+    //
+    implementation("com.github.ajalt:mordant:1.2.1")
 }
 
 tasks.test {
