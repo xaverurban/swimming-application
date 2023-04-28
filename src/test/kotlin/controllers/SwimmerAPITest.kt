@@ -205,7 +205,6 @@ class SwimmerAPITest {
             storingSwimmers.add(michael!!)
             storingSwimmers.add(sarah!!)
             storingSwimmers.add(tom!!)
-            storingSwimmers
             michael!!.races.add(Race(1, "no"))
             storingSwimmers.store()
 
@@ -317,7 +316,44 @@ class SwimmerAPITest {
                 assertFalse(searchResults.contains(swimmers.findSwimmer(3)))
             }
         }
-    }
+        @Test
+        fun `searchRaceByContents returns no swimmer stored message when no swimmers exists`() {
+            val result = emptySwimmers!!.searchRaceByContents("abed")
+            assertTrue(result.lowercase().contains("no swimmer stored"))
+        }
 
+        @Test
+        fun `searchRaceByContents returns no races found message when no races exist`() {
+            val result = populatedSwimmers!!.searchRaceByContents("popcorn")
+            assertTrue(result.lowercase().contains("no races found for: popcorn"))
+        }
+
+        @Test
+        fun `searchRaceByContents returns race with the given contents`() {
+            val newRace = Race(4, "medley")
+            michael!!.races.add(newRace)
+
+            val result = populatedSwimmers!!.searchRaceByContents("medley")
+            assertTrue(result.contains("Michael"))
+            assertTrue(result.contains("medley"))
+            assertFalse(result.contains("no"))
+            assertFalse(result.contains("yes"))
+        }
+        @Test
+        fun `searchSwimmersByName returns empty list when nothing matching swimmer exists`() {
+
+            val api = SwimmerAPI(XMLSerializer(File("swimmers.xml")))
+            api.add(Swimmer(1, "Michael", 5, "Backstroke", true))
+            api.add(Swimmer(2, "Sarah", 3, "Freestyle", false))
+            api.add(Swimmer(3, "Tom", 1, "Butterfly", true))
+
+
+            val searchResults = api.searchSwimmersByName("nonexistent")
+
+
+            assertTrue(searchResults.isEmpty())
+        }
+
+    }
 
 }

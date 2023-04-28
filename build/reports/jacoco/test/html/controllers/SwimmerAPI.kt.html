@@ -48,9 +48,9 @@ import java.util.ArrayList
      * @return A formatted string with the list of matching swimmers.
      */
     fun searchSwimmersByName(searchString: String) =
-<span class="nc" id="L51">        formatListString(</span>
-<span class="nc" id="L52">            swimmers.filter { swimmer -&gt; swimmer.swimmerName.contains(searchString, ignoreCase = true) }</span>
-<span class="nc" id="L53">        )</span>
+<span class="fc" id="L51">        formatListString(</span>
+<span class="fc" id="L52">            swimmers.filter { swimmer -&gt; swimmer.swimmerName.contains(searchString, ignoreCase = true) }</span>
+<span class="fc" id="L53">        )</span>
 
     /**
      * Searches for races in the list of swimmers by their contents and returns a formatted string with the results.
@@ -61,18 +61,18 @@ import java.util.ArrayList
      * @return A formatted string with the list of matching races along with their respective swimmer details.
      */
     fun searchRaceByContents(searchString: String): String {
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        return if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        return if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
         else {
-<span class="nc" id="L66">            var listOfSwimmers = &quot;&quot;</span>
-<span class="nc bnc" id="L67" title="All 2 branches missed.">            for (swimmer in swimmers) {</span>
-<span class="nc bnc" id="L68" title="All 2 branches missed.">                for (race in swimmer.races) {</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {</span>
-<span class="nc" id="L70">                        listOfSwimmers += &quot;${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n&quot;</span>
+<span class="fc" id="L66">            var listOfSwimmers = &quot;&quot;</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {</span>
+<span class="fc" id="L70">                        listOfSwimmers += &quot;${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n&quot;</span>
                     }
                 }
             }
-<span class="nc bnc" id="L74" title="All 2 branches missed.">            if (listOfSwimmers == &quot;&quot;) &quot;No races found for: $searchString&quot;</span>
-<span class="nc" id="L75">            else listOfSwimmers</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (listOfSwimmers == &quot;&quot;) &quot;No races found for: $searchString&quot;</span>
+<span class="fc" id="L75">            else listOfSwimmers</span>
         }
     }
 
