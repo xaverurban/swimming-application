@@ -3,7 +3,8 @@ package controllers
 
 import models.Swimmer
 import persistence.Serializer
-import java.util.ArrayList
+import java.time.LocalDateTime
+
 /**
  *This class provides an API for managing a list of swimmers and their associated races. It offers functionality to
  *add, search, list, update, and delete swimmers, as well as manage their races.
@@ -22,13 +23,13 @@ import java.util.ArrayList
  *
  * @param serializerType The type of serializer to be used for storing and loading data.
  */
-<span class="fc" id="L25">class SwimmerAPI(serializerType: Serializer) {</span>
+<span class="fc" id="L26">class SwimmerAPI(serializerType: Serializer) {</span>
 
-<span class="fc" id="L27">    private var swimmers = ArrayList&lt;Swimmer&gt;()</span>
-<span class="fc" id="L28">    private var serializer: Serializer = serializerType</span>
+<span class="fc" id="L28">    private var swimmers = ArrayList&lt;Swimmer&gt;()</span>
+<span class="fc" id="L29">    private var serializer: Serializer = serializerType</span>
 
     private var lastId = 0
-<span class="fc" id="L31">    private fun getId() = lastId++</span>
+<span class="fc" id="L32">    private fun getId() = lastId++</span>
 
     /**
      * Adds a new swimmer to the list of swimmers and assigns a unique ID to the swimmer.
@@ -37,8 +38,8 @@ import java.util.ArrayList
      * @return Boolean indicating whether the swimmer was successfully added to the list.
      */
     fun add(swimmer: Swimmer): Boolean {
-<span class="fc" id="L40">        swimmer.swimmerId = getId()</span>
-<span class="fc" id="L41">        return swimmers.add(swimmer)</span>
+<span class="fc" id="L41">        swimmer.swimmerId = getId()</span>
+<span class="fc" id="L42">        return swimmers.add(swimmer)</span>
     }
 
     /**
@@ -48,9 +49,9 @@ import java.util.ArrayList
      * @return A formatted string with the list of matching swimmers.
      */
     fun searchSwimmersByName(searchString: String) =
-<span class="fc" id="L51">        formatListString(</span>
-<span class="fc" id="L52">            swimmers.filter { swimmer -&gt; swimmer.swimmerName.contains(searchString, ignoreCase = true) }</span>
-<span class="fc" id="L53">        )</span>
+<span class="fc" id="L52">        formatListString(</span>
+<span class="fc" id="L53">            swimmers.filter { swimmer -&gt; swimmer.swimmerName.contains(searchString, ignoreCase = true) }</span>
+<span class="fc" id="L54">        )</span>
 
     /**
      * Searches for races in the list of swimmers by their contents and returns a formatted string with the results.
@@ -61,18 +62,18 @@ import java.util.ArrayList
      * @return A formatted string with the list of matching races along with their respective swimmer details.
      */
     fun searchRaceByContents(searchString: String): String {
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        return if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        return if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
         else {
-<span class="fc" id="L66">            var listOfSwimmers = &quot;&quot;</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {</span>
-<span class="fc" id="L70">                        listOfSwimmers += &quot;${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n&quot;</span>
+<span class="fc" id="L67">            var listOfSwimmers = &quot;&quot;</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {</span>
+<span class="fc" id="L71">                        listOfSwimmers += &quot;${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n&quot;</span>
                     }
                 }
             }
-<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (listOfSwimmers == &quot;&quot;) &quot;No races found for: $searchString&quot;</span>
-<span class="fc" id="L75">            else listOfSwimmers</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            if (listOfSwimmers == &quot;&quot;) &quot;No races found for: $searchString&quot;</span>
+<span class="fc" id="L76">            else listOfSwimmers</span>
         }
     }
 
@@ -82,18 +83,18 @@ import java.util.ArrayList
      * @return A formatted string containing the list of upcoming races, or &quot;No swimmer stored&quot; if there are no swimmers.
      */
     fun listUngradedRaces(): String =
-<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (numberOfSwimmers() == 0) &quot;No swimmer stored&quot;</span>
         else {
-<span class="fc" id="L87">            var listOfUngradedRaces = &quot;&quot;</span>
-<span class="fc bfc" id="L88" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
-<span class="fc bfc" id="L89" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
-<span class="fc bfc" id="L90" title="All 2 branches covered.">                    if (!race.isRaceOutdated) {</span>
-<span class="fc" id="L91">                        listOfUngradedRaces += swimmer.swimmerName + &quot;: &quot; + race.raceGraded + &quot;\n&quot;</span>
+<span class="fc" id="L88">            var listOfUngradedRaces = &quot;&quot;</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            for (swimmer in swimmers) {</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                for (race in swimmer.races) {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">                    if (!race.isRaceOutdated) {</span>
+<span class="fc" id="L92">                        listOfUngradedRaces += swimmer.swimmerName + &quot;: &quot; + race.raceGraded + &quot;\n&quot;</span>
                     }
                 }
             }
-<span class="fc" id="L95">            listOfUngradedRaces</span>
-<span class="fc" id="L96">        }</span>
+<span class="fc" id="L96">            listOfUngradedRaces</span>
+<span class="fc" id="L97">        }</span>
 
     /**
      * Counts the total number of ungraded races for all swimmers.
@@ -101,15 +102,15 @@ import java.util.ArrayList
      * @return The total number of upcoming races.
      */
     fun numberOfUngradedRaces(): Int {
-<span class="fc" id="L104">        var numberOfToDoRaces = 0</span>
-<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (Swimmer in swimmers) {</span>
-<span class="fc bfc" id="L106" title="All 2 branches covered.">            for (race in Swimmer.races) {</span>
-<span class="fc bfc" id="L107" title="All 2 branches covered.">                if (!race.isRaceOutdated) {</span>
-<span class="fc" id="L108">                    numberOfToDoRaces++</span>
+<span class="fc" id="L105">        var numberOfUngradedRaces = 0</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (Swimmer in swimmers) {</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            for (race in Swimmer.races) {</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">                if (!race.isRaceOutdated) {</span>
+<span class="fc" id="L109">                    numberOfUngradedRaces++</span>
                 }
             }
         }
-<span class="fc" id="L112">        return numberOfToDoRaces</span>
+<span class="fc" id="L113">        return numberOfUngradedRaces</span>
     }
 
     /**
@@ -118,7 +119,7 @@ import java.util.ArrayList
      * @param name The search string to be matched against swimmer names.
      * @return A list of Swimmer objects with matching names.
      */
-<span class="fc" id="L121">    fun searchByName(name: String): List&lt;Swimmer&gt; = swimmers.filter { swimmer: Swimmer -&gt; swimmer.swimmerName.contains(name, ignoreCase = true) }</span>
+<span class="fc" id="L122">    fun searchByName(name: String): List&lt;Swimmer&gt; = swimmers.filter { swimmer: Swimmer -&gt; swimmer.swimmerName.contains(name, ignoreCase = true) }</span>
 
     /**
      * Lists all swimmers in a formatted string.
@@ -126,8 +127,8 @@ import java.util.ArrayList
      * @return A formatted string containing the list of all swimmers, or &quot;No swimmer stored&quot; if there are no swimmers.
      */
     fun listAllSwimmers() =
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (swimmers.isEmpty()) &quot;No swimmer stored&quot;</span>
-<span class="fc" id="L130">        else formatListString(swimmers)</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">        if (swimmers.isEmpty()) &quot;No swimmer stored&quot;</span>
+<span class="fc" id="L131">        else formatListString(swimmers)</span>
 
     /**
      * Lists all active swimmers in a formatted string.
@@ -135,8 +136,8 @@ import java.util.ArrayList
      * @return A formatted string containing the list of active swimmers, or &quot;No active swimmers stored&quot; if there are none.
      */
     fun listActiveSwimmers() =
-<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (numberOfActiveSwimmers() == 0) &quot;No active swimmers stored&quot;</span>
-<span class="fc bfc" id="L139" title="All 2 branches covered.">        else formatListString(swimmers.filter { swimmer -&gt; !swimmer.isSwimmerArchived })</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (numberOfActiveSwimmers() == 0) &quot;No active swimmers stored&quot;</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        else formatListString(swimmers.filter { swimmer -&gt; !swimmer.isSwimmerArchived })</span>
 
     /**
      * Lists all archived swimmers in a formatted string.
@@ -144,8 +145,8 @@ import java.util.ArrayList
      * @return A formatted string containing the list of archived swimmers, or &quot;No archived swimmers stored&quot; if there are none.
      */
     fun listArchivedSwimmers(): String =
-<span class="fc bfc" id="L147" title="All 2 branches covered.">        if (numberOfArchivedSwimmers() == 0) &quot;No archived swimmers stored&quot;</span>
-<span class="fc" id="L148">        else formatListString(swimmers.filter { swimmer -&gt; swimmer.isSwimmerArchived })</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        if (numberOfArchivedSwimmers() == 0) &quot;No archived swimmers stored&quot;</span>
+<span class="fc" id="L149">        else formatListString(swimmers.filter { swimmer -&gt; swimmer.isSwimmerArchived })</span>
 
     /**
      * Counts the total number of swimmers at a specific level.
@@ -153,7 +154,7 @@ import java.util.ArrayList
      * @param level The level to match against swimmer levels.
      * @return The total number of swimmers at the specified level.
      */
-<span class="fc bfc" id="L156" title="All 2 branches covered.">    fun numberOfSwimmersByLevel(level: Int): Int = swimmers.count { swimmer: Swimmer -&gt; swimmer.swimmerLevel == level }</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">    fun numberOfSwimmersByLevel(level: Int): Int = swimmers.count { swimmer: Swimmer -&gt; swimmer.swimmerLevel == level }</span>
 
     /**
      * Archives a swimmer if they exist, are not already archived, and have completed all their races.
@@ -162,14 +163,14 @@ import java.util.ArrayList
      * @return Boolean indicating whether the swimmer was successfully archived.
      */
     fun archiveSwimmer(id: Int): Boolean {
-<span class="fc" id="L165">        val foundSwimmer = findSwimmer(id)</span>
-<span class="fc bfc" id="L166" title="All 4 branches covered.">        if ((foundSwimmer != null) &amp;&amp; (!foundSwimmer.isSwimmerArchived) &amp;&amp;</span>
-<span class="pc bpc" id="L167" title="1 of 2 branches missed.">            (foundSwimmer.checkSwimmerCompletionStatus())</span>
+<span class="fc" id="L166">        val foundSwimmer = findSwimmer(id)</span>
+<span class="fc bfc" id="L167" title="All 4 branches covered.">        if ((foundSwimmer != null) &amp;&amp; (!foundSwimmer.isSwimmerArchived) &amp;&amp;</span>
+<span class="pc bpc" id="L168" title="1 of 2 branches missed.">            (foundSwimmer.checkSwimmerCompletionStatus())</span>
         ) {
-<span class="fc" id="L169">            foundSwimmer.isSwimmerArchived = true</span>
-<span class="fc" id="L170">            return true</span>
+<span class="fc" id="L170">            foundSwimmer.isSwimmerArchived = true</span>
+<span class="fc" id="L171">            return true</span>
         }
-<span class="fc" id="L172">        return false</span>
+<span class="fc" id="L173">        return false</span>
     }
 
     /**
@@ -178,28 +179,28 @@ import java.util.ArrayList
      * @param swimmerId The unique ID of the swimmer to be found.
      * @return The Swimmer object if found, or null if not found.
      */
-<span class="fc bfc" id="L181" title="All 6 branches covered.">    fun findSwimmer(swimmerId: Int) = swimmers.find { swimmer -&gt; swimmer.swimmerId == swimmerId }</span>
+<span class="fc bfc" id="L182" title="All 6 branches covered.">    fun findSwimmer(swimmerId: Int) = swimmers.find { swimmer -&gt; swimmer.swimmerId == swimmerId }</span>
 
     /**
      * Counts the total number of swimmers in the list.
      *
      * @return The total number of swimmers.
      */
-<span class="fc" id="L188">    fun numberOfSwimmers() = swimmers.size</span>
+<span class="fc" id="L189">    fun numberOfSwimmers() = swimmers.size</span>
 
     /**
      * Counts the total number of archived swimmers in the list.
      *
      * @return The total number of archived swimmers.
      */
-<span class="fc" id="L195">    fun numberOfArchivedSwimmers(): Int = swimmers.count { swimmer: Swimmer -&gt; swimmer.isSwimmerArchived }</span>
+<span class="fc" id="L196">    fun numberOfArchivedSwimmers(): Int = swimmers.count { swimmer: Swimmer -&gt; swimmer.isSwimmerArchived }</span>
 
     /**
      * Counts the total number of active swimmers in the list.
      *
      * @return The total number of active swimmers.
      */
-<span class="fc bfc" id="L202" title="All 2 branches covered.">    fun numberOfActiveSwimmers(): Int = swimmers.count { swimmer: Swimmer -&gt; !swimmer.isSwimmerArchived }</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">    fun numberOfActiveSwimmers(): Int = swimmers.count { swimmer: Swimmer -&gt; !swimmer.isSwimmerArchived }</span>
 
     /**
      * Deletes a swimmer from the list by their unique ID.
@@ -207,7 +208,7 @@ import java.util.ArrayList
      * @param id The unique ID of the swimmer to be deleted.
      * @return Boolean indicating whether the swimmer was successfully deleted.
      */
-<span class="fc bfc" id="L210" title="All 2 branches covered.">    fun delete(id: Int) = swimmers.removeIf { swimmer -&gt; swimmer.swimmerId == id }</span>
+<span class="fc bfc" id="L211" title="All 2 branches covered.">    fun delete(id: Int) = swimmers.removeIf { swimmer -&gt; swimmer.swimmerId == id }</span>
 
     /**
      * Updates the details of a swimmer in the list.
@@ -218,16 +219,17 @@ import java.util.ArrayList
      */
     fun update(id: Int, swimmer: Swimmer?): Boolean {
         // find the Swimmer object by the index number
-<span class="fc" id="L221">        val foundSwimmer = findSwimmer(id)</span>
+<span class="fc" id="L222">        val foundSwimmer = findSwimmer(id)</span>
         // if the Swimmer exists, use the Swimmer details passed as parameters to update the found Swimmer in the ArrayList.
-<span class="pc bpc" id="L223" title="1 of 4 branches missed.">        if ((foundSwimmer != null) &amp;&amp; (swimmer != null)) {</span>
-<span class="fc" id="L224">            foundSwimmer.swimmerName = swimmer.swimmerName</span>
-<span class="fc" id="L225">            foundSwimmer.swimmerLevel = swimmer.swimmerLevel</span>
-<span class="fc" id="L226">            foundSwimmer.swimmerCategory = swimmer.swimmerCategory</span>
-<span class="fc" id="L227">            return true</span>
+<span class="pc bpc" id="L224" title="1 of 4 branches missed.">        if ((foundSwimmer != null) &amp;&amp; (swimmer != null)) {</span>
+<span class="fc" id="L225">            foundSwimmer.swimmerName = swimmer.swimmerName</span>
+<span class="fc" id="L226">            foundSwimmer.swimmerLevel = swimmer.swimmerLevel</span>
+<span class="fc" id="L227">            foundSwimmer.swimmerCategory = swimmer.swimmerCategory</span>
+<span class="fc" id="L228">            foundSwimmer.updateTime = LocalDateTime.now()</span>
+<span class="fc" id="L229">            return true</span>
         }
         // if the Swimmer was not found, return false, indicating that the update was not successful
-<span class="fc" id="L230">        return false</span>
+<span class="fc" id="L232">        return false</span>
     }
 
     /**
@@ -237,9 +239,9 @@ import java.util.ArrayList
      */
     @Throws(Exception::class)
     fun load() {
-<span class="fc" id="L240">        swimmers = serializer.read() as ArrayList&lt;Swimmer&gt;</span>
-<span class="fc" id="L241">    }</span>
-
+        @Suppress(&quot;UNCHECKED_CAST&quot;)
+<span class="fc" id="L243">        swimmers = serializer.read() as ArrayList&lt;Swimmer&gt;</span>
+<span class="fc" id="L244">    }</span>
     /**
      * Stores the swimmers list using the serializer.
      *
@@ -247,8 +249,8 @@ import java.util.ArrayList
      */
     @Throws(Exception::class)
     fun store() {
-<span class="fc" id="L250">        serializer.write(swimmers)</span>
-<span class="fc" id="L251">    }</span>
+<span class="fc" id="L252">        serializer.write(swimmers)</span>
+<span class="fc" id="L253">    }</span>
 
     /**
      * Formats a list of Swimmer objects into a string representation.
@@ -257,9 +259,9 @@ import java.util.ArrayList
      * @return A formatted string containing the list of swimmers.
      */
     private fun formatListString(swimmersToFormat: List&lt;Swimmer&gt;): String =
-<span class="fc" id="L260">        swimmersToFormat</span>
-<span class="fc" id="L261">            .joinToString(separator = &quot;\n&quot;) { swimmer -&gt;</span>
-<span class="fc" id="L262">                swimmers.indexOf(swimmer).toString() + &quot;: &quot; + swimmer.toString()</span>
-<span class="fc" id="L263">            }</span>
+<span class="fc" id="L262">        swimmersToFormat</span>
+<span class="fc" id="L263">            .joinToString(separator = &quot;\n&quot;) { swimmer -&gt;</span>
+<span class="fc" id="L264">                swimmers.indexOf(swimmer).toString() + &quot;: &quot; + swimmer.toString()</span>
+<span class="fc" id="L265">            }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SwimmerAPITest$CountingMethods" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-28T15:54:28" hostname="DESKTOP-66BKA17" time="0.002">
+<testsuite name="SwimmerAPITest$CountingMethods" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-28T20:59:25" hostname="DESKTOP-66BKA17" time="0.004">
   <properties/>
-  <testcase name="numberOfSwimmersCalculatedCorrectly()" classname="SwimmerAPITest$CountingMethods" time="0.0"/>
-  <testcase name="numberOfUngradedRaces returns correct count of non-outdated races()" classname="SwimmerAPITest$CountingMethods" time="0.001"/>
+  <testcase name="numberOfSwimmersCalculatedCorrectly()" classname="SwimmerAPITest$CountingMethods" time="0.001"/>
+  <testcase name="numberOfUngradedRaces returns correct count of non-outdated races()" classname="SwimmerAPITest$CountingMethods" time="0.0"/>
   <testcase name="numberOfActiveSwimmersCalculatedCorrectly()" classname="SwimmerAPITest$CountingMethods" time="0.0"/>
   <testcase name="numberOfSwimmersByLevelCalculatedCorrectly()" classname="SwimmerAPITest$CountingMethods" time="0.001"/>
-  <testcase name="numberOfArchivedSwimmersCalculatedCorrectly()" classname="SwimmerAPITest$CountingMethods" time="0.0"/>
+  <testcase name="numberOfArchivedSwimmersCalculatedCorrectly()" classname="SwimmerAPITest$CountingMethods" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

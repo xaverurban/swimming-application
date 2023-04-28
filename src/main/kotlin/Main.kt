@@ -1,11 +1,10 @@
-
-
 import controllers.SwimmerAPI
 import models.Race
 import models.Swimmer
 import persistence.XMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
+import utils.ScannerInput.readNextLine
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -35,18 +34,18 @@ fun main() {
  * @return An integer representing the user's selected menu option.
  */
 fun mainMenu(): Int {
-    val reset = "\u001B[0m"
-    val title = "\u001B[36m"
+    val title = "\u001B[1m"
     val sectionTitle = "\u001B[33m"
     val optionNumber = "\u001B[32m"
-    val optionName = "\u001B[34m"
+    val optionName = "\u001B[36m"
+    val reset = "\u001B[0m"
 
     return readNextInt(
         """
         $title+-----------------------------------------------------+
         |                  ${title}SWIMMING APP$reset                     
         +-----------------------------------------------------+
-        | ${sectionTitle}NOTE MENU$reset                                         
+        | ${sectionTitle}swimmer MENU$reset                                         
         |   ${optionNumber}1) ${optionName}Add a Swimmer$reset                                
         |   ${optionNumber}2) ${optionName}List Swimmers$reset                                
         |   ${optionNumber}3) ${optionName}Update a Swimmer$reset                             
@@ -57,16 +56,28 @@ fun mainMenu(): Int {
         |   ${optionNumber}6) ${optionName}Add race to a Swimmer$reset                       
         |   ${optionNumber}7) ${optionName}Update race contents on a Swimmer$reset           
         |   ${optionNumber}8) ${optionName}Delete race from a Swimmer$reset                  
-        |   ${optionNumber}9) ${optionName}Mark item as$reset                                
+        |   ${optionNumber}9) ${optionName}Mark race status (graded, ungraded)$reset                                
         +-----------------------------------------------------+
         | ${sectionTitle}REPORT MENU FOR SWIMMERS$reset                          
         |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
         | ${sectionTitle}REPORT MENU FOR RACES$reset                             
+        |    ${optionNumber}11) ${optionName}Add a swim time for a race$reset                 
+        |    ${optionNumber}12) ${optionName}View all swim times$reset                        
         |    ${optionNumber}13) ${optionName}Add a race to the database$reset                 
         |    ${optionNumber}14) ${optionName}View all races$reset                             
         |    ${optionNumber}15) ${optionName}Search for all races (by race name)$reset        
-        |    ${optionNumber}16) ${optionName}List graded races$reset                          
+        |    ${optionNumber}16) ${optionName}List ungraded races$reset                        
+        |    ${optionNumber}17) ${optionName}List graded races$reset                          
+        +-----------------------------------------------------+
+        | ${sectionTitle}ARCHIVE MENU$reset                                     
+        |    ${optionNumber}18) ${optionName}List all archived swimmers$reset                 
+        |    ${optionNumber}19) ${optionName}Reinstate a swimmer from archive$reset           
+        |    ${optionNumber}20) ${optionName}Delete a swimmer from archive$reset              
+        +-----------------------------------------------------+
+        | ${sectionTitle}DATA MENU$reset                                         
+        |    ${optionNumber}100) ${optionName}Save data to file$reset                           
+        |    ${optionNumber}101) ${optionName}Load data from file$reset                         
         +-----------------------------------------------------+
         |    ${optionNumber}0) ${optionName}Exit$reset                                         
         +-----------------------------------------------------+
@@ -90,12 +101,13 @@ fun runMenu() {
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
-           // 9 -> markRaceStatus()
-            //     10 -> searchSwimmers()
-            //     15 -> searchRaces()
-            //  16 -> list
-            17 -> save()
-            18 -> load()
+            9 -> markRaceStatus()
+            10 -> searchSwimmers()
+            15 -> searchRaces()
+            16 -> listUngradedRaces()
+            //  17 -> listSwimmersSortedByRaceCount()
+            100 -> save()
+            101 -> load()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -111,12 +123,44 @@ fun addSwimmer() {
     val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
     val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
     val swimmerCategory = ScannerInput.readNextLine("Enter a category for the swimmer: ")
-    val isAdded = swimmerAPI.add(Swimmer(swimmerName = swimmerName, swimmerLevel = swimmerLevel, swimmerCategory = swimmerCategory))
+    val isAdded = swimmerAPI.add(
+        Swimmer(
+            swimmerName = swimmerName,
+            swimmerLevel = swimmerLevel,
+            swimmerCategory = swimmerCategory
+        )
+    )
 
     if (isAdded) {
         println("Added Successfully")
     } else {
         println("Add Failed")
+    }
+}
+
+/**
+ *Asks the user to enter the name of the swimmer they want to search by.
+ *Searches for all swimmers whose name contains the entered search term.
+ *If found, it prints out a list of all the matching swimmers.
+ *If no matches are found, it prints a message indicating that no swimmers were found.
+ */
+fun searchSwimmers() {
+    val searchName = readNextLine("Enter the name to search by: ")
+    val searchResults = swimmerAPI.searchSwimmersByName(searchName)
+    if (searchResults.isEmpty()) {
+        println("No swimmers found")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchRaces() {
+    val searchContents = readNextLine("Enter the race contents to search by: ")
+    val searchResults = swimmerAPI.searchRaceByContents(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No races found, try again!")
+    } else {
+        println(searchResults)
     }
 }
 
@@ -146,9 +190,15 @@ fun deleteSwimmer() {
 private fun addRaceToSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
-        if (swimmer.addRace(Race(raceGraded = ScannerInput.readNextLine("\t Race Grade: "))))
-            println("Add Successful!")
-        else println("Add NOT Successful")
+        print("\nEnter race details:\n")
+        val raceGraded = ScannerInput.readNextLine("\tRace Grade(eg. Pass, Fail): ")
+        val raceTime = ScannerInput.readNextLine("\tRace Time(use format HH:mm:ss): ")
+        val raceType = ScannerInput.readNextLine("\tRace Type(eg. Backstroke, Freestyle): ")
+        if (swimmer.addRace(Race(raceGraded = raceGraded, raceTime = raceTime, raceType = raceType))) {
+            println("Race added successfully!")
+        } else {
+            println("Failed to add race. Try again!")
+        }
     }
 }
 
@@ -182,9 +232,10 @@ fun listSwimmers() {
             else -> println("Invalid option entered: $option")
         }
     } else {
-        println("Option Invalid - No notes stored")
+        println("Option Invalid - No swimmers stored")
     }
 }
+
 /**
  * Lists all swimmers in the swimmerAPI.
  */
@@ -208,11 +259,11 @@ fun updateSwimmer() {
     listSwimmers()
     if (swimmerAPI.numberOfSwimmers() > 0) {
 
-        val id = readNextInt("Enter the id of the note to update: ")
+        val id = readNextInt("Enter the id of the swimmer to update: ")
         if (swimmerAPI.findSwimmer(id) != null) {
-            val swimmerName = ScannerInput.readNextLine("Enter a title for the note: ")
+            val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
             val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
-            val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
+            val swimmerCategory = ScannerInput.readNextLine("Enter a main category for the swimmer: ")
 
             if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {
                 println("Update Successful")
@@ -220,9 +271,22 @@ fun updateSwimmer() {
                 println("Update Failed")
             }
         } else {
-            println("There are no notes for this index number")
+            println("There are no swimmers for this index number")
         }
     }
+}
+
+/**
+ *
+ *Lists all the ungraded races in the swimmer app database.
+ *If there are ungraded races, prints the total number of ungraded races
+ *followed by the list of ungraded races.
+ */
+fun listUngradedRaces() {
+    if (swimmerAPI.numberOfUngradedRaces() > 0) {
+        println("Total Ungraded Races: ${swimmerAPI.numberOfUngradedRaces()}")
+    }
+    println(swimmerAPI.listUngradedRaces())
 }
 
 /**
@@ -258,7 +322,6 @@ fun deleteRace() {
             val isDeleted = swimmer.delete(race.raceId)
             if (isDeleted)
                 println("Race deleted successfully from ${swimmer.swimmerName}'s list of races.")
-
             else println("Unable to delete the race from ${swimmer.swimmerName}'s list of races.")
         } else println("Invalid race ID. Please choose a valid race ID.")
     }
@@ -271,17 +334,56 @@ fun deleteRace() {
  */
 fun updateRaceGradedInSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
+
     if (swimmer != null) {
         val item: Race? = askUserToChooseRace(swimmer)
+
         if (item != null) {
-            val newGrade = ScannerInput.readNextLine("Enter new contents: ")
-            if (swimmer.update(item.raceId, Race(raceGraded = newGrade))) {
+            val newGrade = ScannerInput.readNextLine("Enter new grade(eg.Pass, Fail): ")
+            val newTime = ScannerInput.readNextLine("Enter new time(use format HH:mm:ss): ")
+            val newType = ScannerInput.readNextLine("Enter new type(eg. Backstroke, Freestyle etc.): ")
+
+            val updatedRace = Race(
+                raceId = item.raceId,
+                raceGraded = newGrade,
+                raceTime = newTime,
+                raceType = newType,
+                isRaceOutdated = item.isRaceOutdated
+            )
+            if (swimmer.update(item.raceId, updatedRace)) {
                 println("Race contents updated")
             } else {
                 println("Race contents NOT updated")
             }
         } else {
             println("Invalid Race Id")
+        }
+    }
+}
+
+/**
+ *
+ *Prompts the user to choose an active swimmer from the list of active swimmers and returns the corresponding Swimmer object.
+ *Verifies if the selected swimmer is active before returning the object. If the swimmer is not active, it returns null.
+ *@return Swimmer? - the selected swimmer object if active, null otherwise
+ */
+fun markRaceStatus() {
+    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
+    if (swimmer != null) {
+        val race: Race? = askUserToChooseRace(swimmer)
+        if (race != null) {
+            var changeStatus: Char
+            if (race.isRaceOutdated) {
+                changeStatus =
+                    ScannerInput.readNextChar("The race is currently complete...do you want to mark it as Ungraded?")
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
+                    race.isRaceOutdated = false
+            } else {
+                changeStatus =
+                    ScannerInput.readNextChar("The race is currently TODO...do you want to mark it as Graded?")
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
+                    race.isRaceOutdated = true
+            }
         }
     }
 }
@@ -309,7 +411,6 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
     }
     return null
 }
-
 
 /**
  * Asks the user to choose a race from a swimmer's list of races.

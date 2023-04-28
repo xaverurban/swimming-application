@@ -25,6 +25,8 @@ package models
 data class Race(
     var raceId: Int = 0,
     var raceGraded: String,
+    var raceTime: String,
+    var raceType: String,
     var isRaceOutdated: Boolean = false
 ) {
 
@@ -33,11 +35,9 @@ data class Race(
 *Returns a string representation of the race, including its ID, grade, and completion status.
 *@return A formatted string representing the race.
 */
-    override fun toString(): String {
+override fun toString(): String {
+    val gradedStr = if (isRaceOutdated) "(Graded)" else "(Ungraded)"
+    return "$raceId: $raceGraded $gradedStr - $raceType, Time: $raceTime"
+}
 
-        return if (isRaceOutdated)
-            "$raceId: $raceGraded (Graded)"
-        else
-            "$raceId: $raceGraded  (Ungraded)"
-    }
 }
