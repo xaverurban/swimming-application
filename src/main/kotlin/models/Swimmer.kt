@@ -117,6 +117,15 @@ data class Swimmer(
      * @return A formatted string representing the swimmer.
      */
     override fun toString(): String {
+        val levelString = when (swimmerLevel) {
+            1 -> "Beginner"
+            2 -> "Intermediate"
+            3 -> "Advanced"
+            4 -> "Expert"
+            5 -> "Professional"
+            else -> "Unknown"
+        }
+
         val formatTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
         val archived = if (isSwimmerArchived) 'Y' else 'N'
         val currentDate = LocalDateTime.now().format(formatTime)
@@ -127,7 +136,7 @@ data class Swimmer(
     $blue+------------------------------+
      ID: $magenta$swimmerId$blue
      Name: $magenta$swimmerName$blue
-     Level: $magenta$swimmerLevel$blue
+     Level: $magenta$levelString$blue
      Category: $magenta$swimmerCategory$blue
 
      Archived: $magenta$archived$blue
