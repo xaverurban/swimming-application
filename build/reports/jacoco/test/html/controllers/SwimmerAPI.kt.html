@@ -251,7 +251,6 @@ import java.time.LocalDateTime
     fun store() {
 <span class="fc" id="L252">        serializer.write(swimmers)</span>
 <span class="fc" id="L253">    }</span>
-
     /**
      * Formats a list of Swimmer objects into a string representation.
      *
@@ -259,9 +258,9 @@ import java.time.LocalDateTime
      * @return A formatted string containing the list of swimmers.
      */
     private fun formatListString(swimmersToFormat: List&lt;Swimmer&gt;): String =
-<span class="fc" id="L262">        swimmersToFormat</span>
-<span class="fc" id="L263">            .joinToString(separator = &quot;\n&quot;) { swimmer -&gt;</span>
-<span class="fc" id="L264">                swimmers.indexOf(swimmer).toString() + &quot;: &quot; + swimmer.toString()</span>
-<span class="fc" id="L265">            }</span>
+<span class="fc" id="L261">        swimmersToFormat</span>
+<span class="fc" id="L262">            .joinToString(separator = &quot;\n&quot;) { swimmer -&gt;</span>
+<span class="fc" id="L263">                swimmers.indexOf(swimmer).toString() + &quot;: &quot; + swimmer.toString()</span>
+<span class="fc" id="L264">            }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

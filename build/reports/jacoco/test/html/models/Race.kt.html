@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Race.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">swimming-application</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">Race.kt</span></div><h1>Race.kt</h1><pre class="source lang-java linenums">package models
+
 /**
  * Represents a race, containing a unique ID, race grade, and graded status.
  * The Race class is used to store and manage information about individual races,
@@ -13,32 +14,31 @@
  */
 
 /**
-*
-*Represents a race, containing a unique ID, race grade, and graded status.
-*
-*@property raceId The unique ID of the race.
-*
-*@property raceGraded The grade of the race
-*
-*@property isRaceOutdated Indicates whether the race is graded or not. Defaults to false.
+ *
+ *Represents a race, containing a unique ID, race grade, and graded status.
+ *
+ *@property raceId The unique ID of the race.
+ *
+ *@property raceGraded The grade of the race
+ *
+ *@property isRaceOutdated Indicates whether the race is graded or not. Defaults to false.
  */
-<span class="pc" id="L25">data class Race(</span>
-<span class="pc" id="L26">    var raceId: Int = 0,</span>
-<span class="pc" id="L27">    var raceGraded: String,</span>
-<span class="pc" id="L28">    var raceTime: String,</span>
-<span class="pc" id="L29">    var raceType: String,</span>
-<span class="pc" id="L30">    var isRaceOutdated: Boolean = false</span>
+<span class="pc" id="L26">data class Race(</span>
+<span class="pc" id="L27">    var raceId: Int = 0,</span>
+<span class="pc" id="L28">    var raceGraded: String,</span>
+<span class="pc" id="L29">    var raceTime: String,</span>
+<span class="pc" id="L30">    var raceType: String,</span>
+<span class="pc" id="L31">    var isRaceOutdated: Boolean = false</span>
 ) {
 
-/**
-*
-*Returns a string representation of the race, including its ID, grade, and completion status.
-*@return A formatted string representing the race.
-*/
-override fun toString(): String {
-<span class="fc bfc" id="L39" title="All 2 branches covered.">    val gradedStr = if (isRaceOutdated) &quot;(Graded)&quot; else &quot;(Ungraded)&quot;</span>
-<span class="fc" id="L40">    return &quot;$raceId: $raceGraded $gradedStr - $raceType, Time: $raceTime&quot;</span>
-}
-
+    /**
+     *
+     *Returns a string representation of the race, including its ID, grade, and completion status.
+     *@return A formatted string representing the race.
+     */
+    override fun toString(): String {
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        val gradedStr = if (isRaceOutdated) &quot;(Graded)&quot; else &quot;(Ungraded)&quot;</span>
+<span class="fc" id="L41">        return &quot;$raceId: $raceGraded $gradedStr - $raceType, Time: $raceTime&quot;</span>
+    }
 <span class="nc" id="L43">}</span>
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

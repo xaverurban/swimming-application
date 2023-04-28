@@ -122,7 +122,7 @@ fun runMenu() {
 fun addSwimmer() {
     val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
     val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
-    val swimmerCategory = ScannerInput.readNextLine("Enter a category for the swimmer: ")
+    val swimmerCategory = ScannerInput.readNextLine("Enter a main category for the swimmer: ")
     val isAdded = swimmerAPI.add(
         Swimmer(
             swimmerName = swimmerName,
