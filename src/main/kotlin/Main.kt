@@ -90,7 +90,7 @@ fun runMenu() {
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
-           // 9 -> markRaceStatus()
+            9 -> markRaceStatus()
             //     10 -> searchSwimmers()
             //     15 -> searchRaces()
             //  16 -> list
@@ -146,9 +146,15 @@ fun deleteSwimmer() {
 private fun addRaceToSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
-        if (swimmer.addRace(Race(raceGraded = ScannerInput.readNextLine("\t Race Grade: "))))
-            println("Add Successful!")
-        else println("Add NOT Successful")
+        print("\nEnter race details:\n")
+        val raceGraded = ScannerInput.readNextLine("\tRace Grade(eg. Pass, Fail): ")
+        val raceTime = ScannerInput.readNextLine("\tRace Time(use format HH:mm:ss): ")
+        val raceType = ScannerInput.readNextLine("\tRace Type(eg. Backstroke, Freestyle): ")
+        if (swimmer.addRace(Race(raceGraded = raceGraded, raceTime = raceTime, raceType = raceType))) {
+            println("Race added successfully!")
+        } else {
+            println("Failed to add race. Try again!")
+        }
     }
 }
 
@@ -271,17 +277,57 @@ fun deleteRace() {
  */
 fun updateRaceGradedInSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
+
     if (swimmer != null) {
         val item: Race? = askUserToChooseRace(swimmer)
+
         if (item != null) {
-            val newGrade = ScannerInput.readNextLine("Enter new contents: ")
-            if (swimmer.update(item.raceId, Race(raceGraded = newGrade))) {
+            val newGrade = ScannerInput.readNextLine("Enter new grade(eg.Pass, Fail): ")
+            val newTime = ScannerInput.readNextLine("Enter new time(use format HH:mm:ss): ")
+            val newType = ScannerInput.readNextLine("Enter new type(eg. Backstroke, Freestyle etc.): ")
+
+            val updatedRace = Race(
+                raceId = item.raceId,
+                raceGraded = newGrade,
+                raceTime = newTime,
+                raceType = newType,
+                isRaceOutdated = item.isRaceOutdated
+            )
+
+            if (swimmer.update(item.raceId, updatedRace)) {
                 println("Race contents updated")
             } else {
                 println("Race contents NOT updated")
             }
         } else {
             println("Invalid Race Id")
+        }
+    }
+}
+
+/**
+*
+*Prompts the user to choose an active swimmer from the list of active swimmers and returns the corresponding Swimmer object.
+*Verifies if the selected swimmer is active before returning the object. If the swimmer is not active, it returns null.
+*@return Swimmer? - the selected swimmer object if active, null otherwise
+ */
+fun markRaceStatus() {
+    val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
+    if (swimmer != null) {
+        val race: Race? = askUserToChooseRace(swimmer)
+        if (race != null) {
+            var changeStatus: Char
+            if (race.isRaceOutdated) {
+                changeStatus =
+                    ScannerInput.readNextChar("The race is currently complete...do you want to mark it as TODO?")
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
+                    race.isRaceOutdated = false
+            } else {
+                changeStatus =
+                    ScannerInput.readNextChar("The race is currently TODO...do you want to mark it as Complete?")
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
+                    race.isRaceOutdated = true
+            }
         }
     }
 }
@@ -309,7 +355,6 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
     }
     return null
 }
-
 
 /**
  * Asks the user to choose a race from a swimmer's list of races.
