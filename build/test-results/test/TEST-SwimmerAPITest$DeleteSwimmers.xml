@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SwimmerAPITest$DeleteSwimmers" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-28T17:32:43" hostname="DESKTOP-66BKA17" time="0.002">
+<testsuite name="SwimmerAPITest$DeleteSwimmers" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-28T17:40:59" hostname="DESKTOP-66BKA17" time="0.002">
   <properties/>
-  <testcase name="deleting a swimmer that exists deletes and returns true()" classname="SwimmerAPITest$DeleteSwimmers" time="0.001"/>
+  <testcase name="deleting a swimmer that exists deletes and returns true()" classname="SwimmerAPITest$DeleteSwimmers" time="0.002"/>
   <testcase name="deleting a Swimmer that does not exist returns false()" classname="SwimmerAPITest$DeleteSwimmers" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

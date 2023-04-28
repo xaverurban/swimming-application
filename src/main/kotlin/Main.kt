@@ -1,5 +1,3 @@
-
-
 import controllers.SwimmerAPI
 import models.Race
 import models.Swimmer
@@ -112,7 +110,13 @@ fun addSwimmer() {
     val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
     val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
     val swimmerCategory = ScannerInput.readNextLine("Enter a category for the swimmer: ")
-    val isAdded = swimmerAPI.add(Swimmer(swimmerName = swimmerName, swimmerLevel = swimmerLevel, swimmerCategory = swimmerCategory))
+    val isAdded = swimmerAPI.add(
+        Swimmer(
+            swimmerName = swimmerName,
+            swimmerLevel = swimmerLevel,
+            swimmerCategory = swimmerCategory
+        )
+    )
 
     if (isAdded) {
         println("Added Successfully")
@@ -122,10 +126,10 @@ fun addSwimmer() {
 }
 
 /**
-*Asks the user to enter the name of the swimmer they want to search by.
-*Searches for all swimmers whose name contains the entered search term.
-*If found, it prints out a list of all the matching swimmers.
-*If no matches are found, it prints a message indicating that no swimmers were found.
+ *Asks the user to enter the name of the swimmer they want to search by.
+ *Searches for all swimmers whose name contains the entered search term.
+ *If found, it prints out a list of all the matching swimmers.
+ *If no matches are found, it prints a message indicating that no swimmers were found.
  */
 fun searchSwimmers() {
     val searchName = readNextLine("Enter the name to search by: ")
@@ -136,6 +140,7 @@ fun searchSwimmers() {
         println(searchResults)
     }
 }
+
 /**
  * Lists all swimmers and prompts the user to enter the ID of the swimmer to delete.
  * If a valid ID is entered, attempts to delete the swimmer from the swimmerAPI and displays a success or failure message.
@@ -207,6 +212,7 @@ fun listSwimmers() {
         println("Option Invalid - No notes stored")
     }
 }
+
 /**
  * Lists all swimmers in the swimmerAPI.
  */
@@ -280,7 +286,6 @@ fun deleteRace() {
             val isDeleted = swimmer.delete(race.raceId)
             if (isDeleted)
                 println("Race deleted successfully from ${swimmer.swimmerName}'s list of races.")
-
             else println("Unable to delete the race from ${swimmer.swimmerName}'s list of races.")
         } else println("Invalid race ID. Please choose a valid race ID.")
     }
@@ -322,10 +327,10 @@ fun updateRaceGradedInSwimmer() {
 }
 
 /**
-*
-*Prompts the user to choose an active swimmer from the list of active swimmers and returns the corresponding Swimmer object.
-*Verifies if the selected swimmer is active before returning the object. If the swimmer is not active, it returns null.
-*@return Swimmer? - the selected swimmer object if active, null otherwise
+ *
+ *Prompts the user to choose an active swimmer from the list of active swimmers and returns the corresponding Swimmer object.
+ *Verifies if the selected swimmer is active before returning the object. If the swimmer is not active, it returns null.
+ *@return Swimmer? - the selected swimmer object if active, null otherwise
  */
 fun markRaceStatus() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
