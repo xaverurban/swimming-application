@@ -2,67 +2,29 @@
   <list>
     <models.Swimmer>
       <swimmerId>0</swimmerId>
-      <swimmerName>Michael</swimmerName>
-      <swimmerLevel>5</swimmerLevel>
-      <swimmerCategory>Backstroke</swimmerCategory>
-      <isSwimmerArchived>true</isSwimmerArchived>
-      <races class="linked-hash-set">
-        <models.Race>
-          <raceId>1</raceId>
-          <raceGraded>no</raceGraded>
-          <raceTime>14:00</raceTime>
-          <raceType>Backstroke</raceType>
-          <isRaceOutdated>false</isRaceOutdated>
-        </models.Race>
-        <models.Race>
-          <raceId>1</raceId>
-          <raceGraded>no</raceGraded>
-          <raceTime>14:13</raceTime>
-          <raceType>Freestyle</raceType>
-          <isRaceOutdated>false</isRaceOutdated>
-        </models.Race>
-      </races>
-      <creationTime>2023-04-28T21:30:47.9987601</creationTime>
-      <updateTime>2023-04-28T21:30:47.9987601</updateTime>
-      <lastRaceId>0</lastRaceId>
-    </models.Swimmer>
-    <models.Swimmer>
-      <swimmerId>1</swimmerId>
-      <swimmerName>Sarah</swimmerName>
-      <swimmerLevel>3</swimmerLevel>
-      <swimmerCategory>Freestyle</swimmerCategory>
+      <swimmerName>Xaver </swimmerName>
+      <swimmerLevel>2</swimmerLevel>
+      <swimmerCategory>Yeeto</swimmerCategory>
       <isSwimmerArchived>false</isSwimmerArchived>
       <races class="linked-hash-set">
         <models.Race>
-          <raceId>2</raceId>
-          <raceGraded>yes</raceGraded>
-          <raceTime>15:00</raceTime>
-          <raceType>Butterfly</raceType>
-          <isRaceOutdated>true</isRaceOutdated>
+          <raceId>0</raceId>
+          <raceGraded>Pass</raceGraded>
+          <raceTime>11:00</raceTime>
+          <raceType>Free</raceType>
+          <isRaceOutdated>false</isRaceOutdated>
         </models.Race>
-      </races>
-      <creationTime>2023-04-28T21:30:47.9987601</creationTime>
-      <updateTime>2023-04-28T21:30:47.9987601</updateTime>
-      <lastRaceId>0</lastRaceId>
-    </models.Swimmer>
-    <models.Swimmer>
-      <swimmerId>2</swimmerId>
-      <swimmerName>Tom</swimmerName>
-      <swimmerLevel>1</swimmerLevel>
-      <swimmerCategory>Butterfly</swimmerCategory>
-      <isSwimmerArchived>true</isSwimmerArchived>
-      <races class="linked-hash-set">
         <models.Race>
-          <raceId>3</raceId>
-          <raceGraded>no</raceGraded>
-          <raceTime>16:00</raceTime>
-          <raceType>Backstroke</raceType>
+          <raceId>1</raceId>
+          <raceGraded>Fail</raceGraded>
+          <raceTime>11:00</raceTime>
+          <raceType>EEWEW</raceType>
           <isRaceOutdated>false</isRaceOutdated>
         </models.Race>
       </races>
-      <creationTime>2023-04-28T21:30:47.9987601</creationTime>
-      <updateTime>2023-04-28T21:30:47.9987601</updateTime>
-      <lastRaceId>0</lastRaceId>
+      <creationTime>2023-04-28T21:57:12.033797</creationTime>
+      <updateTime>2023-04-28T21:57:12.0347969</updateTime>
+      <lastRaceId>2</lastRaceId>
     </models.Swimmer>
   </list>
 </object-stream>

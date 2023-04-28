@@ -45,7 +45,7 @@ fun mainMenu(): Int {
         $title+-----------------------------------------------------+
         |                  ${title}SWIMMING APP$reset                     
         +-----------------------------------------------------+
-        | ${sectionTitle}NOTE MENU$reset                                         
+        | ${sectionTitle}swimmer MENU$reset                                         
         |   ${optionNumber}1) ${optionName}Add a Swimmer$reset                                
         |   ${optionNumber}2) ${optionName}List Swimmers$reset                                
         |   ${optionNumber}3) ${optionName}Update a Swimmer$reset                             
@@ -232,7 +232,7 @@ fun listSwimmers() {
             else -> println("Invalid option entered: $option")
         }
     } else {
-        println("Option Invalid - No notes stored")
+        println("Option Invalid - No swimmers stored")
     }
 }
 
@@ -259,11 +259,11 @@ fun updateSwimmer() {
     listSwimmers()
     if (swimmerAPI.numberOfSwimmers() > 0) {
 
-        val id = readNextInt("Enter the id of the note to update: ")
+        val id = readNextInt("Enter the id of the swimmer to update: ")
         if (swimmerAPI.findSwimmer(id) != null) {
-            val swimmerName = ScannerInput.readNextLine("Enter a title for the note: ")
+            val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
             val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
-            val swimmerCategory = ScannerInput.readNextLine("Enter a category for the note: ")
+            val swimmerCategory = ScannerInput.readNextLine("Enter a main category for the swimmer: ")
 
             if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {
                 println("Update Successful")
@@ -271,7 +271,7 @@ fun updateSwimmer() {
                 println("Update Failed")
             }
         } else {
-            println("There are no notes for this index number")
+            println("There are no swimmers for this index number")
         }
     }
 }

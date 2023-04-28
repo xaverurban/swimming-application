@@ -45,7 +45,7 @@ fun mainMenu(): Int {
 <span class="nc" id="L45">        $title+-----------------------------------------------------+</span>
 <span class="nc" id="L46">        |                  ${title}SWIMMING APP$reset                     </span>
         +-----------------------------------------------------+
-<span class="nc" id="L48">        | ${sectionTitle}NOTE MENU$reset                                         </span>
+<span class="nc" id="L48">        | ${sectionTitle}swimmer MENU$reset                                         </span>
 <span class="nc" id="L49">        |   ${optionNumber}1) ${optionName}Add a Swimmer$reset                                </span>
 <span class="nc" id="L50">        |   ${optionNumber}2) ${optionName}List Swimmers$reset                                </span>
 <span class="nc" id="L51">        |   ${optionNumber}3) ${optionName}Update a Swimmer$reset                             </span>
@@ -232,7 +232,7 @@ fun listSwimmers() {
 <span class="nc" id="L232">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
         }
     } else {
-<span class="nc" id="L235">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+<span class="nc" id="L235">        println(&quot;Option Invalid - No swimmers stored&quot;)</span>
     }
 <span class="nc" id="L237">}</span>
 
@@ -259,11 +259,11 @@ fun updateSwimmer() {
 <span class="nc" id="L259">    listSwimmers()</span>
 <span class="nc bnc" id="L260" title="All 2 branches missed.">    if (swimmerAPI.numberOfSwimmers() &gt; 0) {</span>
 
-<span class="nc" id="L262">        val id = readNextInt(&quot;Enter the id of the note to update: &quot;)</span>
+<span class="nc" id="L262">        val id = readNextInt(&quot;Enter the id of the swimmer to update: &quot;)</span>
 <span class="nc bnc" id="L263" title="All 2 branches missed.">        if (swimmerAPI.findSwimmer(id) != null) {</span>
-<span class="nc" id="L264">            val swimmerName = ScannerInput.readNextLine(&quot;Enter a title for the note: &quot;)</span>
+<span class="nc" id="L264">            val swimmerName = ScannerInput.readNextLine(&quot;Enter a name for the swimmer: &quot;)</span>
 <span class="nc" id="L265">            val swimmerLevel = readNextInt(&quot;Enter a level of swimmer (1-low, 2, 3, 4, 5-high): &quot;)</span>
-<span class="nc" id="L266">            val swimmerCategory = ScannerInput.readNextLine(&quot;Enter a category for the note: &quot;)</span>
+<span class="nc" id="L266">            val swimmerCategory = ScannerInput.readNextLine(&quot;Enter a main category for the swimmer: &quot;)</span>
 
 <span class="nc bnc" id="L268" title="All 2 branches missed.">            if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {</span>
 <span class="nc" id="L269">                println(&quot;Update Successful&quot;)</span>
@@ -271,7 +271,7 @@ fun updateSwimmer() {
 <span class="nc" id="L271">                println(&quot;Update Failed&quot;)</span>
             }
         } else {
-<span class="nc" id="L274">            println(&quot;There are no notes for this index number&quot;)</span>
+<span class="nc" id="L274">            println(&quot;There are no swimmers for this index number&quot;)</span>
         }
     }
 <span class="nc" id="L277">}</span>
