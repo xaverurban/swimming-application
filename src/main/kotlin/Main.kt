@@ -9,7 +9,6 @@ import utils.ScannerInput.readNextInt
 import java.io.File
 import kotlin.system.exitProcess
 
-
 /**
  * This class provides an interactive menu-driven application for managing a list of swimmers and their associated races.
  * It offers functionality to add, search, list, update, and delete swimmers, as well as manage their races.
@@ -42,37 +41,39 @@ fun mainMenu(): Int {
     val optionNumber = "\u001B[32m"
     val optionName = "\u001B[34m"
 
-    return readNextInt("""
+    return readNextInt(
+        """
         $title+-----------------------------------------------------+
-        |                  ${title}SWIMMING APP${reset}                     
+        |                  ${title}SWIMMING APP$reset                     
         +-----------------------------------------------------+
-        | ${sectionTitle}NOTE MENU${reset}                                         
-        |   ${optionNumber}1) ${optionName}Add a Swimmer${reset}                                
-        |   ${optionNumber}2) ${optionName}List Swimmers${reset}                                
-        |   ${optionNumber}3) ${optionName}Update a Swimmer${reset}                             
-        |   ${optionNumber}4) ${optionName}Delete a Swimmer${reset}                             
-        |   ${optionNumber}5) ${optionName}Archive a Swimmer${reset}                            
+        | ${sectionTitle}NOTE MENU$reset                                         
+        |   ${optionNumber}1) ${optionName}Add a Swimmer$reset                                
+        |   ${optionNumber}2) ${optionName}List Swimmers$reset                                
+        |   ${optionNumber}3) ${optionName}Update a Swimmer$reset                             
+        |   ${optionNumber}4) ${optionName}Delete a Swimmer$reset                             
+        |   ${optionNumber}5) ${optionName}Archive a Swimmer$reset                            
         +-----------------------------------------------------+
-        | ${sectionTitle}SWIMMER MENU${reset}                                      
-        |   ${optionNumber}6) ${optionName}Add race to a Swimmer${reset}                       
-        |   ${optionNumber}7) ${optionName}Update race contents on a Swimmer${reset}           
-        |   ${optionNumber}8) ${optionName}Delete race from a Swimmer${reset}                  
-        |   ${optionNumber}9) ${optionName}Mark item as${reset}                                
+        | ${sectionTitle}SWIMMER MENU$reset                                      
+        |   ${optionNumber}6) ${optionName}Add race to a Swimmer$reset                       
+        |   ${optionNumber}7) ${optionName}Update race contents on a Swimmer$reset           
+        |   ${optionNumber}8) ${optionName}Delete race from a Swimmer$reset                  
+        |   ${optionNumber}9) ${optionName}Mark item as$reset                                
         +-----------------------------------------------------+
-        | ${sectionTitle}REPORT MENU FOR SWIMMERS${reset}                          
-        |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)${reset}           
+        | ${sectionTitle}REPORT MENU FOR SWIMMERS$reset                          
+        |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
-        | ${sectionTitle}REPORT MENU FOR RACES${reset}                             
-        |    ${optionNumber}13) ${optionName}Add a race to the database${reset}                 
-        |    ${optionNumber}14) ${optionName}View all races${reset}                             
-        |    ${optionNumber}15) ${optionName}Search for all races (by race name)${reset}        
-        |    ${optionNumber}16) ${optionName}List graded races${reset}                          
+        | ${sectionTitle}REPORT MENU FOR RACES$reset                             
+        |    ${optionNumber}13) ${optionName}Add a race to the database$reset                 
+        |    ${optionNumber}14) ${optionName}View all races$reset                             
+        |    ${optionNumber}15) ${optionName}Search for all races (by race name)$reset        
+        |    ${optionNumber}16) ${optionName}List graded races$reset                          
         +-----------------------------------------------------+
-        |    ${optionNumber}0) ${optionName}Exit${reset}                                         
+        |    ${optionNumber}0) ${optionName}Exit$reset                                         
         +-----------------------------------------------------+
-        ==>> """.trimIndent())
+        ==>> 
+        """.trimIndent()
+    )
 }
-
 
 /**
  * Executes the main loop of the Swimming App, displaying the main menu and executing the appropriate functions
@@ -89,10 +90,10 @@ fun runMenu() {
             6 -> addRaceToSwimmer()
             7 -> updateRaceGradedInSwimmer()
             8 -> deleteRace()
-         //   9 -> markRaceStatus()
-          //     10 -> searchSwimmers()
+            //   9 -> markRaceStatus()
+            //     10 -> searchSwimmers()
             //     15 -> searchRaces()
-           //  16 -> list
+            //  16 -> list
             17 -> save()
             18 -> load()
             0 -> exitApp()
@@ -163,14 +164,15 @@ fun listSwimmers() {
 
         val option = readNextInt(
             """
-            ${yellow}┌─────────────────────────────────────┐
-            │         ${green}VIEW SWIMMERS MENU${yellow}          │
+            $yellow┌─────────────────────────────────────┐
+            │         ${green}VIEW SWIMMERS MENU$yellow          │
             ├─────────────────────────────────────┤
-            │   1) ${green}View All Swimmers${reset}              │
-            │   2) ${green}View Active Swimmers${reset}           │
-            │   3) ${green}View Archived Swimmers${reset}         │
+            │   1) ${green}View All Swimmers$reset              │
+            │   2) ${green}View Active Swimmers$reset           │
+            │   3) ${green}View Archived Swimmers$reset         │
             └─────────────────────────────────────┘
-            ==>> """.trimIndent()
+            ==>> 
+            """.trimIndent()
         )
 
         when (option) {
@@ -316,13 +318,13 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
  * @param swimmer - the swimmer object whose races the user will choose from
  * @return Race? - the selected race object if found, null otherwise
  */
-private fun askUserToChooseRace(swimmer: Swimmer?): Race? {
-    return if (swimmer?.numberOfRaces()!! > 0) {
-        print(swimmer?.listRaces())
-        swimmer?.findOne(readNextInt("\nEnter the id of the item: "))
+private fun askUserToChooseRace(swimmer: Swimmer): Race? {
+    if (swimmer.numberOfRaces() > 0) {
+        print(swimmer.listRaces())
+        return swimmer.findOne(readNextInt("\nEnter the id of the item: "))
     } else {
         println("No items for chosen swimmer")
-        null
+        return null
     }
 }
 

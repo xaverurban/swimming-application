@@ -26,9 +26,9 @@ class SwimmerAPITest {
         sarah = Swimmer(2, "Sarah", 3, "Freestyle", false)
         tom = Swimmer(3, "Tom", 1, "Butterfly", true)
 
-        michael!!.races.add(Race(1, "no",false))
-        sarah!!.races.add(Race(2, "yes",true))
-        tom!!.races.add(Race(3, "no",false))
+        michael!!.races.add(Race(1, "no", false))
+        sarah!!.races.add(Race(2, "yes", true))
+        tom!!.races.add(Race(3, "no", false))
 
         // Adding Swimmers to the SwimmerAPI
         populatedSwimmers!!.add(michael!!)
@@ -244,7 +244,6 @@ class SwimmerAPITest {
             assertTrue(populatedSwimmers!!.archiveSwimmer(1))
             assertTrue(populatedSwimmers!!.findSwimmer(1)!!.isSwimmerArchived)
         }
-
     }
     @Nested
     inner class CountingMethods {
@@ -347,13 +346,9 @@ class SwimmerAPITest {
             api.add(Swimmer(2, "Sarah", 3, "Freestyle", false))
             api.add(Swimmer(3, "Tom", 1, "Butterfly", true))
 
-
             val searchResults = api.searchSwimmersByName("nonexistent")
-
 
             assertTrue(searchResults.isEmpty())
         }
-
     }
-
 }

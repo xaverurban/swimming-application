@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SwimmerAPITest$SearchMethods" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-28T14:46:24" hostname="DESKTOP-66BKA17" time="0.017">
+<testsuite name="SwimmerAPITest$SearchMethods" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-28T15:54:29" hostname="DESKTOP-66BKA17" time="0.008">
   <properties/>
   <testcase name="searchRaceByContents returns no swimmer stored message when no swimmers exists()" classname="SwimmerAPITest$SearchMethods" time="0.001"/>
-  <testcase name="search swimmers by name returns swimmers when swimmers with that name exist()" classname="SwimmerAPITest$SearchMethods" time="0.012"/>
+  <testcase name="search swimmers by name returns swimmers when swimmers with that name exist()" classname="SwimmerAPITest$SearchMethods" time="0.005"/>
   <testcase name="searchRaceByContents returns race with the given contents()" classname="SwimmerAPITest$SearchMethods" time="0.0"/>
   <testcase name="searchRaceByContents returns no races found message when no races exist()" classname="SwimmerAPITest$SearchMethods" time="0.0"/>
   <testcase name="searchSwimmersByName returns empty list when nothing matching swimmer exists()" classname="SwimmerAPITest$SearchMethods" time="0.0"/>
-  <testcase name="search swimmers by name returns no swimmers when no swimmers with that name exist()" classname="SwimmerAPITest$SearchMethods" time="0.001"/>
+  <testcase name="search swimmers by name returns no swimmers when no swimmers with that name exist()" classname="SwimmerAPITest$SearchMethods" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
