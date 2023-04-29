@@ -45,35 +45,35 @@ fun mainMenu(): Int {
         $title+-----------------------------------------------------+
         |                  ${title}SWIMMING APP$reset                     
         +-----------------------------------------------------+
-        | ${sectionTitle}swimmer MENU$reset                                         
-        |   ${optionNumber}1) ${optionName}Add a Swimmer$reset                                
-        |   ${optionNumber}2) ${optionName}List Swimmers$reset                                
-        |   ${optionNumber}3) ${optionName}Update a Swimmer$reset                             
-        |   ${optionNumber}4) ${optionName}Delete a Swimmer$reset                             
-        |   ${optionNumber}5) ${optionName}Archive a Swimmer$reset                            
+        | ${sectionTitle}🏊‍♀️ Swimmer MENU$reset                                         
+        |   ${optionNumber}1) ${optionName}➕ Add a Swimmer$reset                                
+        |   ${optionNumber}2) ${optionName}📜 List Swimmers$reset                                
+        |   ${optionNumber}3) ${optionName}📝 Update a Swimmer$reset                             
+        |   ${optionNumber}4) ${optionName}🗑 Delete a Swimmer$reset                             
+        |   ${optionNumber}5) ${optionName}📦 Archive a Swimmer$reset                            
         +-----------------------------------------------------+
-        | ${sectionTitle}SWIMMER MENU$reset                                      
-        |   ${optionNumber}6) ${optionName}Add race to a Swimmer$reset                       
-        |   ${optionNumber}7) ${optionName}Update race contents on a Swimmer$reset           
-        |   ${optionNumber}8) ${optionName}Delete race from a Swimmer$reset                  
-        |   ${optionNumber}9) ${optionName}Mark race status (graded, ungraded)$reset                                
+        | ${sectionTitle}🏊‍♀️ SWIMMER MENU$reset                                      
+        |   ${optionNumber}6) ${optionName}➕ Add race to a Swimmer$reset                       
+        |   ${optionNumber}7) ${optionName}📝 Update race contents on a Swimmer$reset           
+        |   ${optionNumber}8) ${optionName}🗑 Delete race from a Swimmer$reset                  
+        |   ${optionNumber}9) ${optionName}🏁 Mark race status (graded, ungraded)$reset                                
         +-----------------------------------------------------+
-        | ${sectionTitle}REPORT MENU FOR SWIMMERS$reset                          
-        |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
+        | ${sectionTitle}📊 REPORT MENU FOR SWIMMERS$reset                          
+        |   ${optionNumber}10) ${optionName}🔍 Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
-        | ${sectionTitle}REPORT MENU FOR RACES$reset                                                        
-        |    ${optionNumber}15) ${optionName}Search for all races (by race success)$reset        
-        |    ${optionNumber}16) ${optionName}List ungraded races$reset
-        |    ${optionNumber}16) ${optionName}List graded races$reset
+        | ${sectionTitle}📊 REPORT MENU FOR RACES$reset                                                        
+        |    ${optionNumber}15) ${optionName}🔍 Search for all races (by race success)$reset        
+        |    ${optionNumber}16) ${optionName}📜 List ungraded races$reset
+        |    ${optionNumber}16) ${optionName}📜 List graded races$reset
         +-----------------------------------------------------+
-        | ${sectionTitle}ARCHIVE MENU$reset                                                     
-        |    ${optionNumber}19) ${optionName}Reinstate a swimmer from archive$reset                        
+        | ${sectionTitle}📁 ARCHIVE MENU$reset                                                     
+        |    ${optionNumber}19) ${optionName}🔙 Reinstate a swimmer from archive$reset                        
         +-----------------------------------------------------+
-        | ${sectionTitle}DATA MENU$reset                                         
-        |    ${optionNumber}100) ${optionName}Save data to file$reset                           
-        |    ${optionNumber}101) ${optionName}Load data from file$reset                         
+        | ${sectionTitle}💾 DATA MENU$reset                                         
+        |    ${optionNumber}100) ${optionName}💾 Save data to file$reset                           
+        |    ${optionNumber}101) ${optionName}📂 Load data from file$reset                         
         +-----------------------------------------------------+
-        |    ${optionNumber}0) ${optionName}Exit$reset                                         
+        |    ${optionNumber}0) ${optionName}🚪 Exit$reset                                         
         +-----------------------------------------------------+
         ==>> 
         """.trimIndent()
