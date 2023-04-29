@@ -6,8 +6,6 @@ import utils.CategoryUtility.categories
 import utils.CategoryUtility.isValidCategory
 
 internal class CategoryUtilityTest {
-
-
     @Test
     fun categoriesReturnsFullCategoriesSet() {
         Assertions.assertEquals(5, categories.size)
@@ -46,5 +44,4 @@ internal class CategoryUtilityTest {
         Assertions.assertFalse(isValidCategory("butter"))
         Assertions.assertFalse(isValidCategory(""))
     }
-
 }
