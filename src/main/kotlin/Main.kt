@@ -2,9 +2,11 @@ import controllers.SwimmerAPI
 import models.Race
 import models.Swimmer
 import persistence.XMLSerializer
+import utils.CategoryUtility
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import utils.ValidateInput.readValidCategory
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -118,7 +120,7 @@ fun runMenu() {
 fun addSwimmer() {
     val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
     val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
-    val swimmerCategory = ScannerInput.readNextLine("Enter a main category for the swimmer: ")
+    val swimmerCategory = readValidCategory("Enter a main category for the swimmer${CategoryUtility.categories}: ")
     val isAdded = swimmerAPI.add(
         Swimmer(
             swimmerName = swimmerName,
@@ -187,7 +189,7 @@ private fun addRaceToSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
         print("\nEnter race details:\n")
-        val raceMedal = ScannerInput.readNextLine("\tRace Grade(eg. Pass, Fail): ")
+        val raceMedal = ScannerInput.readNextLine("\tRace Medal(eg. Gold, Silver): ")
         val raceTime = ScannerInput.readNextLine("\tRace Time(use format HH:mm:ss): ")
         val raceType = ScannerInput.readNextLine("\tRace Type(eg. Backstroke, Freestyle): ")
         if (swimmer.addRace(Race(raceMedal = raceMedal, raceTime = raceTime, raceType = raceType))) {
@@ -259,7 +261,7 @@ fun updateSwimmer() {
         if (swimmerAPI.findSwimmer(id) != null) {
             val swimmerName = ScannerInput.readNextLine("Enter a name for the swimmer: ")
             val swimmerLevel = readNextInt("Enter a level of swimmer (1-low, 2, 3, 4, 5-high): ")
-            val swimmerCategory = ScannerInput.readNextLine("Enter a main category for the swimmer: ")
+            val swimmerCategory = readValidCategory("Enter a main category for the swimmer${CategoryUtility.categories}: ")
 
             if (swimmerAPI.update(id, Swimmer(0, swimmerName, swimmerLevel, swimmerCategory, false))) {
                 println("Update Successful")
@@ -422,7 +424,7 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
         val swimmer = swimmerAPI.findSwimmer(readNextInt("\nEnter the id of the swimmer: "))
         if (swimmer != null) {
             if (swimmer.isSwimmerArchived) {
-                println("Swimmer is NOT Active, it is Archived")
+                println("Swimmer is NOT Active, they are Archived")
             } else {
                 return swimmer
             }
@@ -444,7 +446,7 @@ private fun askUserToChooseArchivedSwimmer(): Swimmer? {
         val swimmer = swimmerAPI.findSwimmer(readNextInt("\nEnter the id of the archived swimmer: "))
         if (swimmer != null) {
             if (!swimmer.isSwimmerArchived) {
-                println("Swimmer is NOT Archived, it is Active")
+                println("Swimmer is NOT Archived, they are Active")
             } else {
                 return swimmer
             }

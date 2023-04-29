@@ -8,15 +8,6 @@ import models.Swimmer
  */
 object Utilities {
 
-    /**
-     * Formats a list of Swimmer objects into a readable string.
-     * @param notesToFormat The list of Swimmer objects to format.
-     * @return A formatted string representing the list of Swimmer objects.
-     */
-    @JvmStatic
-    fun formatListString(notesToFormat: List<Swimmer>): String =
-        notesToFormat
-            .joinToString(separator = "\n") { swimmer -> "$swimmer" }
 
     /**
      * Formats a set of Race objects into a readable string.
@@ -27,4 +18,5 @@ object Utilities {
     fun formatSetString(itemsToFormat: Set<Race>): String =
         itemsToFormat
             .joinToString(separator = "\n") { race -> "\t$race" }
+
 }
