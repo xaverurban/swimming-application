@@ -62,14 +62,12 @@ fun mainMenu(): Int {
         |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
         | ${sectionTitle}REPORT MENU FOR RACES$reset                                                        
-        |    ${optionNumber}15) ${optionName}Search for all races (by race name)$reset        
-        |    ${optionNumber}16) ${optionName}List ungraded races$reset                        
-        |    ${optionNumber}17) ${optionName}List graded races$reset                          
+        |    ${optionNumber}15) ${optionName}Search for all races (by race success)$reset        
+        |    ${optionNumber}16) ${optionName}List ungraded races$reset
+        |    ${optionNumber}16) ${optionName}List graded races$reset
         +-----------------------------------------------------+
-        | ${sectionTitle}ARCHIVE MENU$reset                                     
-        |    ${optionNumber}18) ${optionName}List all archived swimmers$reset                 
-        |    ${optionNumber}19) ${optionName}Reinstate a swimmer from archive$reset           
-        |    ${optionNumber}20) ${optionName}Delete a swimmer from archive$reset              
+        | ${sectionTitle}ARCHIVE MENU$reset                                                     
+        |    ${optionNumber}19) ${optionName}Reinstate a swimmer from archive$reset                        
         +-----------------------------------------------------+
         | ${sectionTitle}DATA MENU$reset                                         
         |    ${optionNumber}100) ${optionName}Save data to file$reset                           
@@ -101,7 +99,9 @@ fun runMenu() {
             10 -> searchSwimmers()
             15 -> searchRaces()
             16 -> listUngradedRaces()
+            17 -> listGradedRaces()
             //  17 -> listSwimmersSortedByRaceCount()
+            19 -> activateArchivedSwimmer()
             100 -> save()
             101 -> load()
             0 -> exitApp()
@@ -279,10 +279,22 @@ fun updateSwimmer() {
  *followed by the list of ungraded races.
  */
 fun listUngradedRaces() {
-    if (swimmerAPI.numberOfUngradedRaces() > 0) {
-        println("Total Ungraded Races: ${swimmerAPI.numberOfUngradedRaces()}")
+    val numberOfUngradedRaces = swimmerAPI.numberOfUngradedRaces()
+    if (numberOfUngradedRaces > 0) {
+        println("Ungraded Races: $numberOfUngradedRaces")
+        println(swimmerAPI.listUngradedRaces())
+    } else {
+        println("No ungraded races found!")
     }
-    println(swimmerAPI.listUngradedRaces())
+}
+
+fun listGradedRaces() {
+    if (swimmerAPI.numberOfGradedRaces() > 0) {
+        println("Graded Races: ${swimmerAPI.numberOfGradedRaces()}")
+    } else {
+        println("No graded races found!")
+    }
+    println(swimmerAPI.listGradedRaces())
 }
 
 /**
@@ -302,6 +314,19 @@ fun archiveSwimmer() {
         }
     } else {
         println("There are no active swimmers to archive.")
+    }
+}
+
+/**
+ * Prompts the user to choose an archived swimmer and re-activates them.
+ */
+fun activateArchivedSwimmer() {
+    val swimmer: Swimmer? = askUserToChooseArchivedSwimmer()
+    if (swimmer != null) {
+        swimmer.activateSwimmer()
+        println("${swimmer.swimmerName} has been re-activated, welcome back!")
+    } else {
+        println("Invalid swimmer ID, try again.")
     }
 }
 
