@@ -82,7 +82,7 @@ data class Swimmer(
         val foundRace = findOne(id)
 
         if (foundRace != null) {
-            foundRace.raceGraded = newRace.raceGraded
+            foundRace.raceMedal = newRace.raceMedal
             foundRace.isRaceOutdated = newRace.isRaceOutdated
             return true
         }

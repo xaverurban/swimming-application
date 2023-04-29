@@ -43,37 +43,37 @@ fun mainMenu(): Int {
     return readNextInt(
         """
         $title+-----------------------------------------------------+
-        |                  ${title}SWIMMING APP$reset                     
+        |                  $title SWIMMING APP$reset                     
         +-----------------------------------------------------+
-        | ${sectionTitle}🏊‍♀️ Swimmer MENU$reset                                         
-        |   ${optionNumber}1) ${optionName}➕ Add a Swimmer$reset                                
-        |   ${optionNumber}2) ${optionName}📜 List Swimmers$reset                                
-        |   ${optionNumber}3) ${optionName}📝 Update a Swimmer$reset                             
-        |   ${optionNumber}4) ${optionName}🗑 Delete a Swimmer$reset                             
-        |   ${optionNumber}5) ${optionName}📦 Archive a Swimmer$reset                            
+        | $sectionTitle🏊‍♀️ Swimmer MENU$reset                                         
+        |   $optionNumber 1) $optionName➕ Add a Swimmer$reset                                
+        |   $optionNumber 2) $optionName📜 List Swimmers$reset                                
+        |   $optionNumber 3) $optionName📝 Update a Swimmer$reset                             
+        |   $optionNumber 4) $optionName🗑 Delete a Swimmer$reset                             
+        |   $optionNumber 5) $optionName📦 Archive a Swimmer$reset                            
         +-----------------------------------------------------+
-        | ${sectionTitle}🏊‍♀️ SWIMMER MENU$reset                                      
-        |   ${optionNumber}6) ${optionName}➕ Add race to a Swimmer$reset                       
-        |   ${optionNumber}7) ${optionName}📝 Update race contents on a Swimmer$reset           
-        |   ${optionNumber}8) ${optionName}🗑 Delete race from a Swimmer$reset                  
-        |   ${optionNumber}9) ${optionName}🏁 Mark race status (graded, ungraded)$reset                                
+        | $sectionTitle🏊‍♀️ SWIMMER MENU$reset                                      
+        |   $optionNumber 6) $optionName➕ Add race to a Swimmer$reset                       
+        |   $optionNumber 7) $optionName📝 Update race contents on a Swimmer$reset           
+        |   $optionNumber 8) $optionName🗑 Delete race from a Swimmer$reset                  
+        |   $optionNumber 9) $optionName🏁 Mark race status (graded, ungraded)$reset                                
         +-----------------------------------------------------+
-        | ${sectionTitle}📊 REPORT MENU FOR SWIMMERS$reset                          
-        |   ${optionNumber}10) ${optionName}🔍 Search for all Swimmers (by name)$reset           
+        | $sectionTitle📊 REPORT MENU FOR SWIMMERS$reset                          
+        |   $optionNumber 10) $optionName🔍 Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
-        | ${sectionTitle}📊 REPORT MENU FOR RACES$reset                                                        
-        |    ${optionNumber}15) ${optionName}🔍 Search for all races (by race success)$reset        
-        |    ${optionNumber}16) ${optionName}📜 List ungraded races$reset
-        |    ${optionNumber}16) ${optionName}📜 List graded races$reset
+        | $sectionTitle📊 REPORT MENU FOR RACES$reset                                                        
+        |   $optionNumber 15) $optionName🔍 Search for all races (by medal)$reset        
+        |   $optionNumber 16) $optionName📜 List ungraded races$reset
+        |   $optionNumber 16) $optionName📜 List graded races$reset
         +-----------------------------------------------------+
-        | ${sectionTitle}📁 ARCHIVE MENU$reset                                                     
-        |    ${optionNumber}19) ${optionName}🔙 Reinstate a swimmer from archive$reset                        
+        | $sectionTitle📁 ARCHIVE MENU$reset                                                     
+        |   $optionNumber 19) $optionName🔙 Reinstate a swimmer from archive$reset                        
         +-----------------------------------------------------+
-        | ${sectionTitle}💾 DATA MENU$reset                                         
-        |    ${optionNumber}100) ${optionName}💾 Save data to file$reset                           
-        |    ${optionNumber}101) ${optionName}📂 Load data from file$reset                         
+        | $sectionTitle💾 DATA MENU$reset                                         
+        |   $optionNumber 100) $optionName💾 Save data to file$reset                           
+        |   $optionNumber 101) $optionName📂 Load data from file$reset                         
         +-----------------------------------------------------+
-        |    ${optionNumber}0) ${optionName}🚪 Exit$reset                                         
+        |   $optionNumber 0) $optionName🚪 Exit$reset                                         
         +-----------------------------------------------------+
         ==>> 
         """.trimIndent()
@@ -187,10 +187,10 @@ private fun addRaceToSwimmer() {
     val swimmer: Swimmer? = askUserToChooseActiveSwimmer()
     if (swimmer != null) {
         print("\nEnter race details:\n")
-        val raceGraded = ScannerInput.readNextLine("\tRace Grade(eg. Pass, Fail): ")
+        val raceMedal = ScannerInput.readNextLine("\tRace Grade(eg. Pass, Fail): ")
         val raceTime = ScannerInput.readNextLine("\tRace Time(use format HH:mm:ss): ")
         val raceType = ScannerInput.readNextLine("\tRace Type(eg. Backstroke, Freestyle): ")
-        if (swimmer.addRace(Race(raceGraded = raceGraded, raceTime = raceTime, raceType = raceType))) {
+        if (swimmer.addRace(Race(raceMedal = raceMedal, raceTime = raceTime, raceType = raceType))) {
             println("Race added successfully!")
         } else {
             println("Failed to add race. Try again!")
@@ -360,13 +360,13 @@ fun updateRaceGradedInSwimmer() {
         val item: Race? = askUserToChooseRace(swimmer)
 
         if (item != null) {
-            val newGrade = ScannerInput.readNextLine("Enter new grade(eg.Pass, Fail): ")
+            val newMedal = ScannerInput.readNextLine("Enter new grade(eg.Pass, Fail): ")
             val newTime = ScannerInput.readNextLine("Enter new time(use format HH:mm:ss): ")
             val newType = ScannerInput.readNextLine("Enter new type(eg. Backstroke, Freestyle etc.): ")
 
             val updatedRace = Race(
                 raceId = item.raceId,
-                raceGraded = newGrade,
+                raceMedal = newMedal,
                 raceTime = newTime,
                 raceType = newType,
                 isRaceOutdated = item.isRaceOutdated

@@ -66,7 +66,7 @@ class SwimmerAPI(serializerType: Serializer) {
             var listOfSwimmers = ""
             for (swimmer in swimmers) {
                 for (race in swimmer.races) {
-                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {
+                    if (race.raceMedal.contains(searchString, ignoreCase = true)) {
                         listOfSwimmers += "${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n"
                     }
                 }
@@ -88,7 +88,7 @@ class SwimmerAPI(serializerType: Serializer) {
             for (swimmer in swimmers) {
                 for (race in swimmer.races) {
                     if (!race.isRaceOutdated) {
-                        listOfUngradedRaces += swimmer.swimmerName + ": " + race.raceGraded + "\n"
+                        listOfUngradedRaces += swimmer.swimmerName + ": " + race.raceMedal + "\n"
                     }
                 }
             }
@@ -107,7 +107,7 @@ class SwimmerAPI(serializerType: Serializer) {
             for (swimmer in swimmers) {
                 for (race in swimmer.races) {
                     if (race.isRaceOutdated) {
-                        listOfGradedRaces += "${swimmer.swimmerName}: ${race.raceGraded}\n"
+                        listOfGradedRaces += "${swimmer.swimmerName}: ${race.raceMedal}\n"
                     }
                 }
             }

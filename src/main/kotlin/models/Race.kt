@@ -6,7 +6,7 @@ package models
  * including their grade and whether they have been graded or not.
  *
  * @property raceId The unique ID of the race.
- * @property raceGraded The grade of the race.
+ * @property raceMedal The grade of the race.
  * @property isRaceOutdated Indicates whether the race is graded or not. Defaults to false.
  *
  * @author Xaver Urban
@@ -19,13 +19,13 @@ package models
  *
  *@property raceId The unique ID of the race.
  *
- *@property raceGraded The grade of the race
+ *@property raceMedal The grade of the race
  *
  *@property isRaceOutdated Indicates whether the race is graded or not. Defaults to false.
  */
 data class Race(
     var raceId: Int = 0,
-    var raceGraded: String,
+    var raceMedal: String,
     var raceTime: String,
     var raceType: String,
     var isRaceOutdated: Boolean = false
@@ -38,6 +38,6 @@ data class Race(
      */
     override fun toString(): String {
         val gradedStr = if (isRaceOutdated) "(Graded)" else "(Ungraded)"
-        return "$raceId: $raceGraded $gradedStr - $raceType, Time: $raceTime"
+        return "$raceId: $raceMedal $gradedStr - $raceType, Time: $raceTime"
     }
 }
