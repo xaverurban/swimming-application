@@ -11,15 +11,13 @@ The purpose of the Swimming App is to provide a simple and user-friendly way to 
 To get started with the Swimming App, simply run the application and follow the prompts in the menu. From there, you can add, update, and delete swimmers and races as needed.
 
 ## Features
-The Swimming App includes the following features:
+The Swimming App includes the following features (visit [Wiki](https://github.com/xaverurban/swimming-application/wiki) for more info) :
 
 * Adding, updating, and deleting swimmers
 * Archiving swimmers
 * Adding, updating, and deleting races associated with a particular swimmer
 * Listing all swimmers and their associated races
 * Searching for a particular swimmer by name or ID
-* Searching for a particular race by ID
-* Listing all ungraded races
 * Saving and loading data using JSON format
 
 ## Getting Help
