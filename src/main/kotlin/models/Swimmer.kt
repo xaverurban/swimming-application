@@ -82,7 +82,7 @@ data class Swimmer(
         val foundRace = findOne(id)
 
         if (foundRace != null) {
-            foundRace.raceGraded = newRace.raceGraded
+            foundRace.raceMedal = newRace.raceMedal
             foundRace.isRaceOutdated = newRace.isRaceOutdated
             return true
         }
@@ -103,7 +103,9 @@ data class Swimmer(
         }
         return true
     }
-
+    fun activateSwimmer() {
+        isSwimmerArchived = false
+    }
     /**
      * Returns a formatted string containing a list of the swimmer's races.
      * @return A string representing the swimmer's races, or "NO RACES ADDED" if the swimmer has no races.

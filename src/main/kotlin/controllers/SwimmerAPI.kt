@@ -1,4 +1,3 @@
-
 package controllers
 
 import models.Swimmer
@@ -67,7 +66,7 @@ class SwimmerAPI(serializerType: Serializer) {
             var listOfSwimmers = ""
             for (swimmer in swimmers) {
                 for (race in swimmer.races) {
-                    if (race.raceGraded.contains(searchString, ignoreCase = true)) {
+                    if (race.raceMedal.contains(searchString, ignoreCase = true)) {
                         listOfSwimmers += "${swimmer.swimmerId}: ${swimmer.swimmerName} \n\t${race}\n"
                     }
                 }
@@ -89,7 +88,7 @@ class SwimmerAPI(serializerType: Serializer) {
             for (swimmer in swimmers) {
                 for (race in swimmer.races) {
                     if (!race.isRaceOutdated) {
-                        listOfUngradedRaces += swimmer.swimmerName + ": " + race.raceGraded + "\n"
+                        listOfUngradedRaces += swimmer.swimmerName + ": " + race.raceMedal + "\n"
                     }
                 }
             }
@@ -97,21 +96,38 @@ class SwimmerAPI(serializerType: Serializer) {
         }
 
     /**
+     *
+     * Prints the total number of graded races and a list of all graded races for all swimmers in the system.
+     * If there are no graded races, it will print a message saying so.
+     */
+    fun listGradedRaces(): String =
+        if (numberOfSwimmers() == 0) "No swimmer stored"
+        else {
+            var listOfGradedRaces = ""
+            for (swimmer in swimmers) {
+                for (race in swimmer.races) {
+                    if (race.isRaceOutdated) {
+                        listOfGradedRaces += "${swimmer.swimmerName}: ${race.raceMedal}\n"
+                    }
+                }
+            }
+            listOfGradedRaces
+        }
+
+    /**
      * Counts the total number of ungraded races for all swimmers.
      *
      * @return The total number of upcoming races.
      */
-    fun numberOfUngradedRaces(): Int {
-        var numberOfUngradedRaces = 0
-        for (Swimmer in swimmers) {
-            for (race in Swimmer.races) {
-                if (!race.isRaceOutdated) {
-                    numberOfUngradedRaces++
-                }
-            }
-        }
-        return numberOfUngradedRaces
-    }
+    fun numberOfUngradedRaces(): Int = swimmers.sumOf { swimmer -> swimmer.races.count { !it.isRaceOutdated } }
+
+    /**
+     *
+     *  Returns the number of graded races among all swimmers.
+     *  @return total number of graded races.
+     */
+    fun numberOfGradedRaces(): Int =
+        swimmers.sumOf { swimmer -> swimmer.races.count { it.isRaceOutdated } }
 
     /**
      * Searches for swimmers in the list by their name and returns a list of matching swimmer objects.
@@ -119,7 +135,8 @@ class SwimmerAPI(serializerType: Serializer) {
      * @param name The search string to be matched against swimmer names.
      * @return A list of Swimmer objects with matching names.
      */
-    fun searchByName(name: String): List<Swimmer> = swimmers.filter { swimmer: Swimmer -> swimmer.swimmerName.contains(name, ignoreCase = true) }
+    fun searchByName(name: String): List<Swimmer> =
+        swimmers.filter { swimmer: Swimmer -> swimmer.swimmerName.contains(name, ignoreCase = true) }
 
     /**
      * Lists all swimmers in a formatted string.
@@ -242,6 +259,7 @@ class SwimmerAPI(serializerType: Serializer) {
         @Suppress("UNCHECKED_CAST")
         swimmers = serializer.read() as ArrayList<Swimmer>
     }
+
     /**
      * Stores the swimmers list using the serializer.
      *
@@ -251,6 +269,7 @@ class SwimmerAPI(serializerType: Serializer) {
     fun store() {
         serializer.write(swimmers)
     }
+
     /**
      * Formats a list of Swimmer objects into a string representation.
      *
