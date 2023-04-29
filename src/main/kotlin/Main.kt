@@ -61,11 +61,7 @@ fun mainMenu(): Int {
         | ${sectionTitle}REPORT MENU FOR SWIMMERS$reset                          
         |   ${optionNumber}10) ${optionName}Search for all Swimmers (by name)$reset           
         +-----------------------------------------------------+
-        | ${sectionTitle}REPORT MENU FOR RACES$reset                             
-        |    ${optionNumber}11) ${optionName}Add a swim time for a race$reset                 
-        |    ${optionNumber}12) ${optionName}View all swim times$reset                        
-        |    ${optionNumber}13) ${optionName}Add a race to the database$reset                 
-        |    ${optionNumber}14) ${optionName}View all races$reset                             
+        | ${sectionTitle}REPORT MENU FOR RACES$reset                                                        
         |    ${optionNumber}15) ${optionName}Search for all races (by race name)$reset        
         |    ${optionNumber}16) ${optionName}List ungraded races$reset                        
         |    ${optionNumber}17) ${optionName}List graded races$reset                          
@@ -402,6 +398,28 @@ private fun askUserToChooseActiveSwimmer(): Swimmer? {
         if (swimmer != null) {
             if (swimmer.isSwimmerArchived) {
                 println("Swimmer is NOT Active, it is Archived")
+            } else {
+                return swimmer
+            }
+        } else {
+            println("Swimmer id is not available")
+        }
+    }
+    return null
+}
+
+/**
+ *
+ *Prompts the user to choose an archived swimmer from the list of archived swimmers by entering their ID.
+ *Returns the corresponding Swimmer object if the swimmer is found and archived, null otherwise.
+ */
+private fun askUserToChooseArchivedSwimmer(): Swimmer? {
+    listArchivedSwimmers()
+    if (swimmerAPI.numberOfArchivedSwimmers() > 0) {
+        val swimmer = swimmerAPI.findSwimmer(readNextInt("\nEnter the id of the archived swimmer: "))
+        if (swimmer != null) {
+            if (!swimmer.isSwimmerArchived) {
+                println("Swimmer is NOT Archived, it is Active")
             } else {
                 return swimmer
             }

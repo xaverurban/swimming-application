@@ -22,8 +22,8 @@
           <isRaceOutdated>false</isRaceOutdated>
         </models.Race>
       </races>
-      <creationTime>2023-04-28T22:09:42.0704317</creationTime>
-      <updateTime>2023-04-28T22:09:42.0704317</updateTime>
+      <creationTime>2023-04-29T19:19:08.5638222</creationTime>
+      <updateTime>2023-04-29T19:19:08.5638222</updateTime>
       <lastRaceId>0</lastRaceId>
     </models.Swimmer>
     <models.Swimmer>
@@ -41,8 +41,8 @@
           <isRaceOutdated>true</isRaceOutdated>
         </models.Race>
       </races>
-      <creationTime>2023-04-28T22:09:42.0704317</creationTime>
-      <updateTime>2023-04-28T22:09:42.0704317</updateTime>
+      <creationTime>2023-04-29T19:19:08.5638222</creationTime>
+      <updateTime>2023-04-29T19:19:08.5638222</updateTime>
       <lastRaceId>0</lastRaceId>
     </models.Swimmer>
     <models.Swimmer>
@@ -60,8 +60,8 @@
           <isRaceOutdated>false</isRaceOutdated>
         </models.Race>
       </races>
-      <creationTime>2023-04-28T22:09:42.0704317</creationTime>
-      <updateTime>2023-04-28T22:09:42.0704317</updateTime>
+      <creationTime>2023-04-29T19:19:08.5638222</creationTime>
+      <updateTime>2023-04-29T19:19:08.5638222</updateTime>
       <lastRaceId>0</lastRaceId>
     </models.Swimmer>
   </list>

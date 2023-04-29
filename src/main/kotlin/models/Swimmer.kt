@@ -103,7 +103,9 @@ data class Swimmer(
         }
         return true
     }
-
+    fun activateSwimmer() {
+        isSwimmerArchived = false
+    }
     /**
      * Returns a formatted string containing a list of the swimmer's races.
      * @return A string representing the swimmer's races, or "NO RACES ADDED" if the swimmer has no races.
