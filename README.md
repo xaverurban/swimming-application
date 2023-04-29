@@ -1,4 +1,4 @@
-# Swimming App
+# Swimming App ([Github Link](https://github.com/xaverurban/swimming-application))
 Swimming App for managing swimmers and their races
 
 ## Project Description
